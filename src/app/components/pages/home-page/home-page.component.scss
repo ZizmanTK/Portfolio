@@ -1,0 +1,52 @@
+.main-container {
+    background: var(--color-primary);
+    height: 100%;
+    overflow-y: auto;
+    transition: all 5s;
+}
+
+.content {
+    height: 100%;
+    width: 60dvw;
+    background: var(--color-secondary);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 48px 0px 48px 96px;
+    & >* {z-index: 2};
+}
+
+.content::after{
+    content: "";
+    position: absolute;
+    height: 100%;
+    aspect-ratio: 1;
+    right: 0px;
+    top: 0px;
+    translate: 50%;
+    border-radius: 50%;
+    background: var(--color-secondary);
+}
+
+.heading {
+    font-size: xx-large;
+    text-align: right;
+
+}
+
+.pitch {
+    text-align: justify;
+    p {
+        margin-top: 24px;
+    }
+}
+.text-emphasis {
+    color: var(--color-accent);
+    font-weight: bolder;
+}
+
+.call-to-action {
+    font-weight: bold;
+}

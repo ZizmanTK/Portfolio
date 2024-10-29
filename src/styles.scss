@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(styles/themes.scss);
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kode+Mono:wght@400..700&display=swap');
+
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    font-family: "Inter", "sans-serif";
+    color: var(--color-primary);
+}

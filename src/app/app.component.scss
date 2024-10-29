@@ -1,0 +1,13 @@
+.main-container {
+    height: 100dvh;
+}
+
+.navbar {
+    height: 112px;
+}
+
+.page-content {
+    height: calc(100% - 112px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}

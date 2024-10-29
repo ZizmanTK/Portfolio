@@ -1,0 +1,10 @@
+<div class="navbar">
+    <div class="ztk">
+        <img src="../../../../assets/images/mon_logo.svg" alt="ztk-logo" class="ztk--logo">
+    </div>
+    <div class="navbar-menus">
+        <div class="navbar-menu" *ngFor="let menu of menus">
+            <app-button>{{menu.name}}</app-button>
+        </div>
+    </div>
+</div>
