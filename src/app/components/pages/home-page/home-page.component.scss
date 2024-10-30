@@ -49,4 +49,8 @@
 
 .call-to-action {
     font-weight: bold;
+    animation: Grow 2s ease 0s infinite;
+    &:hover {
+        animation:none;
+    }
 }
