@@ -1,0 +1,76 @@
+.presentation {
+    height: 100%;
+    background-image: url(../../../../assets/images/me_day_righted.jpg);
+    background-size: cover;
+    background-color: var(--color-primary);
+    background-blend-mode: multiply;
+    background-position-x: right;
+    background-position-y: top;
+    position: relative;
+    overflow: hidden;
+    .spotlight {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20dvw;
+        aspect-ratio: 1;
+        background-color: var(--color-secondary);
+        border-radius: 50%;
+        box-shadow: var(--color-secondary) 0px 0px 40px 40px;
+        mix-blend-mode: soft-light;
+        pointer-events: none;
+        transition: all .15s;
+    }
+}
+
+.content {
+    padding: 96px 112px 96px 112px;
+    color: var(--color-secondary);
+    height: 100%;
+    width: 50dvw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    text-align: right;
+    line-height: 1.5;
+}
+
+.name {
+    font-size: xx-large;
+    font-weight: 800;
+}
+
+.job {
+    margin-top: 8px;
+    font-size: x-large;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+.speech {  
+    font-weight: 300;
+    text-align: justify;
+}
+
+.actions {
+    font-weight: 800;
+}
+.action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.interests {
+    height: 100%;
+    background-color: var(--color-accent);
+    
+
+}
+
+.right-arrow {
+    color: var(--color-accent); 
+    font-weight: 900;
+    stroke-width: 2;
+}

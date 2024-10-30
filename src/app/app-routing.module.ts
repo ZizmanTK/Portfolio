@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import { AboutPageComponent } from './components/pages/about-page/about-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirect default route
   { path: 'home', component: HomePageComponent },
-  // { path: 'about', component: AboutComponent },
+  { path: 'about', component: AboutPageComponent },
   // { path: '**', component: PageNotFoundComponent }, // Wildcard for 404 page
 ];
 
@@ -13,4 +14,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+}

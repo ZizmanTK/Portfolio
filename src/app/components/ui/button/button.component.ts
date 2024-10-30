@@ -6,7 +6,7 @@ import { AfterViewInit, Component, Input } from '@angular/core';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent implements AfterViewInit {
-  @Input() color: 'primary' | 'secondary' | 'accent' = 'primary';
+  @Input() color: 'primary' | 'secondary' | 'accent' | 'none' = 'primary';
   buttonClasses = {}
 
   ngAfterViewInit(): void {

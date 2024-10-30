@@ -1,0 +1,55 @@
+<div class="presentation" (mousemove)="moveSpotLight($event)">
+    <div class="spotlight" id="spotlight"></div>
+    <div class="content">
+        <div class="heading">
+            <p class="name">Abdoul Aziz MAAZOU</p>
+            <p class="job">Developer | Data Scientist</p>
+        </div>
+        <p class="speech">
+            Hey there! I’m a developer who lives and breathes code. 
+            My journey began when I was young, driven by a curiosity for how
+            things work – and it didn't take long before I was hooked. 
+            Out of all languages, Python stole my heart. 
+            I love how it combines simplicity with power, and, believe it or not, coding in Python feels like a 
+            mental workout that keeps me grounded and sharp.
+        </p>
+        <div class="actions">
+            <app-button color="none">
+                <div class="action">
+                    <span>Contact</span>
+                    <ng-container *ngTemplateOutlet="rightArrow"></ng-container>
+                </div>
+            </app-button>
+            <app-button color="none">
+                <div class="action">
+                    <span>Resume</span>
+                    <ng-container *ngTemplateOutlet="rightArrow"></ng-container>
+                </div>
+            </app-button>
+            <app-button color="none">
+                <div class="action">
+                    <span>Projects</span>
+                    <ng-container *ngTemplateOutlet="rightArrow"></ng-container>
+                </div>
+            </app-button>
+        </div>
+    </div>
+</div>
+
+<div class="interests">
+</div>
+
+<ng-template #rightArrow>
+    <svg fill="currentColor" height="24px" width="24px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 490.4 490.4" xml:space="preserve" class="right-arrow">
+        <g>
+            <g>
+                <path d="M245.2,490.4c135.2,0,245.2-110,245.2-245.2S380.4,0,245.2,0S0,110,0,245.2S110,490.4,245.2,490.4z M245.2,24.5
+    			c121.7,0,220.7,99,220.7,220.7s-99,220.7-220.7,220.7s-220.7-99-220.7-220.7S123.5,24.5,245.2,24.5z"/>
+                <path d="M138.7,257.5h183.4l-48,48c-4.8,4.8-4.8,12.5,0,17.3c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l68.9-68.9
+    			c4.8-4.8,4.8-12.5,0-17.3l-68.9-68.9c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l48,48H138.7c-6.8,0-12.3,5.5-12.3,12.3
+    			C126.4,252.1,131.9,257.5,138.7,257.5z" />
+            </g>
+        </g>
+    </svg>
+</ng-template>
