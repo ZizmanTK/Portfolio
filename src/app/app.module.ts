@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/ui/navbar/navbar.component';
 import { ButtonComponent } from './components/ui/button/button.component';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { AboutPageComponent } from './components/pages/about-page/about-page.component';
+import { CardComponent } from './components/ui/card/card.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { AboutPageComponent } from './components/pages/about-page/about-page.com
     NavbarComponent,
     ButtonComponent,
     HomePageComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

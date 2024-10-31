@@ -1,0 +1,39 @@
+.main-content {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background-color: var(--color-secondary);
+    border-radius: 16px;
+    height: 100%;
+    text-align: left;
+}
+
+.image {
+    flex: 1;
+    aspect-ratio: 2/1;
+    border-radius: 16px;
+    object-fit: contain;
+    object-position: center;
+    background-color: var(--color-primary);
+    padding: 16px;
+}
+
+.heading {
+    font-size: larger;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-top: 36px;
+}
+
+.details {
+    font-size: small;
+    margin-top: 8px;
+}
+
+.read-more {
+    text-align: right;
+    margin-top: 24px;
+    font-size: small;
+    font-weight: 500;
+    color: var(--color-secondary);
+}

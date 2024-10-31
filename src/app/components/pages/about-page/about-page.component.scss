@@ -1,4 +1,5 @@
 .presentation {
+    // display: none;
     height: 100%;
     background-image: url(../../../../assets/images/me_day_righted.jpg);
     background-size: cover;
@@ -65,12 +66,107 @@
 .interests {
     height: 100%;
     background-color: var(--color-accent);
-    
+    padding: 24px;
+}
+.interests-heading {
+    color: var(--color-secondary);
+    text-align: center;
+    height: 20%;
+}
+.interests-title {
+    font-size: xx-large;
+    font-weight: 800;
+}
+.interests-subtitle {
+    font-size: small;
+}
+.cards {
+    // display: none;
+    height: 80%;
+    overflow-x: auto;
+    text-align: center;
+    position: relative;
+}
 
+
+.card {
+    position: absolute;
+    display: inline-block;
+    width: 22%;
+    height: 100%;
+    transition: all ease .5s;
+    // pointer-events: none;
+    transform: scale(0);
+    top: 0px;
+    left: var(--slot-middle);
+    overflow: hidden;
+}
+
+.card::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: "";
+    opacity: 0;
+    background: linear-gradient(90deg, var(--color-accent) 60%, var(--color-secondary));
+    pointer-events: none;
+    transition: all ease .5s;
+}
+
+.card::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: "";
+    opacity: 0;
+    background: linear-gradient(-90deg, var(--color-accent) 60%, var(--color-secondary));
+    pointer-events: none;
+    transition: all ease .5s;
+}
+
+// .card-left, .card-right {
+
+// }
+
+.card-left {
+    left: var(--slot-left);
+    // opacity: .75;
+    transform: scale(.8);
+    &::before {
+        opacity: .9;
+        pointer-events: all;
+    }
+
+}
+
+.card-right {
+    left: var(--slot-right);
+    opacity: .75;
+    transform: scale(.8);
+    &::after {
+        opacity: .9;
+        pointer-events: all;
+    }
+}
+
+.card-middle {
+    transform: scale(1);
+    opacity: 1;
+    // pointer-events: all;
+    z-index: 2;
 }
 
 .right-arrow {
     color: var(--color-accent); 
     font-weight: 900;
     stroke-width: 2;
+}
+
+.footer {
+    background-color: var(--color-secondary);
+    height: 25%;
 }
