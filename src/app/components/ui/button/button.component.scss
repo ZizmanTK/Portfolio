@@ -1,11 +1,12 @@
 .button {
     padding: 16px 24px;
-    border: none;
+    border: var(--app-button-border, none);
     border-radius: 8px;
     cursor: pointer;
     font-weight: inherit;
     font-size: inherit;
     font-family: inherit;
+    text-align: inherit;
     transition: all .3s;
     color: inherit;
     background: none;

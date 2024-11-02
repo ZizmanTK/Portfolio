@@ -1,22 +1,60 @@
-<div class="main-container">
-    <div class="content">
-        <div class="heading">
-            <p>Hi there, my name is <span class="text-emphasis">Abdoul Aziz MAAZOU</span>.</p>
-            <p>But you can call me <span class="text-emphasis">Aziz</span>.</p>
-        </div>
-        <div class="pitch">
+<section class="presentation" (mousemove)="moveSpotLight($event)">
+    <div class="absolute-center background-image">
+        <app-button class="close-image-focus" color="none">
+            <fa-icon  [icon]="['fas', 'circle-xmark']" (click)="toggleImageFocus()"></fa-icon>
+        </app-button>
+        <div class="absolute-center current-profil-picture-circle"></div>
+    </div>
+    <div class="spotlight" id="spotlight"></div>
+    <div class="text-content">
+        <h1 class="heading" (click)="toggleImageFocus()">
+            <app-button color="none">
+                <span class="name">Abdoul Aziz MAAZOU</span> <br>
+                <span class="job">Developer | Data Scientist</span>
+            </app-button>
+
+        </h1>
+
+        
+        <div class="speech">
             <p>
-                I am a developer. In fact I am in love with code. I started coding from a very young age. My favorite coding
-                language is
-                Python because of all the benefits it has on your mental health.</p>
+                I am a developer. In fact I am in love with code. I started coding from a very young age. My favorite coding language is
+                Python because of all the benefits it has on your mental health.
+            </p>
             <p>
-                I am interested in many fields, mostly anything that is related to video game development. This includes
-                programming, of
+                I am interested in many fields, mostly anything that is related to video game development. This includes programming, of
                 course but also UI/UX design, sound design, Artificial Intelligence, Data Science and many more !
             </p>
         </div>
-        <div class="call-to-action">
-            <app-button>More about me</app-button>
-        </div>
+        
+        <ul class="actions">
+            <li>
+                <app-button color="none">
+                    <div class="action">
+                        <span>Contact</span>
+                        <fa-icon [icon]="['fas', 'circle-chevron-right']"></fa-icon>
+                    </div>
+                </app-button>
+            </li>
+            <li>
+                <app-button color="none">
+                    <div class="action">
+                        <span>Resume</span>
+                        <fa-icon [icon]="['fas', 'circle-chevron-right']"></fa-icon>
+                    </div>
+                </app-button>
+            </li>
+            <li>
+                <app-button color="none">
+                    <div class="action">
+                        <span>Projects</span>
+                        <fa-icon [icon]="['fas', 'circle-chevron-right']"></fa-icon>
+                    </div>
+                </app-button>
+            </li>
+        </ul>
     </div>
-</div>
+
+    <div class="image-content"></div>
+
+</section>

@@ -1,41 +1,3 @@
-<div class="presentation" (mousemove)="moveSpotLight($event)">
-    <div class="spotlight" id="spotlight"></div>
-    <div class="content">
-        <div class="heading">
-            <p class="name">Abdoul Aziz MAAZOU</p>
-            <p class="job">Developer | Data Scientist</p>
-        </div>
-        <p class="speech">
-            Hey there! I’m a developer who lives and breathes code. 
-            My journey began when I was young, driven by a curiosity for how
-            things work – and it didn't take long before I was hooked. 
-            Out of all languages, Python stole my heart. 
-            I love how it combines simplicity with power, and, believe it or not, coding in Python feels like a 
-            mental workout that keeps me grounded and sharp.
-        </p>
-        <div class="actions">
-            <app-button color="none">
-                <div class="action">
-                    <span>Contact</span>
-                    <ng-container *ngTemplateOutlet="rightArrow"></ng-container>
-                </div>
-            </app-button>
-            <app-button color="none">
-                <div class="action">
-                    <span>Resume</span>
-                    <ng-container *ngTemplateOutlet="rightArrow"></ng-container>
-                </div>
-            </app-button>
-            <app-button color="none">
-                <div class="action">
-                    <span>Projects</span>
-                    <ng-container *ngTemplateOutlet="rightArrow"></ng-container>
-                </div>
-            </app-button>
-        </div>
-    </div>
-</div>
-
 
 <div class="interests">
     <div class="interests-heading">
@@ -43,12 +5,24 @@
         <p class="interests-subtitle">Better not get me started about those...</p>
     </div>
 
-    <div class="cards"
+    <div class="cards">
+        <app-infinite-scroller>
+            <div class="card" *ngFor="let card of cards">
+                <app-card [data]="card"></app-card>
+            </div>
+        </app-infinite-scroller>
+    </div>
+
+    <!-- <div class="cards"
     [ngStyle]="{'--slot-left': cardSlotsCoordinates?.left, '--slot-middle': cardSlotsCoordinates?.middle, '--slot-right': cardSlotsCoordinates?.right}">
+        <div class="card-navs">
+            <fa-icon [icon]="['fas', 'angle-left']" class="card-nav-left"></fa-icon>
+            <fa-icon [icon]="['fas', 'angle-left']" class="card-nav-right"></fa-icon>
+        </div>
         <div class="card" *ngFor="let card of cards ; let i = index"  (click)="scrollCards(i)">
             <app-card [data]="card"></app-card>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <div class="footer"></div>

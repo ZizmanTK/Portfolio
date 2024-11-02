@@ -8,6 +8,8 @@ import { ButtonComponent } from './components/ui/button/button.component';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { AboutPageComponent } from './components/pages/about-page/about-page.component';
 import { CardComponent } from './components/ui/card/card.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { InfiniteScrollerComponent } from './components/features/infinite-scroller/infinite-scroller.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { CardComponent } from './components/ui/card/card.component';
     ButtonComponent,
     HomePageComponent,
     AboutPageComponent,
-    CardComponent
+    CardComponent,
+    InfiniteScrollerComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [
     provideClientHydration()

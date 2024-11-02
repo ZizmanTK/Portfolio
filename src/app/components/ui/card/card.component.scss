@@ -1,21 +1,35 @@
 .main-content {
     display: flex;
     flex-direction: column;
-    padding: 16px;
+    padding: 1rem;
     background-color: var(--color-secondary);
     border-radius: 16px;
-    height: 100%;
+    min-height: 10rem;
+    // min-width: 15rem;
+    aspect-ratio: 5/6;
     text-align: left;
 }
 
-.image {
-    flex: 1;
-    aspect-ratio: 2/1;
+.image-container {
     border-radius: 16px;
-    object-fit: contain;
-    object-position: center;
+    background-color: var(--color-primary);
+    flex: 0 0 33%;
+    // height: 33%;
+    // width: 100%;
+    // flex-basis: 33%;
+    // flex-grow: 0;
+    // flex-shrink: 0;
+    // max-height: 33%;
+}
+.image {
+    display: none;
     background-color: var(--color-primary);
     padding: 16px;
+    object-fit: contain;
+    object-position: center;
+    min-width: 100%;
+    min-height: 0%;
+    flex: 0 0 33%;
 }
 
 .heading {
@@ -28,6 +42,7 @@
 .details {
     font-size: small;
     margin-top: 8px;
+    flex: 1;
 }
 
 .read-more {

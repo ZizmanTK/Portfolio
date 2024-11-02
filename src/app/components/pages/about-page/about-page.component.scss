@@ -66,7 +66,9 @@
 .interests {
     height: 100%;
     background-color: var(--color-accent);
-    padding: 24px;
+    padding: 2em;
+    scroll-snap-align: start;
+
 }
 .interests-heading {
     color: var(--color-secondary);
@@ -83,82 +85,80 @@
 .cards {
     // display: none;
     height: 80%;
-    overflow-x: auto;
-    text-align: center;
-    position: relative;
+    // overflow: auto hidden;
+    // text-align: center;
+    // position: relative;
 }
 
 
 .card {
-    position: absolute;
-    display: inline-block;
-    width: 22%;
-    height: 100%;
-    transition: all ease .5s;
-    // pointer-events: none;
-    transform: scale(0);
-    top: 0px;
-    left: var(--slot-middle);
-    overflow: hidden;
-}
+    padding: 8px;
 
-.card::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
     width: 100%;
-    content: "";
-    opacity: 0;
-    background: linear-gradient(90deg, var(--color-accent) 60%, var(--color-secondary));
-    pointer-events: none;
-    transition: all ease .5s;
+    
 }
 
-.card::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    content: "";
-    opacity: 0;
-    background: linear-gradient(-90deg, var(--color-accent) 60%, var(--color-secondary));
-    pointer-events: none;
-    transition: all ease .5s;
-}
+// .card::before {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     height: 100%;
+//     width: 100%;
+//     content: "";
+//     opacity: 0;
+//     background: linear-gradient(90deg, var(--color-accent) 60%, var(--color-secondary));
+//     pointer-events: none;
+//     transition: all ease .5s;
+// }
 
-// .card-left, .card-right {
+// .card::after {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     height: 100%;
+//     width: 100%;
+//     content: "";
+//     opacity: 0;
+//     background: linear-gradient(-90deg, var(--color-accent) 60%, var(--color-secondary));
+//     pointer-events: none;
+//     transition: all ease .5s;
+// }
+
+// .card-navs {
+//     height: 100%;
+// }
+// .card-nav-left {
+//     left: 0;
+//     height: 50%;
+// }
+
+// .card-left {
+//     left: var(--slot-left);
+//     // opacity: .75;
+//     transform: scale(.8);
+//     &::before {
+//         opacity: .9;
+//         pointer-events: all;
+//     }
 
 // }
 
-.card-left {
-    left: var(--slot-left);
-    // opacity: .75;
-    transform: scale(.8);
-    &::before {
-        opacity: .9;
-        pointer-events: all;
-    }
+// .card-right {
+//     left: var(--slot-right);
+//     opacity: .75;
+//     transform: scale(.8);
+//     &::after {
+//         opacity: .9;
+//         pointer-events: all;
+//     }
+// }
 
-}
-
-.card-right {
-    left: var(--slot-right);
-    opacity: .75;
-    transform: scale(.8);
-    &::after {
-        opacity: .9;
-        pointer-events: all;
-    }
-}
-
-.card-middle {
-    transform: scale(1);
-    opacity: 1;
-    // pointer-events: all;
-    z-index: 2;
-}
+// .card-middle {
+//     transform: scale(1);
+//     opacity: 1;
+//     // pointer-events: all;
+//     z-index: 2;
+// }
 
 .right-arrow {
     color: var(--color-accent); 

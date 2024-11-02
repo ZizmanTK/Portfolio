@@ -1,57 +1,177 @@
-.main-container {
-    background: var(--color-primary);
+.presentation {
     height: 100%;
-    overflow-y: auto;
-    transition: all 5s;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-primary);
 }
 
-.content {
+.background-image {
+    background-image: url(../../../../assets/images/me_day.jpg);
+    background-size: cover;
+    background-position-x: right;
+    background-position-y: top;
+    background-repeat: no-repeat;
+    transition: all 1s, ;
+    border: 0px solid var(--color-primary);
+    text-align: center;
+}
+
+
+.close-image-focus {
+    top: 200%;
+    position: absolute;
+    font-size: 5rem;
+    translate: -50% calc(-2rem - 100%);
+    color: var(--color-accent);
+    opacity: 0;
+    transition: all .3s;
+    z-index: 3;
+}
+
+.close-image-focus::ng-deep button {
+    padding: 0px;
+}
+.spotlight {
+    --visibility: 20%;
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        rgba(0, 0, 0, 0),
+        var(--color-primary) var(--visibility),
+    );
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    transition: all 1s, transform .15s;
+}
+
+
+.text-content {
+    width: 100%;
     height: 100%;
-    width: 60dvw;
-    background: var(--color-secondary);
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: space-between;
-    padding: 48px 0px 48px 96px;
-    & >* {z-index: 2};
-}
-
-.content::after{
-    content: "";
-    position: absolute;
-    height: 100%;
-    aspect-ratio: 1;
-    right: 0px;
-    top: 0px;
-    translate: 50%;
-    border-radius: 50%;
-    background: var(--color-secondary);
+    justify-content: space-around;
+    position: relative;
+    z-index: 1;
+    color: var(--color-secondary);
+    padding: 1rem;
+    line-height: 2rem;
+    transition: opacity 1s;
+    overflow: auto;
+    padding-right: 50%;
+    >* {
+        transition: translate 1s;
+    }
 }
 
 .heading {
-    font-size: xx-large;
     text-align: right;
-
 }
 
-.pitch {
-    text-align: justify;
-    p {
-        margin-top: 24px;
-    }
+.heading:hover .name {
+  color: var(--color-accent);
 }
-.text-emphasis {
+.name {
+    font-size: xx-large;
+}
+
+.heading:not(:hover) .job {
     color: var(--color-accent);
-    font-weight: bolder;
 }
 
-.call-to-action {
-    font-weight: bold;
-    color: var(--color-secondary);
-    animation: Grow 2s ease 0s infinite;
-    &:hover {
-        animation:none;
+.job, .name {
+    transition: color .5s;
+}
+
+.speech {
+    text-align: justify;
+    margin-bottom: 1rem;
+}
+.speech p+p{
+    margin-top: 2rem;
+}
+
+.actions {
+    list-style: none;
+    text-align: center;
+}
+
+.actions li {
+    display: inline-block;
+}
+.action {
+    display: flex;
+    align-items: center;
+}
+.action span {
+    padding: 0rem 1rem;
+    font-size: large;
+    font-weight: 700;
+}
+
+
+
+.action fa-icon {
+    color: var(--color-accent);
+    font-size: xx-large;
+}
+
+
+
+.image-focus {
+
+    .close-image-focus {
+        opacity: 1;
+        top: calc(50% + calc(min(calc(100dvh - var(--navbar-height)), 100dvw) / 2) );
     }
+
+    .text-content {
+        opacity: 0;
+        pointer-events: none;
+    }
+    .heading, .actions{
+        translate: -100% 0px
+    }
+    .speech {
+        translate: 100% 0px
+    }
+    .spotlight {
+        $border-end: calc(min(calc(100dvh - var(--navbar-height)), 100dvw) / 2 - 1rem);
+        $border-start: calc($border-end - 1rem);
+        background: radial-gradient(
+        circle,
+        rgba(0, 0, 0, 0) 0rem $border-start,
+        var(--color-accent) calc($border-start + 1px) $border-end,
+        var(--color-primary) calc($border-end + 1px),
+        );
+        mix-blend-mode: unset;
+    }
+}
+
+@media (max-aspect-ratio: 1) {
+    .text-content {
+        padding: 1rem;
+        align-items: center;
+    }
+    .speech {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .heading {
+        text-align: center;
+    }
+    .actions {
+        --app-button-border: 2px solid var(--color-secondary);
+    }
+    .actions li {
+        padding: 1rem 2rem;
+    }
+
+    .background-image {
+        background-position-x: left;
+    }
+
 }
