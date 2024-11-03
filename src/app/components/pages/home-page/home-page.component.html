@@ -1,11 +1,16 @@
-<section class="presentation" (mousemove)="moveSpotLight($event)">
-    <div class="absolute-center background-image">
-        <app-button class="close-image-focus" color="none">
-            <fa-icon  [icon]="['fas', 'circle-xmark']" (click)="toggleImageFocus()"></fa-icon>
-        </app-button>
-        <div class="absolute-center current-profil-picture-circle"></div>
+<section class="presentation" (mousemove)="moveSpotLight($event)" (mouseleave)="recenterSpotlight()" #mainContainer>
+
+    <div class="absolute-center isolate">
+        <div class="spotlight" id="spotlight"></div>
+        <div class="absolute-center background-image-container">
+            <img src="../../../../assets/images/me_day.jpg" alt="my-photo" class="absolute-center background-image">
+        </div>
     </div>
-    <div class="spotlight" id="spotlight"></div>
+
+    <button class="close-role-selection" (click)="toggleImageFocus()">
+        <fa-icon [icon]="['fas', 'circle-xmark']"></fa-icon>
+    </button>
+    
     <div class="text-content">
         <h1 class="heading" (click)="toggleImageFocus()">
             <app-button color="none">
@@ -54,7 +59,5 @@
             </li>
         </ul>
     </div>
-
-    <div class="image-content"></div>
 
 </section>

@@ -5,20 +5,35 @@
     background-color: var(--color-primary);
 }
 
-.background-image {
-    background-image: url(../../../../assets/images/me_day.jpg);
-    background-size: cover;
-    background-position-x: right;
-    background-position-y: top;
-    background-repeat: no-repeat;
-    transition: all 1s, ;
+.isolate {
+    isolation: isolate;
+    display: inline;
+}
+
+.background-image-container {
+    mix-blend-mode: multiply;
+    overflow: hidden;
+    transition: all .5s;
     border: 0px solid var(--color-primary);
-    text-align: center;
+}
+
+.absolute-center.background-image {
+    translate: none;
+    top: 0px;
+    left: 0px;
+}
+.background-image {
+    transition: all .5s, ;
+    border: 0rem solid var(--color-primary);
+    display: block;
+    object-fit: cover; // used only as initial positioning
+
 }
 
 
-.close-image-focus {
+.close-role-selection {
     top: 200%;
+    left: 50%;
     position: absolute;
     font-size: 5rem;
     translate: -50% calc(-2rem - 100%);
@@ -28,8 +43,8 @@
     z-index: 3;
 }
 
-.close-image-focus::ng-deep button {
-    padding: 0px;
+.close-role-selection::ng-deep button {
+    padding: 0rem;
 }
 .spotlight {
     --visibility: 20%;
@@ -43,7 +58,7 @@
     );
     mix-blend-mode: multiply;
     pointer-events: none;
-    transition: all 1s, transform .15s;
+    transition: opacity .5s, transform .15s;
 }
 
 
@@ -59,11 +74,11 @@
     color: var(--color-secondary);
     padding: 1rem;
     line-height: 2rem;
-    transition: opacity 1s;
+    transition: opacity .5s;
     overflow: auto;
     padding-right: 50%;
     >* {
-        transition: translate 1s;
+        transition: translate .5s;
     }
 }
 
@@ -123,7 +138,7 @@
 
 .image-focus {
 
-    .close-image-focus {
+    .close-role-selection {
         opacity: 1;
         top: calc(50% + calc(min(calc(100dvh - var(--navbar-height)), 100dvw) / 2) );
     }
@@ -138,16 +153,14 @@
     .speech {
         translate: 100% 0px
     }
+    .background-image-container {
+        border: 1rem solid var(--color-accent);
+        width: min(calc(100dvh - var(--navbar-height)), 100dvw);
+        height: min(calc(100dvh - var(--navbar-height)), 100dvw);
+        border-radius: 50%;
+    }
     .spotlight {
-        $border-end: calc(min(calc(100dvh - var(--navbar-height)), 100dvw) / 2 - 1rem);
-        $border-start: calc($border-end - 1rem);
-        background: radial-gradient(
-        circle,
-        rgba(0, 0, 0, 0) 0rem $border-start,
-        var(--color-accent) calc($border-start + 1px) $border-end,
-        var(--color-primary) calc($border-end + 1px),
-        );
-        mix-blend-mode: unset;
+        opacity: 0;
     }
 }
 
@@ -168,10 +181,6 @@
     }
     .actions li {
         padding: 1rem 2rem;
-    }
-
-    .background-image {
-        background-position-x: left;
     }
 
 }

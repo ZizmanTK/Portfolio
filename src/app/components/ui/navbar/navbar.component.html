@@ -1,10 +1,25 @@
-<div class="navbar">
-    <a routerLink="home" class="ztk">
-        <img src="../../../../assets/images/mon_logo.svg" alt="ztk-logo" class="ztk--logo">
-    </a>
-    <div class="navbar-menus">
-        <a class="navbar-menu" *ngFor="let menu of menus" [routerLink]="menu.toUrl">
-            <app-button>{{menu.name}}</app-button>
-        </a> 
-    </div> 
+<div class="top-container" #topContainer>
+    <div class="main-container" >
+        <a class="ztk-logo" routerLink="home">
+            <img src="../../../../assets/images/mon_logo.svg" alt="ztk-logo" class="ztk-logo--image">
+        </a>
+
+        <ul class="horizontal-menu">
+            <li *ngFor="let menu of menus">
+                <a [routerLink]="menu.toUrl">{{menu.name}}</a>
+            </li>
+        </ul>
+
+        <button type="button" class="hamburger-menu-trigger" (click)="toggleHamburgerMenu()">
+            <fa-icon [icon]="['fas', 'bars']" size="3x" class="absolute-center hamburger-menu--open-trigger"></fa-icon>
+            <fa-icon [icon]="['fas', 'xmark']" size="3x" class="absolute-center hamburger-menu--close-trigger"></fa-icon>
+        </button>
+    </div>
+
+    <ul class="hamburger-menu">
+        <li *ngFor="let menu of menus">
+            <a [routerLink]="menu.toUrl">{{menu.name}}</a>
+        </li> 
+    </ul> 
 </div>
+

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +8,21 @@ import { Component, Input } from '@angular/core';
 export class NavbarComponent {
   @Input() menus: NavbarMenu[] = []
   
+  @ViewChild('topContainer')
+  private topContainer: ElementRef | null = null
 
+  constructor(private renderer: Renderer2) {}
+  toggleHamburgerMenu() {
+    const navbar = this.topContainer?.nativeElement
+    if (!navbar) {
+      return;
+    }
+    if (navbar.classList.contains('hamburger-menu__opened')) {
+      this.renderer.removeClass(navbar, 'hamburger-menu__opened');
+    } else {
+      this.renderer.addClass(navbar, 'hamburger-menu__opened');
+    }
+  }
 }
 
 /**
