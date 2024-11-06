@@ -10,6 +10,7 @@ import { AboutPageComponent } from './components/pages/about-page/about-page.com
 import { CardComponent } from './components/ui/card/card.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InfiniteScrollerComponent } from './components/features/infinite-scroller/infinite-scroller.component';
+import { ClampLinesDirective } from './directives/clamp-lines.directive';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { InfiniteScrollerComponent } from './components/features/infinite-scroll
     AboutPageComponent,
     CardComponent,
     InfiniteScrollerComponent,
+    ClampLinesDirective,
   ],
   imports: [
     BrowserModule,

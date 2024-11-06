@@ -1,27 +1,16 @@
-import { Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  @Input() menus: NavbarMenu[] = []
-  
-  @ViewChild('topContainer')
-  private topContainer: ElementRef | null = null
+  @HostBinding('class.hamburger-menu__opened') hamburgerMenuOpened = false;
+  @Input() menus: NavbarMenu[] = [];
 
-  constructor(private renderer: Renderer2) {}
   toggleHamburgerMenu() {
-    const navbar = this.topContainer?.nativeElement
-    if (!navbar) {
-      return;
-    }
-    if (navbar.classList.contains('hamburger-menu__opened')) {
-      this.renderer.removeClass(navbar, 'hamburger-menu__opened');
-    } else {
-      this.renderer.addClass(navbar, 'hamburger-menu__opened');
-    }
+    this.hamburgerMenuOpened = !this.hamburgerMenuOpened;
   }
 }
 

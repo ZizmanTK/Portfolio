@@ -1,25 +1,23 @@
-<div class="top-container" #topContainer>
-    <div class="main-container" >
-        <a class="ztk-logo" routerLink="home">
-            <img src="../../../../assets/images/mon_logo.svg" alt="ztk-logo" class="ztk-logo--image">
-        </a>
+<div class="main-container" >
+    <a class="ztk-logo" routerLink="home">
+        <img src="../../../../assets/images/mon_logo.svg" alt="ztk-logo" class="ztk-logo--image">
+    </a>
 
-        <ul class="horizontal-menu">
-            <li *ngFor="let menu of menus">
-                <a [routerLink]="menu.toUrl">{{menu.name}}</a>
-            </li>
-        </ul>
-
-        <button type="button" class="hamburger-menu-trigger" (click)="toggleHamburgerMenu()">
-            <fa-icon [icon]="['fas', 'bars']" size="3x" class="absolute-center hamburger-menu--open-trigger"></fa-icon>
-            <fa-icon [icon]="['fas', 'xmark']" size="3x" class="absolute-center hamburger-menu--close-trigger"></fa-icon>
-        </button>
-    </div>
-
-    <ul class="hamburger-menu">
+    <ul class="horizontal-menu">
         <li *ngFor="let menu of menus">
             <a [routerLink]="menu.toUrl">{{menu.name}}</a>
-        </li> 
-    </ul> 
+        </li>
+    </ul>
+
+    <button type="button" class="hamburger-menu-trigger" (click)="toggleHamburgerMenu()">
+        <fa-icon [icon]="['fas', 'bars']" class="absolute-center hamburger-menu--open-trigger"></fa-icon>
+        <fa-icon [icon]="['fas', 'xmark']" class="absolute-center hamburger-menu--close-trigger"></fa-icon>
+    </button>
 </div>
+
+<ul class="hamburger-menu">
+    <li *ngFor="let menu of menus">
+        <a [routerLink]="menu.toUrl">{{menu.name}}</a>
+    </li> 
+</ul> 
 

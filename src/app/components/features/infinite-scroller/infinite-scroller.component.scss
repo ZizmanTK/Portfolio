@@ -1,8 +1,79 @@
-#container {
+:host {
+    display: block;
+    height: 100%;
+    position: relative;
+}
+.scroller-content {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc(100% / 3);
+    // grid-auto-columns: var(--elements-width);
+    grid-auto-rows: 100%;
     height: 100%;
-    // width: 500px;
     overflow: auto hidden;
+    // position: relative;
+    scrollbar-width: none;
+    // transition: all 0s;
+    scroll-behavior: smooth;
+    cursor: grab;
+    scroll-snap-type: x mandatory;
+    user-select: none;
+    scroll-padding: 50%;
+
+    // gap: inherit;
+    // position: relative;
+}
+
+.scroller-content >* {
+    scroll-snap-align: center;
+}
+
+.scroller-content::-webkit-scrollbar{
+    display: none;
+}
+
+
+.nav-button {
+    font-size: 3rem;
+    color: var(--color-primary);
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    border-radius: 50%;
+    transform: translateX(var(--x-offset));
+    transition: all .5s;
+    height: 5rem;
+    width: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-button:hover {
+    background-color: rgb(from var(--color-primary) r g b / .6);
+    color: var(--color-secondary);
+    transform: translateX(calc(1.25* var(--x-offset)));
+}
+
+.nav-right {
+    right: 0%;
+    --x-offset: 30%;
+}
+.nav-left {
+    left: 0%;
+    --x-offset: -30%;
+}
+
+.navigation-button:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+}
+.scroller-content.dragging-start {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+    cursor: grabbing;
+
+}
+
+.scroller-content.dragging-stop {
+    scroll-snap-type: none;
 }
