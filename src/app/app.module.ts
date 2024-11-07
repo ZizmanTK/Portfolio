@@ -11,6 +11,7 @@ import { CardComponent } from './components/ui/card/card.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InfiniteScrollerComponent } from './components/features/infinite-scroller/infinite-scroller.component';
 import { ClampLinesDirective } from './directives/clamp-lines.directive';
+import { FooterComponent } from './components/ui/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ClampLinesDirective } from './directives/clamp-lines.directive';
     CardComponent,
     InfiniteScrollerComponent,
     ClampLinesDirective,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

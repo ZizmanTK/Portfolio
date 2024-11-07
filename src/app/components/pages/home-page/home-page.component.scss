@@ -90,7 +90,7 @@
   color: var(--color-accent);
 }
 .name {
-    font-size: xx-large;
+    font-size: 4rem;
 }
 
 .heading:not(:hover) .job {
@@ -104,6 +104,7 @@
 .speech {
     text-align: justify;
     margin-bottom: 1rem;
+    opacity: .7;
 }
 .speech p+p{
     margin-top: 2rem;
@@ -123,7 +124,6 @@
 }
 .action span {
     padding: 0rem 1rem;
-    font-size: large;
     font-weight: 700;
 }
 
@@ -131,7 +131,7 @@
 
 .action fa-icon {
     color: var(--color-accent);
-    font-size: xx-large;
+    // font-size: xx-large;
 }
 
 

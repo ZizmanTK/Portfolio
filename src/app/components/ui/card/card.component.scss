@@ -38,15 +38,18 @@ $details-height: calc($card-height - $image-height - $heading-height - $action-h
 
 
 .heading {
-    font-size: 1.5rem;
+    // 
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--color-primary);
     display: flex;
     align-items: flex-end;
     padding-bottom: .25rem;
     flex: 0 1 $heading-height;
-    text-wrap: nowrap;
-    text-overflow: ellipsis;
+}
+
+.heading span {
+    line-height: 1.2* 1.5rem; //For the line-clamp to be precise
 }
 
 

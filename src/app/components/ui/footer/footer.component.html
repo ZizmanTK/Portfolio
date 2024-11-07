@@ -1,0 +1,7 @@
+<span class="zizmantk">®ZizmanTK 2024</span>
+<div class="socials">
+    <a class="social-item" *ngFor="let social of socials" [href]="social.link">
+        <img [src]="social.imageUrl" [alt]="social.name">
+        <span>{{social.name}}</span>
+    </a>
+</div>

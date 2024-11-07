@@ -1,7 +1,9 @@
 <div class="wrapper">
     <img class="image" [src]="data.imageUrl" alt="ILLUSTRATION" [style.--img-aspect-ratio]="data.imageAspectRatio"
         [style.--img-height]="data.imageHeight" draggable="false">
-    <h1 class="heading">{{data.heading}}</h1>
+    <h1 class="heading">
+        <span appClampLines>{{data.heading}}</span>
+    </h1>
     <p class="details" appClampLines>{{data.details}}</p>
     <span class="read-more">
         <a>

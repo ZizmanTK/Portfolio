@@ -1,0 +1,32 @@
+:host {
+    height: var(--navbar-height);
+    background-color: var(--color-tertiary);
+    display: flex;
+    align-items: center;
+    padding-inline: 1rem;
+}
+
+.zizmantk {
+    color: var(--color-accent);
+    font-size: .5rem;
+    font-weight: 600;
+}
+
+.socials {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: .5rem;
+    font-size: .4rem;
+}
+
+.social-item {
+    width: 1.5rem;
+    aspect-ratio: 1;
+    text-align: center;
+}
+
+.social-item img {
+    width: 100%;
+    height: 100%;
+}

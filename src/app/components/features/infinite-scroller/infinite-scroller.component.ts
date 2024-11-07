@@ -21,7 +21,7 @@ export class InfiniteScrollerComponent implements AfterViewInit{
     return (this.el.firstChild as HTMLElement).offsetWidth;
   }
   get nDisplayedElements(): number {
-    return Math.floor(this.el.offsetWidth / this.widthUnit);
+    return Math.round(this.el.offsetWidth / this.widthUnit);
   }
 
   constructor(
@@ -44,6 +44,8 @@ export class InfiniteScrollerComponent implements AfterViewInit{
       const revisedWidth = this.el.offsetWidth/this.nDisplayedElements;
       this.columnsWidth = `${revisedWidth}px`;
       this.cdr.detectChanges()
+
+      this.recenterScroller()
   }
   oneUnitScroll(direction: -1 | 1) {
     this.recenterScroller();
@@ -100,6 +102,7 @@ export class InfiniteScrollerComponent implements AfterViewInit{
   }
 
   recenterScroller() {
+    console.log(this.el.scrollLeft, this.el.scrollWidth, this.widthUnit,this.nDisplayedElements)
     if (this.el.scrollLeft < 5) {
       this.el.scrollBy({ left: this.el.scrollWidth / 2, behavior: 'instant' });
     } else if (
