@@ -3,7 +3,7 @@ $card-width: var(--card-width, auto);
 
 $image-height: 35%;
 $heading-height: 3.5rem;
-$action-height: 3.5rem;
+$action-height: 3rem;
 $details-height: calc($card-height - $image-height - $heading-height - $action-height);
 
 :host {
@@ -14,12 +14,17 @@ $details-height: calc($card-height - $image-height - $heading-height - $action-h
 .wrapper {
     display: inline-flex;
     flex-direction: column;
-    padding: 1rem;
+    // padding: 1rem;
     background-color: var(--color-secondary);
     border-radius: 16px;
     width: 100%;
     height: 100%;
-    box-shadow: -.125rem .125rem 4px .125rem var(--color-primary);
+    overflow: hidden;
+    // box-shadow: -.125rem .125rem 4px .125rem var(--color-primary);
+}
+
+.wrapper >:not(.image) {
+    padding-inline: 1rem;
 }
 
 
@@ -30,7 +35,7 @@ $details-height: calc($card-height - $image-height - $heading-height - $action-h
     width: 100%;
     height: var(--img-height, auto);
     aspect-ratio: var(--img-aspect-ratio);
-    border-radius: 16px;
+    // border-radius: 16px 16px 0px 0px;
     overflow: hidden;
     flex: 1;
     display: block;
@@ -62,7 +67,7 @@ $details-height: calc($card-height - $image-height - $heading-height - $action-h
 
 .read-more {
     text-align: right;
-    padding: 1rem 1rem 0rem 1rem;
+    padding: 1rem 0rem 0.5rem 1rem;
     flex: 0 1 $action-height;
-    font-size: calc($action-height - 1rem); //minus top padding
+    font-size: calc($action-height - 1.5rem); //minus padding 
 }
