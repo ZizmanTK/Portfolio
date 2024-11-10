@@ -135,7 +135,6 @@ export class HomePageComponent implements AfterViewInit {
     });
     let x = fixedPointTarget.x - newScale * fixedPoint.x;
     let y = fixedPointTarget.y - newScale * fixedPoint.y;
-    console.log(x, y, fixedPointTarget);
     this.backgroundImage.style.left = `${x}px`;
     this.backgroundImage.style.top = `${y}px`;
     this.backgroundImage.style.width = `${

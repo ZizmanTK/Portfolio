@@ -1,5 +1,4 @@
 .interests {
-    // display: none;
     height: 100%;
     background: linear-gradient(45deg, var(--color-accent) 0%, var(--color-primary) 100%) ;
     padding: 1rem;
@@ -19,23 +18,7 @@
 .interests-subtitle {
     font-size: small;
 }
-.cards {
-    // display: none;
-    // height: 18rem;
-    // height: 80%;
-    // aspect-ratio: 43/50;
-    // overflow: auto hidden;
-    // text-align: center;
-    // position: relative;
-    // display: grid;
-    // gap: .5rem;
-    // grid-auto-flow: column;
-    // grid-auto-rows: 100%;
-    // grid-auto-columns: min(18rem, 100%);
-    // scroll-snap-type: x mandatory;
-    // grid-auto-columns: 50px;
-    // gap: 1rem;
-}
+
 
 .card-container {
     display: flex;
@@ -46,23 +29,9 @@
     height: 100%;
 }
 .card {
-    // padding: 8px;
-    // display: inline;
-    // height: 100%;
-    // --card-height:
-    // $card-height: 0px
-    // min-width: 10rem;
-    // scroll-snap-align: center;
     padding: 1rem;
-    // height: 100%;
     width: 100%;
-    // scroll-behavior: auto;
     aspect-ratio: 47/50;
-
-    // display: block;
-    // width: auto;
-    // height: 10%;
-    
 }
 
 
@@ -78,48 +47,41 @@
     display: inline;
 }
 
-.p {
-    display: inline-block;
-    width: 300px;
-    // height: 100%;
-    // margin-left: 500px;
-    background-color: purple;
-    // >*{
-        // flex: 1;
-    // }
-}
+// .p {
+//     display: inline-block;
+//     width: 300px;
+//     background-color: purple;
+// }
 
-.c1 {
-    background-color: indianred;
-    // flex-basis: 0%;
-    // width: 10%;
-    // width: 50%;
-    display: inline-block;
+// .c1 {
+//     background-color: indianred;
 
-}
-.c2 {
-    background-color: turquoise;
-    // overflow: hidden;
-    display: inline-block;
-}
+//     display: inline-block;
+
+// }
+// .c2 {
+//     background-color: turquoise;
+//     // overflow: hidden;
+//     display: inline-block;
+// }
 
 
-.testing {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
-}
+// .testing {
+//     display: grid;
+//     grid-auto-flow: column;
+//     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
+// }
 
-.t1 {
-    background-color: blue;
-    height: 5rem;
-}
-.t2 {
-    background-color: red;
-}
-.t3 {
-    background-color: green;
-}
-.t4 {
-    background-color: black;
-}
+// .t1 {
+//     background-color: blue;
+//     height: 5rem;
+// }
+// .t2 {
+//     background-color: red;
+// }
+// .t3 {
+//     background-color: green;
+// }
+// .t4 {
+//     background-color: black;
+// }
