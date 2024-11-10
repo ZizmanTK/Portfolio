@@ -12,3 +12,12 @@
         transform: scale(1);
     }
 }
+
+@keyframes slide-bottom-in {
+    0% {
+        transform: translateY(100dvh);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}

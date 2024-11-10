@@ -1,0 +1,13 @@
+<section class="projects-section">
+    <h1 class="heading">
+        <div class="page-title">Projects</div>
+        <div class="page-subtitle">Some projects I have been part of ...</div>
+    </h1>
+
+
+    <ul class="projects-list">
+        <li *ngFor="let project of projects">
+            <app-project-card [data]="project"  class="project-item"></app-project-card>
+        </li>
+    </ul>
+</section>

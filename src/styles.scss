@@ -45,3 +45,7 @@ button {
     overflow: hidden;
     clip-path: inset(0% 0% calc(100% - var(--cropped-height)) 0%);
 }
+
+li {
+    list-style: none;
+}

@@ -55,12 +55,6 @@ export class InfiniteScrollerComponent implements AfterViewInit{
     });
   }
 
-  buttonScrollProgress() {
-    // const sensitivity = 100
-    // this.recenterScroller()
-    // this.ren
-  }
-
 
   mouseScrollProgress(event: MouseEvent) {
     if (!this.isScrolling) return;
@@ -102,7 +96,6 @@ export class InfiniteScrollerComponent implements AfterViewInit{
   }
 
   recenterScroller() {
-    console.log(this.el.scrollLeft, this.el.scrollWidth, this.widthUnit,this.nDisplayedElements)
     if (this.el.scrollLeft < 5) {
       this.el.scrollBy({ left: this.el.scrollWidth / 2, behavior: 'instant' });
     } else if (

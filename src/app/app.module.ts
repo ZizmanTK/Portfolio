@@ -12,6 +12,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InfiniteScrollerComponent } from './components/features/infinite-scroller/infinite-scroller.component';
 import { ClampLinesDirective } from './directives/clamp-lines.directive';
 import { FooterComponent } from './components/ui/footer/footer.component';
+import { ProjectsPageComponent } from './components/pages/projects-page/projects-page.component';
+import { ProjectCardComponent } from './components/ui/project-card/project-card.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { FooterComponent } from './components/ui/footer/footer.component';
     InfiniteScrollerComponent,
     ClampLinesDirective,
     FooterComponent,
+    ProjectsPageComponent,
+    ProjectCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,86 @@
+:host {
+    background-image: linear-gradient(var(--color-secondary) 5%, var(--color-primary) 50%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: var(--color-secondary);
+    border-radius: 16px;
+    padding: 1rem;
+    padding-bottom: 2rem;
+    overflow: hidden;
+    background-position: top;
+    background-size: 100% 200%;
+    transition: all .25s;
+}
+
+.main-content-box {
+    overflow: hidden;
+    isolation: isolate;
+}
+.main-content {
+    --heading-height: 4.5rem;
+    transform: translateY(calc(100% - var(--heading-height)));
+    transition: all .25s;
+}
+
+:host:hover {
+    transform: scale(1.05);
+    background-position: bottom;
+}
+
+:host:hover .main-content {
+    transform: translateY(0%);
+}
+
+.background-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+    mix-blend-mode: multiply;
+}
+
+.heading {
+    height: var(--heading-height);
+}
+
+.heading >* {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-name {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.project-category {
+    color: var(--color-tertiary);
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.project-short-description {
+    opacity: .6;
+    margin-bottom: 1rem;
+    font-weight: 300;
+}
+
+.project-tags {
+    display: flex;
+    gap: .25rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    color: var(--color-tertiary);
+    border: 1px solid var(--color-tertiary);
+    border-radius: 8px;
+    padding: .125rem .25rem .2rem .25rem;
+    font-size: .8rem;
+}

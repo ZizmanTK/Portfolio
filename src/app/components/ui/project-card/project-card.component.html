@@ -1,0 +1,16 @@
+<img [src]="data.imageUrl" alt="" class="background-image">
+<div class="main-content-box">
+    <div class="main-content">
+        <h2 class="heading">
+            <h1 class="project-name">{{data.name}}</h1>
+            <h2 class="project-category">{{data.category}}</h2>
+        </h2>
+        <p class="project-short-description">{{data.shortDescription}}</p>
+        <ul class="project-tags">
+            <li class="tag" *ngFor="let tag of data.tags">
+                {{tag}}
+            </li>
+        </ul>
+    </div>
+</div>
+
