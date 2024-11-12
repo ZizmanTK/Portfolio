@@ -1,66 +1,35 @@
-<div class="interests">
-    <div class="interests-heading">
+<section class="interests">
+    <h1 class="interests-heading">
         <p class="interests-title">Interests</p>
         <p class="interests-subtitle">Better not get me started about those...</p>
-    </div>
+    </h1>
 
     <app-infinite-scroller class="cards" [columnsWidth]="'18rem'">
         <ng-template #contentTemplate>
-            <div class="card-container" *ngFor="let card of cards">
-                <div class="card">
+            <ul class="card-container" *ngFor="let card of cards">
+                <li class="card">
                     <app-card [data]="card"></app-card>
-                </div>
-            </div>
+                </li>
+            </ul>
         </ng-template>
     </app-infinite-scroller>
+</section>
 
-    <!-- <div class="cards"
-    [ngStyle]="{'--slot-left': cardSlotsCoordinates?.left, '--slot-middle': cardSlotsCoordinates?.middle, '--slot-right': cardSlotsCoordinates?.right}">
-        <div class="card-navs">
-            <fa-icon [icon]="['fas', 'angle-left']" class="card-nav-left"></fa-icon>
-            <fa-icon [icon]="['fas', 'angle-left']" class="card-nav-right"></fa-icon>
-        </div>
-        <div class="card" *ngFor="let card of cards ; let i = index"  (click)="scrollCards(i)">
-            <app-card [data]="card"></app-card>
-        </div>
-    </div> -->
-</div>
+<section class="experience">
+    <h1 class="experience-heading">Work Experience</h1>
+    <ul class="experience-list">
+        <li class="experience-item" *ngFor="let item of workExperience">
+            <app-timeline-item [data]="item"></app-timeline-item>
+        </li>
+    </ul>
+</section>
 
-<!-- <div class="footer">
-    <div class="p">
-        <div class="c1">def Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus ratione ipsa numquam mollitia, eum veniam? Consectetur illum architecto deserunt animi repellat commodi, corrupti, voluptates omnis perspiciatis dolores fugiat distinctio temporibus iste eos explicabo. Ad quisquam vero similique repellat aliquam, alias nobis, accusamus facilis esse, necessitatibus ea! Ad ducimus asperiores repudiandae.</div>
+<section class="education">
+    <h1 class="education-heading">Education</h1>
+    <ul class="education-list">
+        <li class="education-item" *ngFor="let item of education">
+            <app-timeline-item [data]="item"></app-timeline-item>
+        </li>
+    </ul>
 
-        <div class="c1">
-            abcdefghijklmnabcdefghijklmn
-        </div>
-        <div class="c2">
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            <span>aa</span>
-            ghijklmnopqrstuvwxyz
-        </div> 
-
-    </div>
-</div> -->
-
-<!-- <div class="testing">
-    <div class="t1"></div>
-    <div class="t2"></div>
-    <div class="t3"></div>
-    <div class="t4"></div>
-</div>
-
-<div class="arg">
-    abc defg hijklmn
-</div> -->
+</section>

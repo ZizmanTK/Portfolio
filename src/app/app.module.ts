@@ -14,6 +14,7 @@ import { ClampLinesDirective } from './directives/clamp-lines.directive';
 import { FooterComponent } from './components/ui/footer/footer.component';
 import { ProjectsPageComponent } from './components/pages/projects-page/projects-page.component';
 import { ProjectCardComponent } from './components/ui/project-card/project-card.component';
+import { TimelineItemComponent } from './components/ui/timeline-item/timeline-item.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ProjectCardComponent } from './components/ui/project-card/project-card.
     FooterComponent,
     ProjectsPageComponent,
     ProjectCardComponent,
+    TimelineItemComponent,
   ],
   imports: [
     BrowserModule,

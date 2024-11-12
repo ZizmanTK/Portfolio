@@ -1,15 +1,13 @@
 .interests {
-    height: 100%;
     background: linear-gradient(45deg, var(--color-accent) 0%, var(--color-primary) 100%) ;
     padding: 1rem;
     scroll-snap-align: start;
     container: interests / inline-size;
-
+    // display: none;
 }
 .interests-heading {
     color: var(--color-secondary);
     text-align: center;
-    height: 20%;
 }
 .interests-title {
     font-size: xx-large;
@@ -17,71 +15,55 @@
 }
 .interests-subtitle {
     font-size: small;
+    font-weight: 400;
 }
 
 
 .card-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     scroll-snap-align: start;
-    width: 100%;
-    height: 100%;
 }
+
 .card {
     padding: 1rem;
-    width: 100%;
     aspect-ratio: 47/50;
 }
 
-
-.right-arrow {
-    color: var(--color-accent); 
-    font-weight: 900;
-    stroke-width: 2;
+.education {
+    flex-direction: row-reverse;
+}
+.experience, .education {
+    display: flex;
+    flex-wrap: wrap;
+}
+.experience-heading, .education-heading {
+    color: var(--color-secondary);
+    font-size: xx-large;
+    font-weight: 800;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
 }
 
-.footer {
+.experience-heading {
+    background-color: var(--color-accent);
+}
+
+.education-heading {
     background-color: var(--color-primary);
-    height: 25%;
-    display: inline;
+    justify-content: right;
 }
 
-// .p {
-//     display: inline-block;
-//     width: 300px;
-//     background-color: purple;
-// }
-
-// .c1 {
-//     background-color: indianred;
-
-//     display: inline-block;
-
-// }
-// .c2 {
-//     background-color: turquoise;
-//     // overflow: hidden;
-//     display: inline-block;
-// }
+.experience-list, .education-list {
+    // border-left: 1rem solid var(--color-primary);
+    background-color: var(--color-secondary);
+    flex: 1;
+    padding: 1rem;
 
 
-// .testing {
-//     display: grid;
-//     grid-auto-flow: column;
-//     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
-// }
 
-// .t1 {
-//     background-color: blue;
-//     height: 5rem;
-// }
-// .t2 {
-//     background-color: red;
-// }
-// .t3 {
-//     background-color: green;
-// }
-// .t4 {
-//     background-color: black;
-// }
+}
+
+.experience-item, .education-item {
+    padding-block: 1rem;
+}
