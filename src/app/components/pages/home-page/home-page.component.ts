@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -32,6 +33,9 @@ export class HomePageComponent implements AfterViewInit {
     },
   };
 
+  constructor(
+    private readonly router: Router,
+  ) {}
   ngAfterViewInit(): void {
     this.spotlight = document.querySelector('.spotlight');
     this.backgroundImage = document.querySelector('.background-image');
@@ -199,5 +203,13 @@ export class HomePageComponent implements AfterViewInit {
       yOriginPercent * parent.offsetHeight - this.spotlight.offsetHeight / 2;
 
     this.spotlight.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  navigateTo(route: string) {
+    this.router.navigate([route]);
+  }
+
+  goToLinkedIn() {
+    window.open('https://www.linkedin.com/in/abdoul-aziz-maazou/', '_blank');
   }
 }

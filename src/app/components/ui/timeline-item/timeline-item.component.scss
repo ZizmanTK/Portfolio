@@ -1,8 +1,11 @@
 $flex-gap: 1rem;
 $logo-width: 64px;
 :host {
-    // color: var(--color-primary);
     font-size: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5*$flex-gap;
+    flex-wrap: wrap;
 }
 fa-icon {
     color: var(--color-primary);
@@ -14,12 +17,15 @@ fa-icon {
 }
 
 .heading {    
-    padding-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 .organization-logo {
     width: $logo-width;
     object-fit: contain;
+}
+
+.main-content {
+    flex: 1;
 }
 
 .title {
@@ -37,12 +43,9 @@ fa-icon {
 
 }
 
-.organization, .dates, .details {
-    padding-left: calc($logo-width + $flex-gap);
-}
 
-.organization, .dates, .details, .details-heading {
-    margin-bottom: .5rem;
+.heading, .organization, .dates, .details, .details-heading {
+    margin-bottom: .75rem;
 }
 
 .organization>fa-icon, .dates>fa-icon, .details-heading>fa-icon{
@@ -66,14 +69,16 @@ fa-icon {
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows .25s;
+
+    border-bottom: 2px solid var(--color-primary);
+    border-left: 2px solid var(--color-primary);
 }
 
 .details-content {
     padding-left: calc(1rem + $flex-gap);
     overflow: hidden;
     grid-row: 1 / span 2;
-    border-bottom: 2px solid var(--color-primary);
-    border-left: 2px solid var(--color-primary);
+
 }
 
 .toggle-icon {

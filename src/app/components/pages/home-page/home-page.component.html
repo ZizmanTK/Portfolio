@@ -5,6 +5,7 @@
         <div class="absolute-center background-image-container">
             <img src="../../../../assets/images/me_day.jpg" alt="my-photo" class="absolute-center background-image">
         </div>
+
     </div>
 
     <button class="close-role-selection" (click)="toggleImageFocus()">
@@ -34,7 +35,7 @@
         
         <ul class="actions">
             <li>
-                <app-button color="none">
+                <app-button color="none" (clicked)="goToLinkedIn()">
                     <div class="action">
                         <span>Contact</span>
                         <fa-icon [icon]="['fas', 'circle-chevron-right']"></fa-icon>
@@ -42,7 +43,7 @@
                 </app-button>
             </li>
             <li>
-                <app-button color="none">
+                <app-button color="none" (clicked)="navigateTo('about')">
                     <div class="action">
                         <span>Resume</span>
                         <fa-icon [icon]="['fas', 'circle-chevron-right']"></fa-icon>
@@ -50,7 +51,7 @@
                 </app-button>
             </li>
             <li>
-                <app-button color="none">
+                <app-button color="none" (clicked)="navigateTo('projects')">
                     <div class="action">
                         <span>Projects</span>
                         <fa-icon [icon]="['fas', 'circle-chevron-right']"></fa-icon>
@@ -61,3 +62,7 @@
     </div>
 
 </section>
+
+<footer>
+    <app-footer></app-footer>
+</footer>

@@ -17,7 +17,7 @@ export class AppComponent {
   navbarMenus: NavbarMenu[] = [
     { name: 'About', toUrl: 'about' },
     { name: 'Projects', toUrl: 'projects' },
-    { name: 'Contact', toUrl: 'contact' },
+    // { name: 'Contact', toUrl: 'contact' },
   ];
   title = 'front';
 }

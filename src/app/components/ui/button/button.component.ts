@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -7,6 +7,7 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 })
 export class ButtonComponent implements AfterViewInit {
   @Input() color: 'primary' | 'secondary' | 'accent' | 'none' = 'primary';
+  @Output() clicked = new EventEmitter<MouseEvent>();
   buttonClasses = {}
 
   ngAfterViewInit(): void {

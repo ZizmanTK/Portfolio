@@ -33,13 +33,13 @@ export class AboutPageComponent {
       imageUrl: this.imagesFolder + 'isagi.png',
       heading: 'Soccer',
       details:
-        'Amateur player, I have powerful spikes and very good defense against tips. During my highshool, I won an interlycée tournament with my school team, playing as main setter (the most strategic position... just saying)',
+        'I have been playing soccer for as long as I can remember. I am a huge fan of the sport and I am always looking for new ways to improve my game. And yes Messi is the best player in the world.',
     },
     {
       imageUrl: this.imagesFolder + 'piano.png',
       heading: 'Piano',
       details:
-        'Amateur player, I have powerful spikes and very good defense against tips. During my highshool, I won an interlycée tournament with my school team, playing as main setter (the most strategic position... just saying)',
+        'Playing the piano is one of my favorite hobbies. It is a great way to relax and unwind after a long day. I love learning new songs and challenging myself to improve my skills.',
     },
   ];
 
@@ -58,7 +58,7 @@ export class AboutPageComponent {
         end: 'Now',
       },
       location: 'Grenoble France',
-      details: ['abcdlajmrjle', 'And another gibberish'],
+      details: [],
     },
     {
       title: 'R&I Developer',
@@ -73,7 +73,12 @@ export class AboutPageComponent {
         end: 'August 2024',
       },
       location: 'Grenoble France',
-      details: ['abcdlajmrjle', 'And another gibberish'],
+      details: [
+        'Development of web applications using Angular (front-end) and Django (back-end).',
+        'Integration of new features to improve the user interface.',
+        'Creation and management of NoSQL databases with MongoDB.',
+        'Implementation of unit tests and writing technical documentation to ensure code quality and maintainability.',
+      ],
     },
     {
       title: 'Computer Vision Engineer',
@@ -88,7 +93,10 @@ export class AboutPageComponent {
         end: 'August 2023',
       },
       location: 'Uckange France',
-      details: ['abcdlajmrjle', 'And another gibberish'],
+      details: [
+        'Development of an automated defect detection system based on Python in a demanding industrial environment.',
+        'Conducting technological watch on development environments for computer vision solutions.',
+      ],
     },
   ];
 
@@ -98,7 +106,7 @@ export class AboutPageComponent {
       tag: 'BAC+5',
       organization: {
         name: 'Telecom Physique Strasbourg',
-        logo: this.logosFolder + 'tps.png',
+        logo: this.logosFolder + 'tps.svg',
         website: 'https://www.telecom-physique.fr/',
       },
       dates: {
@@ -106,7 +114,9 @@ export class AboutPageComponent {
         end: 'September 2024',
       },
       location: 'Strasbourg France',
-      details: ['abcdlajmrjle', 'And another gibberish'],
+      details: [
+        'Specialized training in artificial intelligence, object-oriented programming, software development, and programmable electronics.',
+      ],
     },
     {
       title: 'Preparatory Class',
@@ -120,8 +130,10 @@ export class AboutPageComponent {
         start: 'September 2018',
         end: 'July 2020',
       },
-      location: 'Rabat Maroc',
-      details: ['abcdlajmrjle', 'And another gibberish'],
+      location: 'Rabat Morocco',
+      details: [
+        'Intensive training in mathematics and physics, focused on solving complex problems.',
+      ],
     },
     // {
     //   title: 'Computer Vision Engineer',
@@ -139,4 +151,9 @@ export class AboutPageComponent {
     //   details: ['abcdlajmrjle', 'And another gibberish'],
     // },
   ];
+
+  displayedTimeline = 'experience';
+  showTimeline(name: 'experience' | 'education') {
+    this.displayedTimeline = name;
+  }
 }

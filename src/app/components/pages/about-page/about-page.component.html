@@ -4,7 +4,17 @@
         <p class="interests-subtitle">Better not get me started about those...</p>
     </h1>
 
-    <app-infinite-scroller class="cards" [columnsWidth]="'18rem'">
+    <ul class="card-container">
+        <app-infinite-scroller class="cards" [columnsWidth]="'18rem'">
+            <ng-template #contentTemplate>
+                <li class="card" *ngFor="let card of cards">
+                    <app-card [data]="card"></app-card>
+                </li>
+            </ng-template>
+        </app-infinite-scroller>
+    </ul>
+
+    <!-- <app-infinite-scroller class="cards" [columnsWidth]="'18rem'">
         <ng-template #contentTemplate>
             <ul class="card-container" *ngFor="let card of cards">
                 <li class="card">
@@ -12,24 +22,33 @@
                 </li>
             </ul>
         </ng-template>
-    </app-infinite-scroller>
+    </app-infinite-scroller> -->
 </section>
 
-<section class="experience">
-    <h1 class="experience-heading">Work Experience</h1>
-    <ul class="experience-list">
-        <li class="experience-item" *ngFor="let item of workExperience">
-            <app-timeline-item [data]="item"></app-timeline-item>
-        </li>
-    </ul>
+<section class="timeline" [ngClass]="{'education-active': displayedTimeline==='education', 'experience-active': displayedTimeline==='experience'}">
+    <h1 class="timeline-heading">
+        <button class="experience-heading" (click)="showTimeline('experience')">Work Experience</button>
+        <button class="education-heading" (click)="showTimeline('education')">Education</button>
+    </h1>
+
+    <div class="timeline-content">
+        <ul class="experience-list">
+            <li class="experience-item" *ngFor="let item of workExperience">
+                <app-timeline-item [data]="item"></app-timeline-item>
+            </li>
+        </ul>
+        
+        <ul class="education-list">
+            <li class="education-item" *ngFor="let item of education">
+                <app-timeline-item [data]="item"></app-timeline-item>
+            </li>
+        </ul>
+
+        <fa-icon [icon]="['fas', 'shuffle']" class="shuffle">Next</fa-icon>
+    </div>
+
 </section>
 
-<section class="education">
-    <h1 class="education-heading">Education</h1>
-    <ul class="education-list">
-        <li class="education-item" *ngFor="let item of education">
-            <app-timeline-item [data]="item"></app-timeline-item>
-        </li>
-    </ul>
-
-</section>
+<footer>
+    <app-footer></app-footer>
+</footer>

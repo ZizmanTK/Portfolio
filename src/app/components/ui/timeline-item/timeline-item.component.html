@@ -1,39 +1,43 @@
-<h1 class="heading">
-    <img [src]="data.organization.logo" alt="" class="organization-logo">
-    <span class="title">{{data.title}}</span>
-    <span class="tag">{{data.tag}}</span>
-</h1>
+<img [src]="data.organization.logo" alt="" class="organization-logo">
 
-<div class="organization">
-    <fa-icon [icon]="['far', 'building']"></fa-icon>
-    <span>
-        <a class="organization-name" [href]="data.organization.website" target="_blank">
-            {{data.organization.name}}<!--
-        --></a>,
-        <span class="location">{{data.location}}</span>
-    </span>
-</div>
+<div class="main-content">
+    <h1 class="heading">
+        <span class="title">{{data.title}}</span>
+        <span class="tag">{{data.tag}}</span>
+    </h1>
 
-<div class="dates">
-    <fa-icon [icon]="['far', 'calendar']"></fa-icon>
-    <span>
-        {{data.dates.start}} - {{data.dates.end}}
-    </span>
+    <div class="organization">
+        <fa-icon [icon]="['far', 'building']"></fa-icon>
+        <span>
+            <a class="organization-name" [href]="data.organization.website" target="_blank">
+                {{data.organization.name}}<!--
+            --></a>,
+            <span class="location">{{data.location}}</span>
+        </span>
+    </div>
 
-</div>
+    <div class="dates">
+        <fa-icon [icon]="['far', 'calendar']"></fa-icon>
+        <span>
+            {{data.dates.start}} - {{data.dates.end}}
+        </span>
 
-<div class="details">
-    <button class="details-heading" (click)="toggleDetails()">
-        <fa-icon [icon]="['fas', 'list']"></fa-icon>
-        <span>Details</span>
-        <fa-icon [icon]="['fas', 'angle-right']" class="toggle-icon"></fa-icon>
-    </button>
-    <div class="details-content-wrapper">
-        <ul class="details-content">
-            <li class="detail-item" *ngFor="let item of data.details">
-                <p>{{item}}</p>
-            </li>
-        </ul>
+    </div>
+
+    <div class="details">
+        <button class="details-heading" (click)="toggleDetails()">
+            <fa-icon [icon]="['fas', 'list']"></fa-icon>
+            <span>Details</span>
+            <fa-icon [icon]="['fas', 'angle-right']" class="toggle-icon"></fa-icon>
+        </button>
+        <div class="details-content-wrapper">
+            <ul class="details-content">
+                <li class="detail-item" *ngFor="let item of data.details">
+                    <p>{{item}}</p>
+                </li>
+            </ul>
+        </div>
+
     </div>
 
 </div>
