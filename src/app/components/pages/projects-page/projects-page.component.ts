@@ -10,7 +10,7 @@ export class ProjectsPageComponent {
   projects: ProjectData[] = [
     {
       name: 'Roll Power',
-      imageUrl: '../../../../assets/images/roll-power.png',
+      imageUrl: './assets/images/roll-power.png',
       tags: ['Unity', 'Fl Studio', 'GMTK Game Jam'],
       category: 'Game Development',
       links: { website: '', github: '', itchio: '' },
@@ -21,7 +21,7 @@ export class ProjectsPageComponent {
     },
     {
       name: 'REMIND',
-      imageUrl: '../../../../assets/images/remind.png',
+      imageUrl: './assets/images/remind.png',
       tags: ['Angular', 'Django', 'MongoDB', 'Docker', 'MySQL', 'Scikit-learn'],
       category: 'Web Development',
       links: { website: '', github: '', itchio: '' },
@@ -32,7 +32,7 @@ export class ProjectsPageComponent {
     },
     {
       name: 'TxBot',
-      imageUrl: '../../../../assets/images/txbot.png',
+      imageUrl: './assets/images/txbot.png',
       tags: ['Angular', 'Django', 'Langchain', 'MySQL'],
       category: 'AI Assistant',
       links: { website: '', github: '', itchio: '' },
@@ -43,7 +43,7 @@ export class ProjectsPageComponent {
     },
     {
       name: 'CoilCheck',
-      imageUrl: '../../../../assets/images/coil-check.jpg',
+      imageUrl: './assets/images/coil-check.jpg',
       tags: ['Tensorflow', 'Anomaly Detection','Picsellia', 'Visionnairy', 'Anomalib'],
       category: 'Computer Vision',
       links: { website: '', github: '', itchio: '' },
@@ -54,7 +54,7 @@ export class ProjectsPageComponent {
     },
     {
       name: 'ZTKtris Unforgivable',
-      imageUrl: '../../../../assets/images/tetris.png',
+      imageUrl: './assets/images/tetris.png',
       tags: ['Unity', 'Fl Studio'],
       category: 'Game Development',
       links: { website: '', github: '', itchio: '' },
@@ -65,7 +65,7 @@ export class ProjectsPageComponent {
     },
         {
       name: 'Portfolio',
-      imageUrl: '../../../../assets/images/portfolio.png',
+      imageUrl: './assets/images/portfolio.png',
       tags: ['Angular', 'Adobe Illustrator'],
       category: 'Web Design | Development',
       links: { website: '', github: '', itchio: '' },

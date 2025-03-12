@@ -23,7 +23,7 @@ export class HomePageComponent implements AfterViewInit {
   currentProfile = {
     id: 'ZizmanTK',
     image: {
-      url: '../../../../assets/images/me_day x400.jpg',
+      url: './assets/images/me_day x400.jpg',
       height: 3414,
       width: 5120,
       eyesX: 2839,

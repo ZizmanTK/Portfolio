@@ -8,7 +8,7 @@ import { TimelineItemData } from '../../ui/timeline-item/timeline-item.component
   styleUrl: './about-page.component.scss',
 })
 export class AboutPageComponent {
-  private imagesFolder = '../../../assets/images/';
+  private imagesFolder = './assets/images/';
   cards: CardData[] = [
     {
       imageUrl: this.imagesFolder + 'hinata.png',
@@ -43,7 +43,7 @@ export class AboutPageComponent {
     },
   ];
 
-  private logosFolder = '../../../assets/logos/';
+  private logosFolder = './assets/logos/';
   workExperience: TimelineItemData[] = [
     {
       title: 'R&I Developer',
