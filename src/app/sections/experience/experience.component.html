@@ -1,0 +1,74 @@
+@let ui = i18n.ui();
+<section id="experience" class="section" aria-labelledby="experience-title">
+  <div class="container">
+    <app-section-heading index="02" [label]="ui.sections.experience" [title]="ui.experienceTitle" headingId="experience-title" />
+
+    <ol role="list" class="timeline">
+      @for (job of experience; track $index) {
+        <li class="entry" appReveal>
+          <div class="entry__when">
+            <p class="mono">
+              <time [attr.datetime]="job.start">{{ i18n.month(job.start) }}</time>
+              —
+              @if (job.end) {
+                <time [attr.datetime]="job.end">{{ i18n.month(job.end) }}</time>
+              } @else {
+                <span class="now">{{ ui.present }}</span>
+              }
+            </p>
+            <p class="mono muted">{{ job.location }}</p>
+          </div>
+
+          <span class="entry__node" [class.is-current]="!job.end" aria-hidden="true"></span>
+
+          <article class="entry__body">
+            <header class="entry__head">
+              <img class="logo" [src]="job.logo" [alt]="job.company + ' logo'" width="44" height="44" loading="lazy" />
+              <div>
+                <h3 class="entry__role">{{ i18n.t(job.role) }}</h3>
+                <p class="entry__org">
+                  <a class="link-underline" [href]="job.url" target="_blank" rel="noopener">{{ job.company }}</a>
+                  <span class="chip">{{ i18n.t(job.type) }}</span>
+                </p>
+              </div>
+            </header>
+            <p class="entry__summary muted">{{ i18n.t(job.summary) }}</p>
+            <ul class="entry__list">
+              @for (h of job.highlights; track $index) {
+                <li>{{ i18n.t(h) }}</li>
+              }
+            </ul>
+            <ul class="chip-list" aria-label="Stack">
+              @for (s of job.stack; track s) {
+                <li class="chip">{{ s }}</li>
+              }
+            </ul>
+          </article>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<section id="education" class="section section--tight" aria-labelledby="education-title">
+  <div class="container">
+    <app-section-heading index="03" [label]="ui.sections.education" [title]="ui.educationTitle" headingId="education-title" />
+
+    <div class="schools">
+      @for (e of education; track $index) {
+        <article class="school card" [appReveal]="$index * 80">
+          <div class="school__top">
+            <img class="logo" [src]="e.logo" [alt]="e.school + ' logo'" width="52" height="52" loading="lazy" />
+            <p class="mono muted">{{ i18n.month(e.start) }} — {{ i18n.month(e.end) }}</p>
+          </div>
+          <h3 class="school__degree">{{ i18n.t(e.degree) }}</h3>
+          <p class="school__name">
+            <a class="link-underline" [href]="e.url" target="_blank" rel="noopener">{{ e.school }}</a>
+            <span class="muted"> · {{ e.location }}</span>
+          </p>
+          <p class="school__details muted">{{ i18n.t(e.details) }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>

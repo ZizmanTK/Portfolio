@@ -1,0 +1,58 @@
+@let ui = i18n.ui();
+<section id="contact" class="section contact" aria-labelledby="contact-title">
+  <div class="container">
+    <app-section-heading index="07" [label]="ui.sections.contact" [title]="ui.contactTitle" headingId="contact-title">
+      <p class="lead intro">{{ ui.contactIntro }}</p>
+    </app-section-heading>
+
+    <div class="email">
+      <a class="email__link" [href]="'mailto:' + profile.email">
+        <span>{{ profile.email }}</span>
+        <app-icon name="arrowUpRight" [size]="36" />
+      </a>
+      <button type="button" class="btn btn--sm" (click)="copyEmail()" aria-live="polite">
+        <app-icon [name]="copied() ? 'check' : 'copy'" [size]="15" />
+        {{ copied() ? ui.copied : ui.copyEmail }}
+      </button>
+    </div>
+
+    <div class="grid">
+      <ul role="list" class="links">
+        @for (s of socials; track s.id) {
+          <li>
+            <a class="row" [href]="s.url" target="_blank" rel="noopener me">
+              <app-icon [name]="s.id" [size]="20" />
+              <span class="row__label">{{ s.label }}</span>
+              <span class="row__handle mono muted">{{ s.handle }}</span>
+              <app-icon class="row__arrow" name="arrowUpRight" />
+            </a>
+          </li>
+        }
+      </ul>
+
+      <aside class="resume card">
+        <img [src]="profile.avatar" alt="" width="64" height="64" loading="lazy" />
+        <div>
+          <p class="resume__title">{{ profile.name }}</p>
+          <p class="muted">{{ i18n.t(profile.role) }}</p>
+        </div>
+        <a class="btn btn--primary" [href]="i18n.t(profile.resume)" download>
+          <app-icon name="download" [size]="17" /> {{ ui.downloadResume }} <span class="mono">PDF</span>
+        </a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="muted">© {{ year }} {{ profile.name }}. {{ ui.builtWith }}</p>
+    <div class="footer__links">
+      <a class="link-underline muted" href="https://github.com/ZizmanTK/Portfolio" target="_blank" rel="noopener">{{ ui.viewSource }}</a>
+      <a class="link-underline muted" [routerLink]="i18n.otherLangPath()">{{ ui.switchLang }}</a>
+      <a class="icon-btn" [routerLink]="homePath()" fragment="top" [attr.aria-label]="ui.backToTop" [title]="ui.backToTop">
+        <app-icon name="arrowUp" [size]="16" />
+      </a>
+    </div>
+  </div>
+</footer>

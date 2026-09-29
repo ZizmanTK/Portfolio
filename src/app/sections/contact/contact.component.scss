@@ -1,0 +1,156 @@
+:host {
+  display: block;
+}
+
+.intro {
+  margin-top: 1rem;
+}
+
+.email {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+  border-bottom: 1px solid var(--line);
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: clamp(1.35rem, 4.6vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    overflow-wrap: anywhere;
+    transition: color 0.25s var(--ease);
+
+    app-icon {
+      color: var(--accent);
+      transition: transform 0.3s var(--ease);
+    }
+
+    &:hover {
+      color: var(--accent-ink);
+
+      app-icon {
+        transform: translate(4px, -4px);
+      }
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+.links {
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 0.25rem;
+  border-bottom: 1px solid var(--line);
+  transition:
+    padding 0.3s var(--ease),
+    color 0.2s;
+
+  &__label {
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+
+  &__handle {
+    justify-self: end;
+  }
+
+  &__arrow {
+    color: var(--muted);
+    transition:
+      transform 0.3s var(--ease),
+      color 0.2s;
+  }
+
+  &:hover {
+    padding-inline: 0.75rem;
+    color: var(--accent-ink);
+
+    .row__arrow {
+      color: var(--accent);
+      transform: translate(3px, -3px);
+    }
+  }
+}
+
+.resume {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem;
+
+  img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  .btn {
+    grid-column: 1 / -1;
+
+    .mono {
+      opacity: 0.6;
+      font-size: 0.72rem;
+    }
+  }
+}
+
+.footer {
+  border-top: 1px solid var(--line);
+
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    padding-block: 1.75rem;
+    font-size: 0.9rem;
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 420px) {
+  .row {
+    grid-template-columns: auto 1fr auto;
+
+    &__handle {
+      display: none;
+    }
+  }
+}

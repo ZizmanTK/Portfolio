@@ -1,27 +1,47 @@
-# Front
+# Abdoul Aziz Maazou — Portfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.3.
+**Live:** https://zizmantk.github.io/Portfolio/ · 🇫🇷 https://zizmantk.github.io/Portfolio/fr/
 
-## Development server
+Personal portfolio: a bilingual (EN/FR), light/dark Angular 20 site prerendered to static HTML,
+with a downloadable one-page PDF resume generated from the same content.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Editing content
 
-## Code scaffolding
+Everything — profile, experience, education, projects, skills, interests — lives in one file:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
+src/content/site.json
+```
 
-## Build
+Every user-facing string is `{ "en": "...", "fr": "..." }`. Interface labels (nav, buttons) are in
+`src/app/core/ui-strings.ts`. Images live in `src/assets/img/`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Commands
 
-## Running unit tests
+| Command            | What it does                                                        |
+| ------------------ | ------------------------------------------------------------------- |
+| `npm start`        | Dev server at http://localhost:4200                                 |
+| `npm run resume`   | Regenerates `src/assets/resume/*.pdf` from `site.json` (needs Chrome or Edge; set `CHROME_PATH` if not found) |
+| `npm run build`    | Production build + prerender to `dist/portfolio/browser`            |
+| `npm run preview`  | Serves the production build at http://localhost:4300/Portfolio/     |
+| `npm run deploy`   | resume → build → copy into `docs/`                                  |
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Publishing
 
-## Running end-to-end tests
+GitHub Pages serves the `docs/` folder of `master`. To publish changes:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+npm run deploy
+git add -A && git commit -m "Update portfolio" && git push
+```
 
-## Further help
+## Structure
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+src/content/site.json        content for the site and the resume
+src/app/core/                content types, i18n, theme, SEO
+src/app/sections/            header, hero, about, experience, projects, skills, interests, contact
+src/app/shared/              icons, section heading, scroll-reveal directive
+scripts/build-resume.mjs     HTML → PDF resume via headless Chrome
+scripts/publish-docs.mjs     copies the build into docs/
+```
