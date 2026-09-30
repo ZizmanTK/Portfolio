@@ -1,58 +1,82 @@
 @let ui = i18n.ui();
-<section id="contact" class="section contact" aria-labelledby="contact-title">
-  <div class="container">
-    <app-section-heading index="07" [label]="ui.sections.contact" [title]="ui.contactTitle" headingId="contact-title">
+<section id="contact" class="section" aria-labelledby="contact-title">
+  <div class="container grid">
+    <app-section-heading index="06" [file]="ui.files.contact" [title]="ui.titles.contact" headingId="contact-title">
       <p class="lead intro">{{ ui.contactIntro }}</p>
     </app-section-heading>
 
-    <div class="email">
-      <a class="email__link" [href]="'mailto:' + profile.email">
-        <span>{{ profile.email }}</span>
-        <app-icon name="arrowUpRight" [size]="36" />
-      </a>
-      <button type="button" class="btn btn--sm" (click)="copyEmail()" aria-live="polite">
-        <app-icon [name]="copied() ? 'check' : 'copy'" [size]="15" />
-        {{ copied() ? ui.copied : ui.copyEmail }}
-      </button>
-    </div>
+    <div class="window term">
+      <div class="window__bar">
+        <span class="window__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="window__tab">contact.sh — zsh</span>
+      </div>
+      <div class="term__body mono">
+        <p><span class="ps">$</span> echo $EMAIL</p>
+        <p class="out email">
+          <a [href]="'mailto:' + profile.email">{{ profile.email }}</a>
+          <button type="button" class="btn btn--sm" (click)="copyEmail()" aria-live="polite">
+            <app-icon [name]="copied() ? 'check' : 'copy'" [size]="14" /> {{ copied() ? ui.copied : ui.copy }}
+          </button>
+        </p>
 
-    <div class="grid">
-      <ul role="list" class="links">
-        @for (s of socials; track s.id) {
-          <li>
-            <a class="row" [href]="s.url" target="_blank" rel="noopener me">
-              <app-icon [name]="s.id" [size]="20" />
-              <span class="row__label">{{ s.label }}</span>
-              <span class="row__handle mono muted">{{ s.handle }}</span>
-              <app-icon class="row__arrow" name="arrowUpRight" />
-            </a>
-          </li>
-        }
-      </ul>
+        <p><span class="ps">$</span> open --links</p>
+        <ul role="list" class="out links">
+          @for (s of socials; track s.id) {
+            <li>
+              <a [href]="s.url" target="_blank" rel="noopener me">
+                <app-icon [name]="s.id" [size]="16" />
+                <span class="links__label">{{ s.label }}</span>
+                <span class="muted">{{ s.handle }}</span>
+                <app-icon class="links__arrow" name="arrowUpRight" [size]="14" />
+              </a>
+            </li>
+          }
+        </ul>
 
-      <aside class="resume card">
-        <img [src]="profile.avatar" alt="" width="64" height="64" loading="lazy" />
-        <div>
-          <p class="resume__title">{{ profile.name }}</p>
-          <p class="muted">{{ i18n.t(profile.role) }}</p>
-        </div>
-        <a class="btn btn--primary" [href]="i18n.t(profile.resume)" download>
-          <app-icon name="download" [size]="17" /> {{ ui.downloadResume }} <span class="mono">PDF</span>
-        </a>
-      </aside>
+        <p><span class="ps">$</span> curl -O cv.pdf</p>
+        <p class="out">
+          <a class="btn btn--signal" [href]="i18n.t(profile.resume)" download>
+            <app-icon name="download" [size]="15" /> {{ ui.downloadCv }}
+          </a>
+        </p>
+        <p><span class="ps">$</span> <span class="cursor" aria-hidden="true"></span></p>
+      </div>
     </div>
   </div>
 </section>
 
 <footer class="footer">
   <div class="container footer__inner">
-    <p class="muted">© {{ year }} {{ profile.name }}. {{ ui.builtWith }}</p>
-    <div class="footer__links">
-      <a class="link-underline muted" href="https://github.com/ZizmanTK/Portfolio" target="_blank" rel="noopener">{{ ui.viewSource }}</a>
-      <a class="link-underline muted" [routerLink]="i18n.otherLangPath()">{{ ui.switchLang }}</a>
+    <div class="footer__brand">
+      <app-logo [size]="22" />
+      <p class="mono muted">© {{ year }} {{ profile.name }} · {{ ui.builtWith }}</p>
+    </div>
+    <div class="footer__links mono">
+      <a class="link muted" href="https://github.com/ZizmanTK/Portfolio" target="_blank" rel="noopener">{{ ui.viewSource }}</a>
+      <a class="link muted" [routerLink]="i18n.otherLangPath()">{{ ui.switchLang }}</a>
       <a class="icon-btn" [routerLink]="homePath()" fragment="top" [attr.aria-label]="ui.backToTop" [title]="ui.backToTop">
-        <app-icon name="arrowUp" [size]="16" />
+        <app-icon name="arrowUp" [size]="15" />
       </a>
     </div>
   </div>
 </footer>
+
+<aside class="lab" [attr.aria-label]="ui.logoLab">
+  <p class="lab__title mono">{{ ui.logoLab }}</p>
+  <div class="lab__options" role="radiogroup" [attr.aria-label]="ui.logoLabHint" [title]="ui.logoLabHint">
+    @for (v of variants; track v; let i = $index) {
+      <button
+        type="button"
+        role="radio"
+        class="lab__opt"
+        [class.is-active]="logos.variant() === v"
+        [attr.aria-checked]="logos.variant() === v"
+        [attr.aria-label]="v"
+        [title]="'0' + (i + 1) + ' ' + v"
+        (click)="logos.set(v)"
+      >
+        <app-logo [variant]="v" [size]="18" />
+      </button>
+    }
+  </div>
+</aside>

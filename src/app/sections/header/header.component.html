@@ -1,21 +1,21 @@
 @let ui = i18n.ui();
 <div class="bar container">
   <a class="brand" [routerLink]="homePath()" fragment="top" (click)="menuOpen.set(false)" aria-label="Abdoul Aziz Maazou — home">
-    <img class="brand__mark" src="assets/img/logo.svg" alt="" width="30" height="26" />
-    <span class="brand__name">{{ profile.firstName }} <strong>{{ profile.lastName }}</strong></span>
+    <app-logo [size]="26" />
+    <span class="brand__name mono">abdoul-aziz<span class="muted">.maazou</span></span>
   </a>
 
   <nav class="nav" [attr.aria-label]="ui.menu">
     <ul role="list" class="nav__list">
-      @for (link of links(); track link.id) {
+      @for (link of links(); track link.id; let i = $index) {
         <li>
           <a
-            class="nav__link"
+            class="nav__link mono"
             [class.is-active]="active() === link.id"
             [routerLink]="homePath()"
             [fragment]="link.id"
             (click)="menuOpen.set(false)"
-            >{{ link.label }}</a
+            ><span class="nav__idx">0{{ i + 1 }}</span>{{ link.label }}</a
           >
         </li>
       }
@@ -24,7 +24,7 @@
 
   <div class="actions">
     <a
-      class="icon-btn lang"
+      class="icon-btn"
       [routerLink]="i18n.otherLangPath()"
       [attr.hreflang]="i18n.lang() === 'en' ? 'fr' : 'en'"
       [attr.aria-label]="ui.switchLang"
@@ -32,12 +32,12 @@
       >{{ ui.langShort }}</a
     >
     <button type="button" class="icon-btn" (click)="theme.toggle()" [attr.aria-label]="ui.toggleTheme" [title]="ui.toggleTheme">
-      <app-icon class="only-light" name="moon" />
-      <app-icon class="only-dark" name="sun" />
+      <app-icon class="only-light" name="moon" [size]="16" />
+      <app-icon class="only-dark" name="sun" [size]="16" />
     </button>
-    <a class="btn btn--primary btn--sm resume" [href]="i18n.t(profile.resume)" download>
-      <app-icon name="download" [size]="16" />
-      <span>{{ ui.resume }}</span>
+    <a class="btn btn--signal btn--sm cv" [href]="i18n.t(profile.resume)" download [attr.aria-label]="ui.downloadCv">
+      <app-icon name="download" [size]="15" />
+      <span>{{ ui.cv }}</span>
     </a>
     <button
       type="button"
@@ -47,7 +47,7 @@
       aria-controls="mobile-menu"
       [attr.aria-label]="menuOpen() ? ui.close : ui.menu"
     >
-      <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+      <app-icon [name]="menuOpen() ? 'close' : 'menu'" [size]="16" />
     </button>
   </div>
 </div>
@@ -57,7 +57,7 @@
     @for (link of links(); track link.id; let i = $index) {
       <li>
         <a class="sheet__link" [routerLink]="homePath()" [fragment]="link.id" (click)="menuOpen.set(false)">
-          <span class="mono muted">0{{ i + 1 }}</span> {{ link.label }}
+          <span class="mono signal">0{{ i + 1 }}</span> ~/{{ link.label }}
         </a>
       </li>
     }

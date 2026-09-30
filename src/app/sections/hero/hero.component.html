@@ -1,86 +1,83 @@
 @let ui = i18n.ui();
 <section id="top" class="hero container" aria-labelledby="hero-title">
-  <div class="hero__text">
-    <p class="status">
-      <span class="status__dot" aria-hidden="true"></span>
-      <span>{{ i18n.t(profile.current) }}</span>
+  <div class="text">
+    <p class="prompt mono">
+      <span class="signal">&gt;</span> whoami<span class="cursor" aria-hidden="true"></span>
     </p>
 
-    <h1 id="hero-title" class="display-1 name">
-      <span class="name__line">{{ profile.firstName }}</span>
-      <span class="name__line"><em>{{ profile.lastName }}</em><span class="name__dot">.</span></span>
+    <h1 id="hero-title" class="display name">
+      <span>{{ profile.firstName }}</span>
+      <span><mark>{{ profile.lastName }}</mark></span>
     </h1>
 
-    <p class="role mono">{{ i18n.t(profile.role) }}</p>
+    <p class="role">
+      {{ i18n.t(profile.role) }} <span class="at">&#64;</span> {{ profile.company }}
+    </p>
+    <p class="focus mono">{{ i18n.t(profile.focus) }}</p>
+
     <p class="lead headline">{{ i18n.t(profile.headline) }}</p>
+    <p class="mission mono"><span class="tok-com">// {{ i18n.t(profile.mission) }}</span></p>
 
     <div class="cta">
-      <a class="btn btn--primary" [href]="i18n.t(profile.resume)" download>
-        <app-icon name="download" [size]="17" />
-        {{ ui.downloadResume }}
+      <a class="btn btn--signal" [href]="i18n.t(profile.resume)" download>
+        <app-icon name="download" [size]="16" /> {{ ui.downloadCv }}
       </a>
       <a class="btn" [routerLink]="homePath()" fragment="contact">
-        {{ ui.getInTouch }}
-        <app-icon name="arrowRight" [size]="17" />
+        {{ ui.contactMe }} <app-icon name="arrowRight" [size]="16" />
       </a>
+      <ul role="list" class="socials">
+        @for (s of socials; track s.id) {
+          <li>
+            <a class="icon-btn" [href]="s.url" target="_blank" rel="noopener me" [attr.aria-label]="s.label" [title]="s.label">
+              <app-icon [name]="s.id" [size]="17" />
+            </a>
+          </li>
+        }
+      </ul>
     </div>
-
-    <ul role="list" class="socials">
-      @for (s of socials; track s.id) {
-        <li>
-          <a class="icon-btn" [href]="s.url" target="_blank" rel="noopener me" [attr.aria-label]="s.label" [title]="s.label">
-            <app-icon [name]="s.id" />
-          </a>
-        </li>
-      }
-      <li>
-        <a class="icon-btn" [href]="'mailto:' + profile.email" aria-label="Email" title="Email">
-          <app-icon name="mail" />
-        </a>
-      </li>
-    </ul>
   </div>
 
-  <figure class="portrait">
-    <div class="portrait__frame">
-      <img
-        class="only-light"
-        [src]="profile.portrait.day"
-        [alt]="ui.photoAlt"
-        width="960"
-        height="1200"
-        fetchpriority="high"
-      />
+  <figure class="frame">
+    <div class="frame__img">
+      <img class="only-light" [src]="profile.portrait.day" [alt]="ui.photoAlt" width="960" height="1200" fetchpriority="high" />
       <img class="only-dark" [src]="profile.portrait.night" [alt]="ui.photoAlt" width="960" height="1200" loading="lazy" />
+      <span class="scan" aria-hidden="true"></span>
+
+      @for (group of [{ key: 'day', cls: 'only-light' }, { key: 'night', cls: 'only-dark' }]; track group.key) {
+        <div class="boxes" [class]="group.cls" aria-hidden="true">
+          @for (b of boxes[group.key === 'day' ? 'day' : 'night']; track b.label; let i = $index) {
+            <span
+              class="box det"
+              [attr.data-tone]="b.tone"
+              [style.left.%]="b.x"
+              [style.top.%]="b.y"
+              [style.width.%]="b.w"
+              [style.height.%]="b.h"
+              [style.animation-delay.ms]="300 + i * 180"
+              ><span class="det__tag">{{ b.label }} {{ b.score }}</span></span
+            >
+          }
+        </div>
+      }
     </div>
-    <figcaption class="portrait__badge">
-      <span class="portrait__pin"><app-icon name="pin" [size]="18" /></span>
-      <span>
-        <span class="mono muted">{{ i18n.t(about.facts[0].label) }}</span>
-        <strong>{{ i18n.t(profile.location) }}</strong>
-      </span>
+    <figcaption class="frame__meta mono">
+      <span><span class="live" aria-hidden="true"></span> {{ ui.hero.status }} · {{ i18n.t(profile.location) }}</span>
+      <span>{{ profile.coords }}</span>
     </figcaption>
   </figure>
 
+  <ul role="list" class="dets" [attr.aria-label]="ui.hero.detections">
+    @for (d of detections; track d.label) {
+      <li class="chip">{{ d.label }} <i>{{ d.score }}</i></li>
+    }
+  </ul>
+
   <dl class="stats">
-    @for (s of stats; track s.value + $index) {
+    @for (s of stats; track $index) {
       <div class="stat">
-        <dt class="muted">{{ i18n.t(s.label) }}</dt>
+        <dt class="mono muted">{{ i18n.t(s.label) }}</dt>
         <dd>{{ s.value }}</dd>
       </div>
     }
   </dl>
 </section>
-
-<div class="marquee" aria-hidden="true">
-  <div class="marquee__track">
-    @for (pass of [0, 1]; track pass) {
-      @for (t of tech; track t.icon) {
-        <span class="marquee__item">
-          <img [src]="'assets/logos/skills/' + t.icon + '.svg'" alt="" width="22" height="22" loading="lazy" />
-          {{ t.name }}
-        </span>
-      }
-    }
-  </div>
-</div>

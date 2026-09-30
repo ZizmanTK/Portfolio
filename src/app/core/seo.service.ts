@@ -6,15 +6,15 @@ const BASE = SITE.profile.site; // https://zizmantk.github.io/Portfolio/
 
 const COPY: Record<Lang, { title: string; description: string; locale: string }> = {
   en: {
-    title: 'Abdoul Aziz Maazou — Software Engineer, Web & AI',
+    title: 'Abdoul Aziz Maazou — AI Engineer',
     description:
-      'Software engineer in Grenoble building full-stack web apps (Angular, Django) and applied machine learning. Experience, projects, skills and resume.',
+      'AI engineer at BASSETTI France in Grenoble: agentic AI, RAG, computer vision and full-stack development. Experience, projects, skills and resume.',
     locale: 'en_US',
   },
   fr: {
-    title: 'Abdoul Aziz Maazou — Ingénieur logiciel, Web & IA',
+    title: 'Abdoul Aziz Maazou — Ingénieur en Intelligence Artificielle',
     description:
-      'Ingénieur logiciel à Grenoble : applications web full-stack (Angular, Django) et machine learning appliqué. Expérience, projets, compétences et CV.',
+      'Ingénieur en IA chez BASSETTI France à Grenoble : IA agentique, RAG, vision par ordinateur et développement full-stack. Expérience, projets, compétences et CV.',
     locale: 'fr_FR',
   },
 };

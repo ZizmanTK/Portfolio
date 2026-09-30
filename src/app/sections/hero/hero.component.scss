@@ -4,285 +4,284 @@
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   grid-template-areas:
-    'text portrait'
-    'stats portrait';
+    'text frame'
+    'dets frame'
+    'stats frame';
+  grid-template-rows: auto auto 1fr;
   column-gap: clamp(2rem, 6vw, 5rem);
-  row-gap: 3rem;
-  padding-top: clamp(2.5rem, 7vw, 5.5rem);
-  padding-bottom: clamp(3rem, 7vw, 5rem);
+  row-gap: 2rem;
+  padding-top: clamp(2.5rem, 6vw, 4.5rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
 }
 
-.hero__text {
+.text {
   grid-area: text;
-  align-self: center;
-  animation: rise 0.9s var(--ease) both;
+  animation: rise 0.8s var(--ease) both;
 }
 
-.status {
+.prompt {
   display: inline-flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.4rem 0.9rem 0.4rem 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--bg-elev);
-  font-size: 0.85rem;
   color: var(--ink-2);
+}
 
-  &__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #22a55b;
-    box-shadow: 0 0 0 0 rgb(34 165 91 / 0.5);
-    animation: pulse 2.4s infinite;
-  }
-
+.cursor {
+  width: 0.55em;
+  height: 1.1em;
+  background: var(--signal);
+  animation: blink 1.1s steps(1) infinite;
 }
 
 .name {
-  margin-top: 1.75rem;
+  margin-top: 1.2rem;
+  font-size: clamp(3.2rem, 8.4vw, 6.9rem);
 
-  &__line {
+  span {
     display: block;
   }
 
-  em {
-    font-style: italic;
-    color: var(--ink);
-  }
-
-  &__dot {
-    color: var(--accent);
+  mark {
+    display: inline-block;
+    margin-top: 0.06em;
+    padding: 0.02em 0.14em 0.08em;
+    background: var(--signal);
+    color: var(--on-signal);
+    box-shadow: 0.08em 0.08em 0 var(--ink);
   }
 }
 
 .role {
-  margin-top: 1.5rem;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--accent-ink);
+  margin-top: 1.8rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.3vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+
+  .at {
+    color: var(--signal-ink);
+  }
+}
+
+.focus {
+  margin-top: 0.4rem;
+  color: var(--muted);
 }
 
 .headline {
-  max-width: 34rem;
-  margin-top: 0.9rem;
+  max-width: 36rem;
+  margin-top: 1.4rem;
+}
+
+.mission {
+  margin-top: 0.8rem;
+  max-width: 36rem;
 }
 
 .cta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 0.6rem;
   margin-top: 2rem;
 }
 
 .socials {
   display: flex;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
+  gap: 0.4rem;
+  margin: 0 0 0 0.4rem;
 }
 
-/* Portrait ---------------------------------------------------------------- */
+/* Portrait with detections ------------------------------------------------- */
 
-.portrait {
-  grid-area: portrait;
-  position: relative;
-  align-self: center;
-  animation: rise 1s var(--ease) 0.12s both;
+.frame {
+  grid-area: frame;
+  align-self: start;
+  animation: rise 0.9s var(--ease) 0.1s both;
 
-  &__frame {
+  &__img {
     position: relative;
-    overflow: hidden;
     aspect-ratio: 4 / 5;
-    border-radius: var(--radius-lg);
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
     background: var(--surface-2);
-    box-shadow: var(--shadow-lg);
 
-    img {
+    > img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 1.2s var(--ease);
-    }
-
-    &:hover img {
-      transform: scale(1.03);
+      border-radius: 3px;
     }
   }
 
-  &__badge {
-    position: absolute;
-    left: -1.25rem;
-    bottom: 1.75rem;
+  &__meta {
     display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.65rem 1rem 0.65rem 0.65rem;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    background: var(--surface);
-    box-shadow: var(--shadow-lg);
-    font-size: 0.9rem;
-    line-height: 1.25;
-
-  }
-
-  &__pin {
-    display: grid;
-    place-items: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: var(--accent-soft);
-    color: var(--accent-ink);
-  }
-
-  &__badge {
-
-    > span {
-      display: grid;
-    }
-
-    .mono {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    strong {
-      font-weight: 600;
-    }
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.6rem;
+    font-size: 0.72rem;
+    color: var(--muted);
   }
 }
 
-/* Stats ------------------------------------------------------------------- */
+.live {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 0.2rem;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgb(34 197 94 / 0.6);
+  animation: pulse 2s infinite;
+}
+
+.scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--signal), transparent);
+  box-shadow: 0 0 16px 2px var(--signal);
+  opacity: 0.8;
+  animation: scan 4.5s ease-in-out infinite;
+}
+
+.boxes {
+  position: absolute;
+  inset: 0;
+}
+
+.box {
+  position: absolute;
+  --det-len: 14px;
+  animation: pop 0.5s var(--ease) both;
+
+  &::after {
+    inset: 0;
+  }
+
+  .det__tag {
+    left: 0;
+    top: -22px;
+  }
+
+  &[data-tone='teal'] {
+    --det: #2dd4bf;
+  }
+
+  &[data-tone='coral'] {
+    --det: #fb923c;
+  }
+}
+
+/* Detections + stats ------------------------------------------------------- */
+
+.dets {
+  grid-area: dets;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  animation: rise 0.9s var(--ease) 0.2s both;
+}
 
 .stats {
   grid-area: stats;
+  align-self: end;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 0;
-  border-top: 1px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
 }
 
 .stat {
   display: flex;
   flex-direction: column-reverse;
-  gap: 0.1rem;
-  padding: 1.1rem 1rem 0 0;
+  padding: 1rem 1.1rem;
 
   & + & {
-    padding-left: 1rem;
     border-left: 1px solid var(--line);
   }
 
   dt {
-    font-size: 0.85rem;
+    font-size: 0.72rem;
   }
 
   dd {
-    margin: 0;
-    font-family: var(--font-serif);
-    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+    font-weight: 700;
     line-height: 1;
-  }
-}
-
-/* Marquee ----------------------------------------------------------------- */
-
-.marquee {
-  overflow: hidden;
-  border-block: 1px solid var(--line);
-  background: var(--bg-elev);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-
-  &__track {
-    display: flex;
-    width: max-content;
-    animation: scroll 45s linear infinite;
-  }
-
-  &:hover &__track {
-    animation-play-state: paused;
-  }
-
-  &__item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 1.1rem 1.75rem;
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--muted);
-    white-space: nowrap;
-
-    img {
-      width: 22px;
-      height: 22px;
-      object-fit: contain;
-    }
-  }
-}
-
-@keyframes scroll {
-  to {
-    transform: translateX(-50%);
+    letter-spacing: -0.04em;
   }
 }
 
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(20px);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes scan {
+  0%,
+  100% {
+    top: 4%;
+  }
+  50% {
+    top: 96%;
   }
 }
 
 @keyframes pulse {
   70% {
-    box-shadow: 0 0 0 8px rgb(34 165 91 / 0);
+    box-shadow: 0 0 0 7px rgb(34 197 94 / 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgb(34 165 91 / 0);
+    box-shadow: 0 0 0 0 rgb(34 197 94 / 0);
   }
 }
 
-/* Responsive -------------------------------------------------------------- */
-
-@media (max-width: 900px) {
+@media (max-width: 920px) {
   .hero {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       'text'
-      'portrait'
+      'frame'
+      'dets'
       'stats';
   }
 
-  .portrait {
-    max-width: 440px;
+  .frame {
     width: 100%;
+    max-width: 440px;
     justify-self: center;
-
-    &__badge {
-      left: 1rem;
-      bottom: 1rem;
-    }
   }
 }
 
 @media (max-width: 480px) {
+  .socials {
+    margin-left: 0;
+  }
+
   .stat {
-    padding-right: 0.5rem;
-
-    & + & {
-      padding-left: 0.75rem;
-    }
-
-    dt {
-      font-size: 0.78rem;
-    }
+    padding: 0.8rem;
   }
 }

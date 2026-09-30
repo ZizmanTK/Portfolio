@@ -1,74 +1,80 @@
 @let ui = i18n.ui();
-<section id="experience" class="section" aria-labelledby="experience-title">
+<section id="journey" class="section" aria-labelledby="journey-title">
   <div class="container">
-    <app-section-heading index="02" [label]="ui.sections.experience" [title]="ui.experienceTitle" headingId="experience-title" />
+    <app-section-heading index="02" [file]="ui.files.journey" [title]="ui.titles.journey" headingId="journey-title">
+      <p class="lead intro">{{ ui.journeyIntro }}</p>
+    </app-section-heading>
 
-    <ol role="list" class="timeline">
-      @for (job of experience; track $index) {
-        <li class="entry" appReveal>
-          <div class="entry__when">
-            <p class="mono">
-              <time [attr.datetime]="job.start">{{ i18n.month(job.start) }}</time>
-              —
-              @if (job.end) {
-                <time [attr.datetime]="job.end">{{ i18n.month(job.end) }}</time>
-              } @else {
-                <span class="now">{{ ui.present }}</span>
-              }
-            </p>
-            <p class="mono muted">{{ job.location }}</p>
+    <div class="legend mono" aria-hidden="true">
+      <span><i class="k k--work"></i> main</span>
+      <span><i class="k k--edu"></i> {{ ui.edu }}</span>
+    </div>
+
+    <ol role="list" class="log">
+      @for (c of commits(); track c.hash; let first = $first) {
+        <li class="row" [class.row--edu]="c.kind === 'edu'" appReveal>
+          <div class="graph" aria-hidden="true">
+            @if (c.workTop) {<span class="lane lane--work lane--top"></span>}
+            @if (c.workBottom) {<span class="lane lane--work lane--bottom"></span>}
+            @if (c.eduTop) {<span class="lane lane--edu lane--top"></span>}
+            @if (c.eduBottom) {<span class="lane lane--edu lane--bottom"></span>}
+            @if (c.fork) {
+              <svg class="fork" viewBox="0 0 40 100" preserveAspectRatio="none"><path d="M12 0 C 12 60, 36 40, 36 100" /></svg>
+            }
+            <span class="dot" [class.dot--head]="first"></span>
           </div>
 
-          <span class="entry__node" [class.is-current]="!job.end" aria-hidden="true"></span>
+          <article class="commit">
+            <p class="head mono">
+              <span class="hash">{{ c.hash }}</span>
+              <time [attr.datetime]="c.start">{{ i18n.month(c.start) }}</time>
+              <span class="muted">→</span>
+              @if (c.end) {
+                <time [attr.datetime]="c.end">{{ i18n.month(c.end) }}</time>
+              } @else {
+                <span class="signal">{{ ui.present }}</span>
+              }
+              @if (first) {<span class="ref ref--head">{{ ui.head }}</span>}
+              @if (c.tag) {<span class="ref">{{ i18n.t(c.tag) }}</span>}
+              @if (c.kind === 'edu') {<span class="ref ref--edu">{{ ui.edu }}</span>}
+            </p>
 
-          <article class="entry__body">
-            <header class="entry__head">
-              <img class="logo" [src]="job.logo" [alt]="job.company + ' logo'" width="44" height="44" loading="lazy" />
+            <div class="title">
+              @if (c.logo) {
+                <img class="logo" [src]="c.logo" [alt]="c.org + ' logo'" width="40" height="40" loading="lazy" />
+              } @else {
+                <span class="logo logo--mono" aria-hidden="true">{{ c.org.charAt(0) }}</span>
+              }
               <div>
-                <h3 class="entry__role">{{ i18n.t(job.role) }}</h3>
-                <p class="entry__org">
-                  <a class="link-underline" [href]="job.url" target="_blank" rel="noopener">{{ job.company }}</a>
-                  <span class="chip">{{ i18n.t(job.type) }}</span>
+                <h3>{{ i18n.t(c.title) }}</h3>
+                <p class="org">
+                  @if (c.url) {
+                    <a class="link" [href]="c.url" target="_blank" rel="noopener">{{ c.org }}</a>
+                  } @else {
+                    {{ c.org }}
+                  }
+                  <span class="muted"> · {{ c.where }}</span>
                 </p>
               </div>
-            </header>
-            <p class="entry__summary muted">{{ i18n.t(job.summary) }}</p>
-            <ul class="entry__list">
-              @for (h of job.highlights; track $index) {
-                <li>{{ i18n.t(h) }}</li>
-              }
-            </ul>
-            <ul class="chip-list" aria-label="Stack">
-              @for (s of job.stack; track s) {
-                <li class="chip">{{ s }}</li>
-              }
-            </ul>
+            </div>
+
+            @if (c.highlights.length) {
+              <ul class="bullets">
+                @for (h of c.highlights; track $index) {
+                  <li>{{ i18n.t(h) }}</li>
+                }
+              </ul>
+            }
+            @if (c.stack.length) {
+              <ul class="chip-list" aria-label="Stack">
+                @for (s of c.stack; track s) {
+                  <li class="chip">{{ s }}</li>
+                }
+              </ul>
+            }
           </article>
         </li>
       }
     </ol>
-  </div>
-</section>
-
-<section id="education" class="section section--tight" aria-labelledby="education-title">
-  <div class="container">
-    <app-section-heading index="03" [label]="ui.sections.education" [title]="ui.educationTitle" headingId="education-title" />
-
-    <div class="schools">
-      @for (e of education; track $index) {
-        <article class="school card" [appReveal]="$index * 80">
-          <div class="school__top">
-            <img class="logo" [src]="e.logo" [alt]="e.school + ' logo'" width="52" height="52" loading="lazy" />
-            <p class="mono muted">{{ i18n.month(e.start) }} — {{ i18n.month(e.end) }}</p>
-          </div>
-          <h3 class="school__degree">{{ i18n.t(e.degree) }}</h3>
-          <p class="school__name">
-            <a class="link-underline" [href]="e.url" target="_blank" rel="noopener">{{ e.school }}</a>
-            <span class="muted"> · {{ e.location }}</span>
-          </p>
-          <p class="school__details muted">{{ i18n.t(e.details) }}</p>
-        </article>
-      }
-    </div>
   </div>
 </section>

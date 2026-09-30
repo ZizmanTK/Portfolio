@@ -10,92 +10,74 @@ import { SectionHeadingComponent } from '../../shared/section-heading.component'
   imports: [SectionHeadingComponent, RevealDirective],
   template: `
     @let ui = i18n.ui();
-    <section id="skills" class="section" aria-labelledby="skills-title">
+    <section id="stack" class="section" aria-labelledby="stack-title">
       <div class="container">
-        <app-section-heading index="05" [label]="ui.sections.skills" [title]="ui.skillsTitle" headingId="skills-title" />
+        <app-section-heading index="04" [file]="ui.files.stack" [title]="ui.titles.stack" headingId="stack-title">
+          <p class="lead intro">{{ ui.stackIntro }}</p>
+        </app-section-heading>
 
-        <div class="bento">
-          @for (g of groups; track $index; let i = $index) {
-            <article class="group card" [class.group--wide]="i >= 3" [appReveal]="(i % 3) * 70">
-              <header class="group__head">
-                <span class="mono muted">0{{ i + 1 }}</span>
-                <h3>{{ i18n.t(g.group) }}</h3>
-              </header>
-              <ul role="list" class="group__items">
-                @for (s of g.items; track s.name) {
-                  <li class="skill">
-                    @if (s.icon) {
-                      <img [src]="'assets/logos/skills/' + s.icon + '.svg'" alt="" width="22" height="22" loading="lazy" />
-                    } @else {
-                      <span class="skill__mono" aria-hidden="true">{{ s.name.charAt(0) }}</span>
+        <div class="window" appReveal>
+          <div class="window__bar">
+            <span class="window__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="window__tab">stack.json</span>
+            @for (b of badges; track $index) {
+              <span class="badge mono">✓ {{ i18n.t(b) }}</span>
+            }
+          </div>
+          <div class="json mono">
+            <span class="tok-pun brace">{{ '{' }}</span>
+            <div class="groups">
+              @for (g of groups; track g.key; let last = $last) {
+                <div class="group">
+                  <span class="tok-com">// {{ i18n.t(g.group) }}</span>
+                  <div>
+                    <span class="tok-key">"{{ g.key }}"</span><span class="tok-pun">: [</span>
+                  </div>
+                  <ul role="list" class="items">
+                    @for (s of g.items; track s; let lastItem = $last) {
+                      <li><span class="tok-str">"{{ s }}"</span>@if (!lastItem) {<span class="tok-pun">,</span>}</li>
                     }
-                    {{ s.name }}
-                  </li>
-                }
-              </ul>
-            </article>
-          }
+                  </ul>
+                  <span class="tok-pun">]{{ last ? '' : ',' }}</span>
+                </div>
+              }
+            </div>
+            <span class="tok-pun brace">{{ '}' }}</span>
+          </div>
         </div>
       </div>
     </section>
   `,
   styles: `
-    .bento {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 1rem;
+    .intro { margin-top: 1rem; }
+    .window__bar { flex-wrap: wrap; }
+    .badge {
+      margin-left: auto;
+      padding: 0.1rem 0.55rem;
+      border: 1px solid var(--green);
+      border-radius: 999px;
+      color: var(--green);
+      font-size: 0.7rem;
+      white-space: nowrap;
     }
-    .group {
-      grid-column: span 2;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      padding: 1.4rem;
-      transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    .json { padding: 1.4rem clamp(1rem, 3vw, 2rem); font-size: 0.88rem; line-height: 1.8; }
+    .groups {
+      columns: 3 16rem;
+      column-gap: 2.5rem;
+      padding: 0.5rem 0 0.5rem 1.5rem;
     }
-    .group:hover { border-color: var(--line-strong); box-shadow: var(--shadow); }
-    .group--wide { grid-column: span 3; }
-    .group__head { display: flex; align-items: baseline; gap: 0.75rem; }
-    .group__head h3 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
-    .group__items { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; }
-    .skill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.45rem 0.85rem 0.45rem 0.5rem;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--bg-elev);
-      font-size: 0.92rem;
-      font-weight: 500;
-      transition: transform 0.2s var(--ease), border-color 0.2s;
-    }
-    .skill:hover { transform: translateY(-2px); border-color: var(--line-strong); }
-    .skill img { width: 22px; height: 22px; object-fit: contain; }
-    .skill__mono {
-      display: grid;
-      place-items: center;
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      background: var(--accent-soft);
-      color: var(--accent-ink);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 600;
-    }
-    @media (max-width: 900px) {
-      .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .group, .group--wide { grid-column: span 1; }
-      .group:last-child { grid-column: span 2; }
-    }
+    .group { break-inside: avoid; margin-bottom: 1.1rem; }
+    .items { margin: 0; padding-left: 1.5rem; }
+    .items li { transition: transform 0.2s var(--ease); }
+    .items li:hover { transform: translateX(4px); }
     @media (max-width: 560px) {
-      .bento { grid-template-columns: minmax(0, 1fr); }
-      .group, .group--wide, .group:last-child { grid-column: auto; }
+      .badge { margin-left: 0; }
+      .groups { padding-left: 0.75rem; }
     }
   `,
 })
 export class SkillsComponent {
   protected readonly i18n = inject(I18n);
   protected readonly groups = SITE.skills;
+  protected readonly badges = SITE.badges;
 }

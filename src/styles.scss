@@ -1,58 +1,68 @@
 /* ==========================================================================
-   Design tokens
-   Warm paper + ink, with a single vermilion accent. Dark theme mirrors it.
+   ZTK design system — "inference meets IDE"
+   An editor-like base (grid, mono labels, file tabs, syntax colours) with a
+   computer-vision signal layer (detection brackets, confidence tags, scan lines).
+   Signal colour = the ZTK crown yellow.
    ========================================================================== */
 
 :root {
-  --bg: #f5f3ee;
-  --bg-elev: #fbfaf7;
+  --bg: #f4f3ef;
+  --grid: rgb(17 19 24 / 0.045);
   --surface: #ffffff;
-  --surface-2: #efece5;
-  --ink: #161513;
-  --ink-2: #3b3934;
-  --muted: #6b6860;
-  --line: #e2ded4;
-  --line-strong: #cdc8bc;
-  --accent: #e5461a;
-  --accent-ink: #b5340c; /* accent that passes AA as small text on --bg */
-  --accent-soft: #fbe3d8;
-  --on-ink: #f5f3ee;
-  --shadow: 0 1px 2px rgb(22 21 19 / 0.04), 0 8px 24px -12px rgb(22 21 19 / 0.12);
-  --shadow-lg: 0 2px 4px rgb(22 21 19 / 0.04), 0 24px 48px -20px rgb(22 21 19 / 0.25);
-  --header-bg: rgb(245 243 238 / 0.78);
+  --surface-2: #eceae4;
+  --code-bg: #f7f6f2;
+  --ink: #111318;
+  --ink-2: #3a3d45;
+  --muted: #6b6e76;
+  --line: #dedbd3;
+  --line-strong: #c6c2b8;
+  --signal: #fbb915;
+  --signal-ink: #8f6200; /* yellow that passes AA as text on light */
+  --signal-soft: rgb(251 185 21 / 0.16);
+  --on-signal: #111318;
+  --logo: #e39f00;
+  --teal: #0f766e;
+  --coral: #c2410c;
+  --violet: #6d28d9;
+  --green: #15803d;
+  --shadow: 0 1px 2px rgb(17 19 24 / 0.05), 0 12px 32px -16px rgb(17 19 24 / 0.22);
+  --header-bg: rgb(244 243 239 / 0.82);
 
+  --font-display: 'Space Grotesk', 'Geist', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-serif: 'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
   --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
-  --radius-sm: 10px;
-  --radius: 18px;
-  --radius-lg: 28px;
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
   --container: 1200px;
   --gutter: clamp(1rem, 4vw, 2.5rem);
-  --header-h: 68px;
+  --header-h: 64px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   color-scheme: light;
 }
 
 @mixin dark-tokens {
-  --bg: #0d0d0c;
-  --bg-elev: #121211;
-  --surface: #171715;
-  --surface-2: #1f1f1c;
-  --ink: #f1eee7;
-  --ink-2: #d4d0c6;
-  --muted: #9b978d;
-  --line: #2a2926;
-  --line-strong: #3a3935;
-  --accent: #ff6a3d;
-  --accent-ink: #ff8a64;
-  --accent-soft: #3a1b10;
-  --on-ink: #0d0d0c;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.6);
-  --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.3), 0 24px 48px -20px rgb(0 0 0 / 0.8);
-  --header-bg: rgb(13 13 12 / 0.75);
+  --bg: #0b0c10;
+  --grid: rgb(255 255 255 / 0.035);
+  --surface: #12141a;
+  --surface-2: #1a1d25;
+  --code-bg: #0f1116;
+  --ink: #ecebe6;
+  --ink-2: #c9c7c1;
+  --muted: #8a8983;
+  --line: #23262f;
+  --line-strong: #353947;
+  --signal-ink: #fbb915;
+  --signal-soft: rgb(251 185 21 / 0.12);
+  --logo: #fbb915;
+  --teal: #2dd4bf;
+  --coral: #fb923c;
+  --violet: #c4b5fd;
+  --green: #86efac;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -18px rgb(0 0 0 / 0.9);
+  --header-bg: rgb(11 12 16 / 0.8);
   color-scheme: dark;
 }
 
@@ -97,16 +107,18 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
   overflow-x: hidden;
-  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
 }
 
 img,
@@ -122,7 +134,9 @@ h4,
 p,
 ul,
 ol,
-figure {
+figure,
+dl,
+dd {
   margin: 0;
 }
 
@@ -144,18 +158,18 @@ button {
 }
 
 ::selection {
-  background: var(--accent);
-  color: #fff;
+  background: var(--signal);
+  color: var(--on-signal);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--signal);
   outline-offset: 3px;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 /* ==========================================================================
-   Layout & typography helpers
+   Layout & type
    ========================================================================== */
 
 .container {
@@ -166,58 +180,44 @@ button {
 }
 
 .section {
-  padding-block: clamp(4.5rem, 10vw, 8rem);
-  border-top: 1px solid var(--line);
+  padding-block: clamp(4rem, 9vw, 7rem);
 }
 
-.display-1 {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(3.4rem, 10.5vw, 8.75rem);
-  line-height: 0.9;
-  letter-spacing: -0.02em;
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
 }
 
-.display-2 {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(2.4rem, 5.6vw, 4.25rem);
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.6vw, 3.4rem);
   line-height: 1;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.035em;
   text-wrap: balance;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-}
-
-.eyebrow__index {
-  color: var(--accent-ink);
-}
-
-.lead {
-  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
-  line-height: 1.55;
-  color: var(--ink-2);
-  text-wrap: pretty;
-}
-
-.muted {
-  color: var(--muted);
 }
 
 .mono {
   font-family: var(--font-mono);
   font-size: 0.82rem;
   letter-spacing: 0.01em;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.signal {
+  color: var(--signal-ink);
+}
+
+.lead {
+  font-size: clamp(1.08rem, 1.5vw, 1.22rem);
+  line-height: 1.6;
+  color: var(--ink-2);
+  text-wrap: pretty;
 }
 
 .visually-hidden {
@@ -232,106 +232,106 @@ button {
   border: 0;
 }
 
+/* Syntax colours, for code-flavoured content. */
+.tok-key { color: var(--violet); }
+.tok-str { color: var(--green); }
+.tok-num { color: var(--signal-ink); }
+.tok-com { color: var(--muted); font-style: italic; }
+.tok-fn { color: var(--teal); }
+.tok-pun { color: var(--muted); }
+
 /* ==========================================================================
    Components
    ========================================================================== */
 
 .btn {
-  --btn-bg: var(--surface);
+  --btn-bg: transparent;
   --btn-fg: var(--ink);
   --btn-border: var(--line-strong);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  min-height: 46px;
-  padding: 0 1.25rem;
+  min-height: 44px;
+  padding: 0 1.1rem;
   border: 1px solid var(--btn-border);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   background: var(--btn-bg);
   color: var(--btn-fg);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
   font-weight: 500;
-  font-size: 0.95rem;
   white-space: nowrap;
   transition:
     transform 0.2s var(--ease),
     background-color 0.2s var(--ease),
     border-color 0.2s var(--ease),
-    box-shadow 0.2s var(--ease);
+    color 0.2s var(--ease);
 
   &:hover {
     transform: translateY(-1px);
-    border-color: var(--ink);
-    box-shadow: var(--shadow);
+    border-color: var(--signal);
+    color: var(--signal-ink);
   }
 
-  &:active {
-    transform: translateY(0);
-  }
-
-  &--primary {
-    --btn-bg: var(--ink);
-    --btn-fg: var(--on-ink);
-    --btn-border: var(--ink);
+  &--signal {
+    --btn-bg: var(--signal);
+    --btn-fg: var(--on-signal);
+    --btn-border: var(--signal);
 
     &:hover {
-      --btn-bg: var(--accent);
-      --btn-border: var(--accent);
-      --btn-fg: #fff;
-    }
-  }
-
-  &--ghost {
-    --btn-bg: transparent;
-    --btn-border: transparent;
-
-    &:hover {
-      --btn-bg: var(--surface-2);
-      box-shadow: none;
-      border-color: transparent;
+      --btn-bg: transparent;
+      color: var(--signal-ink);
     }
   }
 
   &--sm {
-    min-height: 38px;
-    padding: 0 0.95rem;
-    font-size: 0.88rem;
+    min-height: 36px;
+    padding: 0 0.8rem;
+    font-size: 0.8rem;
   }
 }
 
 .icon-btn {
   display: inline-grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
   transition:
-    background-color 0.2s var(--ease),
     border-color 0.2s var(--ease),
     color 0.2s var(--ease);
 
   &:hover {
-    background: var(--surface-2);
-    border-color: var(--line-strong);
+    border-color: var(--signal);
+    color: var(--signal-ink);
   }
 }
 
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.28rem 0.7rem;
+  gap: 0.35rem;
+  padding: 0.22rem 0.6rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--bg-elev);
+  border-radius: 4px;
+  background: var(--surface);
   color: var(--ink-2);
   font-family: var(--font-mono);
   font-size: 0.74rem;
-  line-height: 1.4;
+  line-height: 1.5;
   white-space: nowrap;
+
+  i {
+    font-style: normal;
+    color: var(--signal-ink);
+  }
 }
 
 .chip-list {
@@ -343,25 +343,144 @@ button {
   margin: 0;
 }
 
-.card {
+.panel {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
 }
 
-.link-underline {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 0% 1px;
+/* Editor window chrome: a title bar with a file tab. */
+.window {
+  overflow: hidden;
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    height: 40px;
+    padding: 0 0.9rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  &__dots {
+    display: flex;
+    gap: 6px;
+
+    i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--line-strong);
+    }
+  }
+
+  &__tab {
+    color: var(--ink);
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--line);
+    border-bottom-color: transparent;
+    border-radius: 6px 6px 0 0;
+    background: var(--code-bg);
+    transform: translateY(8px);
+  }
+}
+
+/*
+ * Detection box: four corner brackets drawn with background gradients, plus
+ * an optional confidence tag (.det__tag). Add .det--hover to show on hover only.
+ */
+.det {
+  --det: var(--signal);
+  --det-len: 16px;
+  --det-w: 2px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    pointer-events: none;
+    background:
+      linear-gradient(var(--det), var(--det)) top left / var(--det-len) var(--det-w),
+      linear-gradient(var(--det), var(--det)) top left / var(--det-w) var(--det-len),
+      linear-gradient(var(--det), var(--det)) top right / var(--det-len) var(--det-w),
+      linear-gradient(var(--det), var(--det)) top right / var(--det-w) var(--det-len),
+      linear-gradient(var(--det), var(--det)) bottom left / var(--det-len) var(--det-w),
+      linear-gradient(var(--det), var(--det)) bottom left / var(--det-w) var(--det-len),
+      linear-gradient(var(--det), var(--det)) bottom right / var(--det-len) var(--det-w),
+      linear-gradient(var(--det), var(--det)) bottom right / var(--det-w) var(--det-len);
+    background-repeat: no-repeat;
+    transition:
+      opacity 0.25s var(--ease),
+      inset 0.25s var(--ease);
+  }
+
+  &__tag {
+    position: absolute;
+    left: -6px;
+    top: -30px;
+    z-index: 2;
+    padding: 2px 7px;
+    background: var(--det);
+    color: var(--on-signal);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: nowrap;
+    transition:
+      opacity 0.25s var(--ease),
+      transform 0.25s var(--ease);
+  }
+
+  &--hover {
+    &::after {
+      opacity: 0;
+      inset: 4px;
+    }
+
+    .det__tag {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    &:hover,
+    &:focus-visible,
+    &:focus-within {
+      &::after {
+        opacity: 1;
+        inset: -6px;
+      }
+
+      .det__tag {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+}
+
+.link {
+  background-image: linear-gradient(var(--signal), var(--signal));
+  background-size: 0% 2px;
   background-position: 0 100%;
   background-repeat: no-repeat;
   transition: background-size 0.3s var(--ease);
 
   &:hover {
-    background-size: 100% 1px;
+    background-size: 100% 2px;
   }
 }
 
-/* Theme-dependent visibility (used for icons and the day/night portrait). */
+/* Theme-dependent visibility (icons and the day/night portrait). */
 :root:not([data-theme='dark']) .only-dark,
 :root[data-theme='dark'] .only-light {
   display: none !important;
@@ -370,10 +489,10 @@ button {
 /* Scroll reveal (class is only ever added client-side, see RevealDirective). */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(16px);
   transition:
-    opacity 0.7s var(--ease) var(--reveal-delay, 0ms),
-    transform 0.7s var(--ease) var(--reveal-delay, 0ms);
+    opacity 0.6s var(--ease) var(--reveal-delay, 0ms),
+    transform 0.6s var(--ease) var(--reveal-delay, 0ms);
 
   &.is-visible {
     opacity: 1;

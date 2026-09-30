@@ -12,13 +12,14 @@ import { SITE } from '../../core/content';
 import { I18n } from '../../core/i18n';
 import { ThemeService } from '../../core/theme.service';
 import { IconComponent } from '../../shared/icon.component';
+import { LogoComponent } from '../../shared/logo.component';
 
-const SECTIONS = ['about', 'experience', 'projects', 'skills', 'contact'] as const;
+const SECTIONS = ['about', 'journey', 'projects', 'stack', 'contact'] as const;
 
 @Component({
   selector: 'app-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, IconComponent],
+  imports: [RouterLink, IconComponent, LogoComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   host: {
