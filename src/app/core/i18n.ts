@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import type { L, Lang } from './content';
+import { monthsBetween, type L, type Lang } from './content';
 import { UI } from './ui-strings';
 
 @Injectable({ providedIn: 'root' })
@@ -21,5 +21,16 @@ export class I18n {
     return new Intl.DateTimeFormat(locale, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(
       new Date(Date.UTC(y, m - 1, 1)),
     );
+  }
+
+  /** LinkedIn-style length of a period: "1 yr 1 mo", "6 mo". An open end means "until this month". */
+  duration(start: string, end: string | null): string {
+    const now = new Date();
+    const until = end ?? `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const total = monthsBetween(start, until);
+    const years = Math.floor(total / 12);
+    const months = total % 12;
+    const ui = this.ui();
+    return [years ? ui.yr(years) : '', months ? ui.mo(months) : ''].filter(Boolean).join(' ');
   }
 }

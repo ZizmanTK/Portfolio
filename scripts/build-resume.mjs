@@ -2,10 +2,12 @@
  * Builds the downloadable resume PDFs (EN + FR) from src/content/site.json,
  * the same file the website renders — so the two never drift apart.
  *
- *   npm run resume                       → src/assets/resume/*.pdf (crown logo)
- *   npm run resume -- --logo=ligature    → use another mark (crown | ligature | tetromino | detection)
- *   npm run resume -- --keep-html        → keep the intermediate HTML for debugging
- *   CHROME_PATH=... npm run resume       → if Chrome/Edge isn't found automatically
+ * Layout is recruiter- and ATS-friendly: one column, standard section names,
+ * real selectable text, dates right-aligned, keywords bolded (**like this** in the JSON).
+ *
+ *   npm run resume                    → src/assets/resume/*.pdf
+ *   npm run resume -- --keep-html     → keep the intermediate HTML for debugging
+ *   CHROME_PATH=... npm run resume    → if Chrome/Edge isn't found automatically
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
@@ -17,12 +19,6 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const site = JSON.parse(readFileSync(join(root, 'src/content/site.json'), 'utf8'));
 const outDir = join(root, 'src/assets/resume');
 const keepHtml = process.argv.includes('--keep-html');
-const logoArg = process.argv.find((a) => a.startsWith('--logo='))?.split('=')[1] ?? 'crown';
-const logoFile = join(root, `src/assets/img/mark-${logoArg}.svg`);
-if (!existsSync(logoFile)) {
-  console.error(`Unknown logo "${logoArg}" (expected crown, ligature, tetromino or detection).`);
-  process.exit(1);
-}
 
 const CHROME_CANDIDATES = [
   process.env.CHROME_PATH,
@@ -44,31 +40,37 @@ if (!chrome) {
 const LABELS = {
   en: {
     file: site.profile.resume.en,
-    summary: 'profile',
-    experience: 'experience',
-    projects: 'side projects',
-    education: 'education',
-    stack: 'stack',
-    languages: 'languages',
-    interests: 'off the clock',
-    present: 'present',
+    summary: 'Summary',
+    skills: 'Skills',
+    experience: 'Experience',
+    education: 'Education',
+    additional: 'Additional information',
+    projects: 'Side projects',
+    languages: 'Languages',
+    interests: 'Interests',
+    certifications: 'Certification',
+    present: 'Present',
     photo: false,
   },
   fr: {
     file: site.profile.resume.fr,
-    summary: 'profil',
-    experience: 'expérience',
-    projects: 'projets perso',
-    education: 'formation',
-    stack: 'stack',
-    languages: 'langues',
-    interests: 'hors du bureau',
-    present: 'aujourd’hui',
+    summary: 'Profil',
+    skills: 'Compétences',
+    experience: 'Expérience professionnelle',
+    education: 'Formation',
+    additional: 'Informations complémentaires',
+    projects: 'Projets personnels',
+    languages: 'Langues',
+    interests: 'Centres d’intérêt',
+    certifications: 'Certification',
+    present: 'Aujourd’hui',
     photo: true, // photos are customary on French CVs
   },
 };
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+/** Escapes, then turns **keyword** markers into <strong>. */
+const rich = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
 function month(ym, lang) {
   if (!ym) return LABELS[lang].present;
@@ -78,25 +80,33 @@ function month(ym, lang) {
   );
 }
 
-/** Same short hash as the site's timeline (src/app/core/content.ts → shortHash). */
-function shortHash(input) {
-  let h = 0x811c9dc5;
-  for (let i = 0; i < input.length; i++) h = Math.imul(h ^ input.charCodeAt(i), 0x01000193);
-  return (h >>> 0).toString(16).padStart(8, '0').slice(0, 7);
-}
-
 const stripProtocol = (url) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+
+/** Consecutive positions at the same company, grouped (as on the website). */
+function groupByCompany(items) {
+  const groups = [];
+  for (const e of items) {
+    const last = groups.at(-1);
+    if (last && last.company === e.company) {
+      last.positions.push(e);
+      last.start = e.start;
+    } else {
+      groups.push({ company: e.company, start: e.start, end: e.end, positions: [e] });
+    }
+  }
+  return groups;
+}
 
 function render(lang) {
   const L = LABELS[lang];
   const t = (v) => esc(v[lang]);
+  const r = (v) => rich(v[lang]);
   const p = site.profile;
   const avatar = pathToFileURL(join(root, 'src', p.avatar)).href;
-  const logo = pathToFileURL(logoFile).href;
+  const logo = pathToFileURL(join(root, 'src/assets/img/logo.svg')).href;
   const linkedin = site.socials.find((s) => s.id === 'linkedin');
   const github = site.socials.find((s) => s.id === 'github');
   const itch = site.socials.find((s) => s.id === 'itch');
-  const sideProjects = site.projects.filter((pr) => pr.category === 'games');
 
   const contact = [
     `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>`,
@@ -104,48 +114,48 @@ function render(lang) {
     `<a href="${esc(linkedin.url)}">${esc(stripProtocol(linkedin.url))}</a>`,
     `<a href="${esc(github.url)}">${esc(stripProtocol(github.url))}</a>`,
     `<a href="${esc(p.site)}">${esc(stripProtocol(p.site))}</a>`,
-  ];
+  ].join('<span class="sep">|</span>');
 
-  const experience = site.experience
-    .map(
-      (e, i) => `
-      <article class="commit${i === 0 ? ' commit--head' : ''}">
-        <p class="commit__meta"><span class="hash">${shortHash(e.company + e.start)}</span> ${esc(month(e.start, lang))} → ${esc(month(e.end, lang))}
-          <span class="ref">${t(e.type)}</span></p>
-        <h3>${t(e.role)} <span class="at">@ ${esc(e.company)}</span> <span class="where">· ${t(e.location)}</span></h3>
-        <ul>${e.highlights.map((h) => `<li>${t(h)}</li>`).join('')}</ul>
-        <p class="stack">${e.stack.map(esc).join(' · ')}</p>
-      </article>`,
-    )
+  const facts = site.facts.filter((f) => f.icon !== 'pin').map((f) => `<span>${t(f.value)}</span>`).join('<span class="dot">•</span>');
+
+  const skills = site.skills
+    .map((g) => `<tr><th>${t(g.group)}</th><td>${g.items.map(esc).join(', ')}</td></tr>`)
     .join('');
+  const certs = site.badges.map((b) => t(b)).join(' · ');
 
-  const projects = sideProjects
+  const experience = groupByCompany(site.experience)
     .map(
-      (pr) => `
-      <p class="side-proj"><b>${esc(pr.name)}</b> <span class="muted">· ${pr.year && !pr.context[lang].includes(pr.year) ? `${t(pr.context)} · ${esc(pr.year)}` : t(pr.context)}</span> — ${t(pr.tagline)}</p>`,
+      (g) => `
+      <div class="company">
+        <div class="row company__head"><h3>${esc(g.company)}</h3><span class="dates">${esc(month(g.start, lang))} – ${esc(month(g.end, lang))}</span></div>
+        ${g.positions
+          .map(
+            (e) => `
+          <div class="pos">
+            <div class="row"><h4>${t(e.role)} <span class="type">· ${t(e.type)} · ${t(e.location)}</span></h4><span class="dates dates--pos">${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</span></div>
+            <ul>${e.highlights.map((h) => `<li>${r(h)}</li>`).join('')}</ul>
+          </div>`,
+          )
+          .join('')}
+      </div>`,
     )
     .join('');
 
   const education = site.education
     .map(
       (e) => `
-      <article class="edu">
-        <p class="edu__dates">${esc(month(e.start, lang))} → ${esc(month(e.end, lang))}</p>
-        <h3>${t(e.degree)}</h3>
-        <p>${esc(e.school)}${e.school.includes(e.city) ? '' : ` · ${esc(e.city)}`}</p>
-      </article>`,
+      <div class="row edu"><div><h4>${t(e.degree)}</h4><p>${esc(e.school)} — ${esc(e.city)}, ${t(e.country)}</p></div><span class="dates">${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</span></div>`,
     )
     .join('');
 
-  const stack = site.skills
-    .map(
-      (g) =>
-        `<div class="kv"><span class="k">"${esc(g.key)}"</span><span class="p">:</span> <span class="v">${g.items.map(esc).join(', ')}</span></div>`,
-    )
-    .join('');
+  const games = site.projects
+    .filter((pr) => pr.category === 'games')
+    .map((pr) => `<strong>${esc(pr.name)}</strong> (${pr.slug === 'roll-power' ? `${t(pr.context)} ` : ''}${esc(pr.year ?? '')})`)
+    .join(' · ');
 
-  const languages = site.languages.map((l) => `<li><span>${t(l.name)}</span><span class="muted">${t(l.level)}</span></li>`).join('');
-  const interests = site.interests.map((i) => t(i.name)).join(' · ');
+  const languages = site.languages.map((l) => `${t(l.name)} (${t(l.level).toLowerCase()})`).join(' · ');
+  // The CV keeps the first four interests to stay on one page; the site lists them all.
+  const interests = site.interests.slice(0, 4).map((i) => t(i)).join(' · ');
 
   return `<!doctype html>
 <html lang="${lang}">
@@ -154,137 +164,88 @@ function render(lang) {
 <title>${esc(p.name)} — ${t(p.role)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=block" rel="stylesheet">
 <style>
   @page { size: A4; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  body { width: 210mm; font-family: 'Geist', system-ui, sans-serif; font-size: 8.3pt; line-height: 1.4; color: #16181d; background: #fff; }
+  body { width: 210mm; padding: 10mm 14mm 3mm; font-family: 'Geist', Arial, sans-serif; font-size: 9pt; line-height: 1.35; color: #111827; }
   a { color: inherit; text-decoration: none; }
-  .mono, .hash, .ref, .stack, .commit__meta, .edu__dates, .kv, h2 { font-family: 'Geist Mono', ui-monospace, monospace; }
-  .muted { color: #6b6e76; }
+  strong { font-weight: 600; color: #111827; }
 
-  .page { display: grid; grid-template-columns: 1fr 64mm; min-height: 296mm; }
-  main { padding: 10mm 8mm 7mm 13mm; }
-  aside { padding: 10mm 10mm 7mm 7mm; background: #f6f5f1; border-left: 1px solid #e4e1d9; }
+  header { display: flex; align-items: center; gap: 5mm; }
+  .photo { width: 20mm; height: 20mm; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .who { flex: 1; }
+  h1 { font-size: 21pt; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+  .title { margin-top: 1mm; font-size: 12pt; font-weight: 600; }
+  .title .co { color: #8a5a00; }
+  .logo { height: 12mm; align-self: flex-start; }
+  .contact { margin-top: 2.2mm; font-size: 8.4pt; color: #374151; }
+  .sep { margin: 0 1.6mm; color: #9ca3af; }
+  .contact a { white-space: nowrap; }
+  .facts { margin-top: 3mm; padding: 1.6mm 3mm; border-radius: 1.5mm; background: #fff6dc; font-size: 8.8pt; font-weight: 600; }
+  .dot { margin: 0 2mm; color: #e9a400; }
 
-  /* header */
-  .top { display: flex; align-items: center; gap: 5mm; }
-  .photo { position: relative; flex-shrink: 0; width: 24mm; height: 24mm; }
-  .photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
-  .photo::after { content: ''; position: absolute; inset: -1.6mm; background:
-      linear-gradient(#fbb915,#fbb915) top left/4mm .6mm, linear-gradient(#fbb915,#fbb915) top left/.6mm 4mm,
-      linear-gradient(#fbb915,#fbb915) top right/4mm .6mm, linear-gradient(#fbb915,#fbb915) top right/.6mm 4mm,
-      linear-gradient(#fbb915,#fbb915) bottom left/4mm .6mm, linear-gradient(#fbb915,#fbb915) bottom left/.6mm 4mm,
-      linear-gradient(#fbb915,#fbb915) bottom right/4mm .6mm, linear-gradient(#fbb915,#fbb915) bottom right/.6mm 4mm;
-      background-repeat: no-repeat; }
-  .photo .tag { position: absolute; left: -1.6mm; top: -5.4mm; padding: 0 1.2mm; background: #fbb915; font: 500 5.8pt 'Geist Mono', monospace; line-height: 1.6; white-space: nowrap; }
-  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 23pt; line-height: 0.98; letter-spacing: -0.035em; }
-  h1 mark { background: #fbb915; color: #16181d; padding: 0 1.2mm 0.4mm; box-shadow: 0.9mm 0.9mm 0 #16181d; }
-  .role { margin-top: 2.6mm; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 11pt; letter-spacing: -0.01em; }
-  .role .at { color: #b07800; }
-  .focus { margin-top: 0.6mm; font-size: 7.6pt; color: #6b6e76; }
-  .logo { margin-left: auto; align-self: flex-start; height: 11mm; }
-  .contact { margin-top: 3.2mm; padding: 1.8mm 2.4mm; display: flex; flex-wrap: wrap; gap: 0.6mm 3.6mm; border: 1px solid #e4e1d9; border-radius: 1.5mm; font: 400 7.5pt 'Geist Mono', monospace; color: #3a3d45; }
-  .contact span::before { content: '›'; color: #b07800; margin-right: 1.2mm; }
+  h2 { margin: 3.4mm 0 1.5mm; padding-bottom: 0.8mm; border-bottom: 0.6mm solid #fbb915; font-size: 10pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .summary { color: #1f2937; }
 
-  /* section headings: "01 ## experience" */
-  h2 { display: flex; align-items: center; gap: 2mm; margin: 4.2mm 0 2mm; font-size: 8pt; font-weight: 600; color: #16181d; text-transform: lowercase; }
-  h2 .i { padding: 0 1.1mm; border-radius: 0.6mm; background: #fbb915; font-size: 7pt; }
-  h2 .h { color: #b07800; }
-  h2::after { content: ''; flex: 1; height: 1px; background: #e4e1d9; }
-  aside h2 { margin-top: 0; }
-  aside section + section h2 { margin-top: 4.4mm; }
+  table { width: 100%; border-collapse: collapse; }
+  th { width: 38mm; padding: 0.5mm 3mm 0.5mm 0; text-align: left; vertical-align: top; font-weight: 600; }
+  td { padding: 0.5mm 0; color: #1f2937; }
+  .cert { margin-top: 1mm; }
 
-  .summary { font-size: 8.6pt; color: #2b2e35; }
-  .mission { margin-top: 1.4mm; font: italic 400 7.6pt 'Geist Mono', monospace; color: #6b6e76; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .dates { flex-shrink: 0; font-weight: 600; font-size: 8.6pt; }
+  .dates--pos { font-weight: 500; color: #374151; }
+  .company + .company { margin-top: 2.2mm; }
+  .company__head h3 { font-size: 10.4pt; font-weight: 700; }
+  .pos { margin-top: 1.2mm; }
+  .pos h4 { font-size: 9.6pt; font-weight: 600; }
+  .pos .type { font-weight: 400; color: #4b5563; }
+  .pos ul { margin: 0.6mm 0 0 4.2mm; color: #1f2937; }
+  .pos li { padding-left: 0.6mm; }
+  .pos li + li { margin-top: 0.3mm; }
+  .pos li::marker { color: #b07800; }
 
-  /* experience as a git log */
-  .log { position: relative; padding-left: 5mm; }
-  .log::before { content: ''; position: absolute; left: 1.1mm; top: 1.6mm; bottom: 2mm; width: 0.5mm; background: #fbb915; }
-  .commit { position: relative; }
-  .commit + .commit { margin-top: 2.4mm; }
-  .commit::before { content: ''; position: absolute; left: -5mm; top: 1mm; width: 2.4mm; height: 2.4mm; border: 0.5mm solid #fbb915; border-radius: 50%; background: #fff; }
-  .commit--head::before { background: #fbb915; }
-  .commit__meta { font-size: 7.2pt; color: #3a3d45; }
-  .hash { color: #b07800; margin-right: 1mm; }
-  .ref { margin-left: 1mm; padding: 0 1.2mm; border: 1px solid #cfcbc1; border-radius: 3mm; font-size: 6.6pt; }
-  .commit--head .ref { background: #fbb915; border-color: #fbb915; }
-  .commit h3 { margin-top: 0.4mm; font-size: 9.2pt; font-weight: 600; letter-spacing: -0.01em; }
-  .commit h3 .at { font-weight: 500; color: #3a3d45; }
-  .commit h3 .where { font-weight: 400; font-size: 8pt; color: #6b6e76; }
-  .commit ul { margin-top: 1mm; list-style: none; }
-  .commit li { position: relative; padding-left: 3.2mm; color: #2b2e35; }
-  .commit li + li { margin-top: 0.3mm; }
-  .commit li::before { content: '+'; position: absolute; left: 0; font-family: 'Geist Mono', monospace; color: #15803d; }
-  .stack { margin-top: 1mm; font-size: 7pt; color: #8a8d95; }
+  .edu + .edu { margin-top: 1mm; }
+  .edu h4 { font-size: 9.4pt; font-weight: 600; }
+  .edu p { color: #374151; }
 
-  .side-proj { color: #2b2e35; }
-  .side-proj + .side-proj { margin-top: 1mm; }
-
-  /* sidebar */
-  .kv { font-size: 7.3pt; line-height: 1.5; }
-  .kv + .kv { margin-top: 1.3mm; }
-  .kv .k { color: #6d28d9; }
-  .kv .p { color: #8a8d95; }
-  .kv .v { color: #15803d; }
-  .badge { margin-top: 2.2mm; display: inline-block; padding: 0.3mm 1.8mm; border: 1px solid #15803d; border-radius: 3mm; font: 500 6.8pt 'Geist Mono', monospace; color: #15803d; }
-  .edu + .edu { margin-top: 2.6mm; }
-  .edu__dates { font-size: 7pt; color: #0f766e; }
-  .edu h3 { font-size: 8.6pt; font-weight: 600; line-height: 1.3; }
-  .edu p { color: #3a3d45; }
-  .langs { list-style: none; }
-  .langs li { display: flex; justify-content: space-between; padding: 0.8mm 0; border-bottom: 1px dashed #dcd8cf; }
-  .langs li:last-child { border-bottom: 0; }
-  .interests { color: #3a3d45; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .two h2 { margin-top: 4mm; }
+  .muted { color: #4b5563; }
 </style>
 </head>
 <body>
-<div class="page">
-  <main>
-    <div class="top">
-      ${L.photo ? `<div class="photo"><span class="tag">ai_engineer 0.98</span><img src="${avatar}" alt=""></div>` : ''}
-      <div>
-        <h1>${esc(p.firstName)}<br><mark>${esc(p.lastName)}</mark></h1>
-        <p class="role">${t(p.role)} <span class="at">@</span> ${esc(p.company)}</p>
-        <p class="focus mono">${t(p.focus)}</p>
-      </div>
-      <img class="logo" src="${logo}" alt="">
+  <header>
+    ${L.photo ? `<img class="photo" src="${avatar}" alt="">` : ''}
+    <div class="who">
+      <h1>${esc(p.name)}</h1>
+      <p class="title">${t(p.role)} — <span class="co">${esc(p.company)}</span></p>
+      <p class="contact">${contact}</p>
     </div>
-    <p class="contact">${contact.map((c) => `<span>${c}</span>`).join('')}</p>
+    <img class="logo" src="${logo}" alt="">
+  </header>
+  <p class="facts">${facts}</p>
 
-    <h2><span class="i">01</span><span class="h">##</span> ${L.summary}</h2>
-    <p class="summary">${t(p.summary)}</p>
-    <p class="mission">// ${t(p.mission)}</p>
+  <h2>${L.summary}</h2>
+  <p class="summary">${r(p.summary)}</p>
 
-    <h2><span class="i">02</span><span class="h">##</span> ${L.experience}</h2>
-    <div class="log">${experience}</div>
+  <h2>${L.skills}</h2>
+  <table>${skills}<tr><th>${L.certifications}</th><td>${certs}</td></tr></table>
 
-    <h2><span class="i">03</span><span class="h">##</span> ${L.projects}</h2>
-    ${projects}
-    <p class="side-proj muted mono" style="font-size:7pt;margin-top:1mm">${esc(stripProtocol(itch.url))} · ${esc(stripProtocol(github.url))}</p>
-  </main>
+  <h2>${L.experience}</h2>
+  ${experience}
 
-  <aside>
-    <section>
-      <h2><span class="h">{}</span> ${L.stack}.json</h2>
-      ${stack}
-      ${site.badges.map((b) => `<span class="badge">✓ ${t(b)}</span>`).join('')}
-    </section>
-    <section>
-      <h2><span class="h">##</span> ${L.education}</h2>
-      ${education}
-    </section>
-    <section>
-      <h2><span class="h">##</span> ${L.languages}</h2>
-      <ul class="langs">${languages}</ul>
-    </section>
-    <section>
-      <h2><span class="h">##</span> ${L.interests}</h2>
-      <p class="interests">${interests}</p>
-    </section>
-  </aside>
-</div>
+  <h2>${L.education}</h2>
+  ${education}
+
+  <h2>${L.additional}</h2>
+  <table>
+    <tr><th>${L.languages}</th><td>${languages}</td></tr>
+    <tr><th>${L.projects}</th><td>Unity${lang === 'fr' ? ' :' : ':'} ${games} — <a href="${esc(itch.url)}">${esc(stripProtocol(itch.url))}</a></td></tr>
+    <tr><th>${L.interests}</th><td>${interests}</td></tr>
+  </table>
 </body>
 </html>`;
 }
@@ -306,7 +267,7 @@ for (const lang of ['en', 'fr']) {
   ], { stdio: 'ignore' });
 
   const pages = (readFileSync(pdf, 'latin1').match(/\/Type\s*\/Page[^s]/g) ?? []).length;
-  console.log(`✔ ${LABELS[lang].file}  (${Math.round(statSync(pdf).size / 1024)} KB, ${pages} page${pages === 1 ? '' : 's'}, logo: ${logoArg})`);
+  console.log(`✔ ${LABELS[lang].file}  (${Math.round(statSync(pdf).size / 1024)} KB, ${pages} page${pages === 1 ? '' : 's'})`);
   if (pages !== 1) console.warn(`  ⚠ ${lang} resume spans ${pages} pages — tighten the content or styles.`);
   if (keepHtml) console.log(`  html: ${html}`);
 }

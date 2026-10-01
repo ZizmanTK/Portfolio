@@ -1,32 +1,23 @@
 {
-  "$comment": "Single source of truth for the website AND the PDF resume (scripts/build-resume.mjs). Every user-facing string is { en, fr }. Career facts verified against LinkedIn on 2026-09-30.",
+  "$comment": "Single source of truth for the website AND the PDF resume (scripts/build-resume.mjs). Every user-facing string is { en, fr }; wrap keywords in **double asterisks** to bold them. Career facts verified against LinkedIn on 2026-09-30.",
   "profile": {
     "name": "Abdoul Aziz Maazou",
     "firstName": "Abdoul Aziz",
     "lastName": "Maazou",
     "role": { "en": "AI Engineer", "fr": "Ingénieur en Intelligence Artificielle" },
     "company": "BASSETTI France",
-    "focus": {
-      "en": "Agentic AI · RAG · Computer vision · Full-stack",
-      "fr": "IA agentique · RAG · Vision par ordinateur · Full-stack"
-    },
-    "headline": {
-      "en": "I build AI that sees and reasons — from spotting defects on steel coils to agentic assistants — and the software around it that people actually use.",
-      "fr": "Je construis des IA qui voient et raisonnent — de la détection de défauts sur des bobines d'acier aux assistants agentiques — et le logiciel autour, que les gens utilisent vraiment."
+    "summary": {
+      "en": "AI engineer with **3+ years** of industry experience in **agentic AI** (LangGraph, RAG, MCP), **computer vision** and **full-stack development** (Angular, FastAPI, Django). I take AI features from prototype to production in real products.",
+      "fr": "Ingénieur en IA avec **plus de 3 ans** d'expérience en entreprise en **IA agentique** (LangGraph, RAG, MCP), **vision par ordinateur** et **développement full-stack** (Angular, FastAPI, Django). J'amène des fonctionnalités d'IA du prototype à la production, dans de vrais produits."
     },
     "mission": {
       "en": "My goal: contribute to improving the human condition through AI.",
       "fr": "Mon objectif : contribuer à l'amélioration de la condition de vie humaine par l'IA."
     },
-    "summary": {
-      "en": "AI engineer with an engineering degree in images, signals & data science. Three years of industry experience across agentic AI (LangGraph, RAG, MCP), computer vision and full-stack development (Angular, FastAPI, Django) — shipping AI features into real products.",
-      "fr": "Ingénieur en IA, diplômé d'une école d'ingénieurs en images, signaux et science des données. Trois ans d'expérience en entreprise entre IA agentique (LangGraph, RAG, MCP), vision par ordinateur et développement full-stack (Angular, FastAPI, Django) — des fonctionnalités d'IA livrées dans de vrais produits."
-    },
     "location": { "en": "Grenoble, France", "fr": "Grenoble, France" },
-    "coords": "45.19°N 5.72°E",
     "email": "mamaabdoulaziz1@gmail.com",
     "site": "https://zizmantk.github.io/Portfolio/",
-    "portrait": { "day": "assets/img/portrait-day.webp", "night": "assets/img/portrait-night.webp" },
+    "portrait": "assets/img/portrait-day.webp",
     "avatar": "assets/img/avatar.jpg",
     "resume": {
       "en": "assets/resume/Abdoul-Aziz-Maazou-Resume-EN.pdf",
@@ -34,19 +25,18 @@
     }
   },
 
-  "detections": [
-    { "label": "agentic_ai", "score": "0.98" },
-    { "label": "computer_vision", "score": "0.99" },
-    { "label": "langgraph", "score": "0.95" },
-    { "label": "rag", "score": "0.96" },
-    { "label": "full_stack", "score": "0.94" },
-    { "label": "game_dev", "score": "0.91" },
-    { "label": "chess_player", "score": "0.74" }
+  "facts": [
+    { "icon": "briefcase", "label": { "en": "Experience", "fr": "Expérience" }, "value": { "en": "3+ years in industry", "fr": "3+ ans en entreprise" } },
+    { "icon": "pin", "label": { "en": "Location", "fr": "Localisation" }, "value": { "en": "Grenoble, France · hybrid", "fr": "Grenoble, France · hybride" } },
+    { "icon": "cap", "label": { "en": "Education", "fr": "Formation" }, "value": { "en": "Engineering degree (Master's level)", "fr": "Diplôme d'ingénieur (Bac+5)" } },
+    { "icon": "globe", "label": { "en": "Languages", "fr": "Langues" }, "value": { "en": "French · English · Hausa", "fr": "Français · Anglais · Haoussa" } }
   ],
 
+  "keySkills": ["LangGraph", "LangChain", "RAG", "MCP", "Python", "FastAPI", "Angular", "TensorFlow", "OpenCV", "AWS", "Azure"],
+
   "socials": [
-    { "id": "github", "label": "GitHub", "handle": "ZizmanTK", "url": "https://github.com/ZizmanTK" },
     { "id": "linkedin", "label": "LinkedIn", "handle": "abdoul-aziz-maazou", "url": "https://www.linkedin.com/in/abdoul-aziz-maazou/" },
+    { "id": "github", "label": "GitHub", "handle": "ZizmanTK", "url": "https://github.com/ZizmanTK" },
     { "id": "itch", "label": "itch.io", "handle": "zizmantk", "url": "https://zizmantk.itch.io/" }
   ],
 
@@ -57,31 +47,22 @@
         "fr": "Je suis ingénieur en IA chez BASSETTI France, à Grenoble. Je travaille là où le machine learning rencontre le produit : des assistants agentiques construits avec LangGraph et LangChain, de la génération augmentée par la recherche sur les connaissances de l'entreprise, et le code FastAPI et Angular qui en fait des outils sur lesquels on peut compter."
       },
       {
-        "en": "I started with images: a science baccalaureate in Niamey, two years of maths and physics in Rabat, then an engineering degree in images, signals and data science in Strasbourg — and a first industrial project detecting defects on steel coils at ArcelorMittal.",
-        "fr": "J'ai commencé par les images : un bac scientifique à Niamey, deux ans de maths et de physique à Rabat, puis un diplôme d'ingénieur en images, signaux et science des données à Strasbourg — et un premier projet industriel de détection de défauts sur des bobines d'acier chez ArcelorMittal."
-      },
-      {
-        "en": "Off the clock I make small Unity games — music included, composed in FL Studio — play volleyball and chess, and climb.",
-        "fr": "En dehors du travail, je crée de petits jeux sous Unity — musique comprise, composée sur FL Studio —, je joue au volley et aux échecs, et je grimpe."
+        "en": "My background is in images and signals: a science baccalaureate in Niamey, preparatory classes in Rabat, an engineering degree in Strasbourg, then a first industrial project detecting defects on steel coils at ArcelorMittal. Outside work I make small Unity games — music included — and play volleyball and chess.",
+        "fr": "Ma formation est tournée vers l'image et le signal : un bac scientifique à Niamey, des classes préparatoires à Rabat, un diplôme d'ingénieur à Strasbourg, puis un premier projet industriel de détection de défauts sur des bobines d'acier chez ArcelorMittal. En dehors du travail, je crée de petits jeux sous Unity — musique comprise — et je joue au volley et aux échecs."
       }
-    ],
-    "stats": [
-      { "value": "3+", "label": { "en": "years in industry", "fr": "ans en entreprise" } },
-      { "value": "6", "label": { "en": "projects shipped", "fr": "projets livrés" } },
-      { "value": "3", "label": { "en": "languages spoken", "fr": "langues parlées" } }
     ]
   },
 
   "languages": [
-    { "code": "fr", "name": { "en": "French", "fr": "Français" }, "level": { "en": "Fluent", "fr": "Courant" } },
-    { "code": "en", "name": { "en": "English", "fr": "Anglais" }, "level": { "en": "Professional", "fr": "Professionnel" } },
-    { "code": "ha", "name": { "en": "Hausa", "fr": "Haoussa" }, "level": { "en": "Native", "fr": "Langue maternelle" } }
+    { "name": { "en": "French", "fr": "Français" }, "level": { "en": "Fluent", "fr": "Courant" } },
+    { "name": { "en": "English", "fr": "Anglais" }, "level": { "en": "Professional", "fr": "Professionnel" } },
+    { "name": { "en": "Hausa", "fr": "Haoussa" }, "level": { "en": "Native", "fr": "Langue maternelle" } }
   ],
 
   "experience": [
     {
       "role": { "en": "AI Engineer", "fr": "Ingénieur en Intelligence Artificielle" },
-      "type": { "en": "Permanent", "fr": "CDI" },
+      "type": { "en": "Permanent contract", "fr": "CDI" },
       "company": "BASSETTI France",
       "logo": "assets/logos/bassetti-group.svg",
       "url": "https://www.bassetti-group.com/",
@@ -90,23 +71,23 @@
       "end": null,
       "highlights": [
         {
-          "en": "Build agentic AI features with LangGraph and LangChain, grounded in company knowledge through retrieval-augmented generation (RAG).",
-          "fr": "Conception de fonctionnalités d'IA agentique avec LangGraph et LangChain, ancrées dans les connaissances de l'entreprise grâce à la génération augmentée par la recherche (RAG)."
+          "en": "Build **agentic AI** features with **LangGraph** and **LangChain**, grounded in company knowledge through **retrieval-augmented generation (RAG)**.",
+          "fr": "Conception de fonctionnalités d'**IA agentique** (**LangGraph**, **LangChain**) ancrées dans les connaissances de l'entreprise grâce au **RAG**."
         },
         {
-          "en": "Connect agents to tools and data through the Model Context Protocol (MCP) and PostgreSQL.",
-          "fr": "Connexion des agents aux outils et aux données via le Model Context Protocol (MCP) et PostgreSQL."
+          "en": "Connect agents to tools and data through the **Model Context Protocol (MCP)** and **PostgreSQL**.",
+          "fr": "Connexion des agents aux outils et aux données via le **Model Context Protocol (MCP)** et **PostgreSQL**."
         },
         {
-          "en": "Ship AI services end to end: FastAPI back ends, Angular front ends, deployment on AWS and Azure alongside .NET / IIS environments.",
-          "fr": "Livraison de services d'IA de bout en bout : back-ends FastAPI, front-ends Angular, déploiement sur AWS et Azure aux côtés d'environnements .NET / IIS."
+          "en": "Ship AI services end to end: **FastAPI** back ends, **Angular** front ends, deployment on **AWS** and **Azure** alongside .NET / IIS.",
+          "fr": "Services d'IA de bout en bout : back-ends **FastAPI**, front-ends **Angular**, déploiement sur **AWS** et **Azure** (.NET / IIS)."
         }
       ],
       "stack": ["LangGraph", "LangChain", "RAG", "MCP", "FastAPI", "Angular", "PostgreSQL", "AWS", "Azure", ".NET"]
     },
     {
       "role": { "en": "AI Engineer", "fr": "Ingénieur en Intelligence Artificielle" },
-      "type": { "en": "Fixed-term", "fr": "CDD" },
+      "type": { "en": "Fixed-term contract", "fr": "CDD" },
       "company": "BASSETTI France",
       "logo": "assets/logos/bassetti-group.svg",
       "url": "https://www.bassetti-group.com/",
@@ -115,12 +96,12 @@
       "end": "2025-09",
       "highlights": [
         {
-          "en": "Built TxBot, an LLM assistant (LangChain) answering questions over internal knowledge and TEEXMA data.",
-          "fr": "Développement de TxBot, un assistant LLM (LangChain) qui répond aux questions à partir des connaissances internes et des données TEEXMA."
+          "en": "Built **TxBot**, an **LLM assistant** (LangChain) answering questions over internal knowledge and TEEXMA data.",
+          "fr": "Développement de **TxBot**, un **assistant LLM** (LangChain) qui répond aux questions à partir des connaissances internes et des données TEEXMA."
         },
         {
-          "en": "Extended REMIND's machine-learning workflows — prediction, anomaly detection, clustering — on materials data.",
-          "fr": "Évolution des workflows de machine learning de REMIND — prédiction, détection d'anomalies, clustering — sur des données matériaux."
+          "en": "Extended **REMIND**'s machine-learning workflows — **prediction, anomaly detection, clustering** — on materials data.",
+          "fr": "Évolution des workflows de machine learning de **REMIND** — **prédiction, détection d'anomalies, clustering** — sur des données matériaux."
         }
       ],
       "stack": ["LangChain", "Python", "Django", "Angular", "scikit-learn", "MySQL"]
@@ -136,15 +117,15 @@
       "end": "2024-07",
       "highlights": [
         {
-          "en": "Built REMIND, a web app that imports materials databases (Excel, CSV, TEEXMA) and runs ML workflows on them — Angular front end, Django back end.",
-          "fr": "Développement de REMIND, une application web qui importe des bases de données matériaux (Excel, CSV, TEEXMA) et y applique des workflows de ML — front-end Angular, back-end Django."
+          "en": "Built **REMIND**, a web app that imports materials databases (Excel, CSV, TEEXMA) and runs **ML workflows** on them — **Angular** front end, **Django** back end.",
+          "fr": "Développement de **REMIND** : import de bases de données matériaux (Excel, CSV, TEEXMA) et **workflows de ML** — **Angular**, **Django**."
         },
         {
-          "en": "MongoDB data modelling, unit tests and technical documentation.",
-          "fr": "Modélisation des données MongoDB, tests unitaires et documentation technique."
+          "en": "**MongoDB** data modelling, unit tests and technical documentation.",
+          "fr": "Modélisation des données **MongoDB**, tests unitaires et documentation technique."
         }
       ],
-      "stack": ["Angular", "Django", "MongoDB", "Python", "Technical writing"]
+      "stack": ["Angular", "Django", "MongoDB", "Python"]
     },
     {
       "role": { "en": "Computer Vision Developer Engineer", "fr": "Ingénieur développeur en vision par ordinateur" },
@@ -157,22 +138,22 @@
       "end": "2023-08",
       "highlights": [
         {
-          "en": "Built CoilCheck: automated detection of surface defects on steel coils before packaging, with CNNs and OpenCV.",
-          "fr": "Développement de CoilCheck : détection automatisée des défauts de surface des bobines d'acier avant emballage, avec des CNN et OpenCV."
+          "en": "Built **CoilCheck**: automated detection of **surface defects on steel coils** before packaging, with **CNNs** and **OpenCV**.",
+          "fr": "Développement de **CoilCheck** : détection automatisée des **défauts de surface des bobines d'acier** avant emballage, avec des **CNN** et **OpenCV**."
         },
         {
-          "en": "Trained and compared supervised deep-learning and anomaly-detection models in TensorFlow; ran a technology watch on industrial vision.",
-          "fr": "Entraînement et comparaison de modèles de deep learning supervisés et de détection d'anomalies avec TensorFlow ; veille technologique sur la vision industrielle."
+          "en": "Trained and compared supervised **deep-learning** and **anomaly-detection** models in **TensorFlow**.",
+          "fr": "Entraînement et comparaison de modèles de **deep learning** supervisés et de **détection d'anomalies** avec **TensorFlow**."
         }
       ],
-      "stack": ["Python", "TensorFlow", "OpenCV", "CNNs", "Deep learning", "Git"]
+      "stack": ["Python", "TensorFlow", "OpenCV", "CNNs", "Deep learning"]
     }
   ],
 
   "education": [
     {
       "degree": {
-        "en": "Engineering degree — Images, Signals & Data Science",
+        "en": "Engineering degree (Master's level) — Images, Signals & Data Science",
         "fr": "Diplôme d'ingénieur — Images, Signaux et Science de données"
       },
       "school": "Télécom Physique Strasbourg",
@@ -216,19 +197,14 @@
       "context": { "en": "BASSETTI France", "fr": "BASSETTI France" },
       "category": "ai",
       "image": "assets/img/projects/txbot.webp",
-      "featured": true,
       "tagline": {
-        "en": "An LLM assistant for internal knowledge and TEEXMA data.",
-        "fr": "Un assistant LLM pour les connaissances internes et les données TEEXMA."
+        "en": "LLM assistant answering questions over internal knowledge and TEEXMA data.",
+        "fr": "Assistant LLM qui répond aux questions sur les connaissances internes et les données TEEXMA."
       },
       "description": {
-        "en": "A conversational assistant connected to company data sources. It retrieves the relevant documents and records first, then lets the LLM compose a grounded answer — behind an Angular chat interface designed to feel fast and trustworthy.",
-        "fr": "Un assistant conversationnel connecté aux sources de données de l'entreprise. Il récupère d'abord les documents et enregistrements pertinents, puis laisse le LLM formuler une réponse sourcée — derrière une interface de chat Angular pensée pour être rapide et fiable."
+        "en": "A conversational assistant connected to company data sources. It retrieves the relevant documents and records first, then lets the LLM compose a grounded answer, behind an Angular chat interface.",
+        "fr": "Un assistant conversationnel connecté aux sources de données de l'entreprise. Il récupère d'abord les documents et enregistrements pertinents, puis laisse le LLM formuler une réponse sourcée, derrière une interface de chat Angular."
       },
-      "highlights": [
-        { "en": "Retrieval-augmented generation pipeline built with LangChain.", "fr": "Pipeline de génération augmentée par la recherche (RAG) construit avec LangChain." },
-        { "en": "Django API over internal data sources; Angular chat UI.", "fr": "API Django sur les sources de données internes ; interface de chat Angular." }
-      ],
       "stack": ["LangChain", "RAG", "Python", "Django", "Angular"],
       "links": {}
     },
@@ -239,19 +215,14 @@
       "context": { "en": "BASSETTI France", "fr": "BASSETTI France" },
       "category": "ai",
       "image": "assets/img/projects/remind.webp",
-      "featured": true,
       "tagline": {
-        "en": "Machine learning on materials data — import, explore, model.",
-        "fr": "Du machine learning sur des données matériaux — importer, explorer, modéliser."
+        "en": "No-code machine learning on materials data: prediction, anomaly detection, clustering.",
+        "fr": "Machine learning sans code sur des données matériaux : prédiction, détection d'anomalies, clustering."
       },
       "description": {
-        "en": "A web application that lets engineers bring their own materials databases (Excel, CSV or straight from TEEXMA) and apply ML workflows without writing code: property prediction, anomaly detection and clustering. Built-in statistical views — histograms, correlation matrices, box plots and interactive scatter plots — help explore the data before modelling it.",
-        "fr": "Une application web qui permet aux ingénieurs d'importer leurs propres bases de données matériaux (Excel, CSV ou directement depuis TEEXMA) et d'y appliquer des workflows de ML sans écrire de code : prédiction de propriétés, détection d'anomalies et clustering. Des vues statistiques intégrées — histogrammes, matrices de corrélation, boîtes à moustaches, nuages de points interactifs — aident à explorer les données avant de les modéliser."
+        "en": "Engineers import their own materials databases (Excel, CSV or TEEXMA) and apply ML workflows without writing code, with built-in statistical views — histograms, correlation matrices, box plots, interactive scatter plots — to explore the data first.",
+        "fr": "Les ingénieurs importent leurs bases de données matériaux (Excel, CSV ou TEEXMA) et appliquent des workflows de ML sans écrire de code, avec des vues statistiques intégrées — histogrammes, matrices de corrélation, boîtes à moustaches, nuages de points interactifs — pour explorer les données."
       },
-      "highlights": [
-        { "en": "End-to-end flow: data import, cleaning, model training and visualisation.", "fr": "Parcours complet : import, nettoyage, entraînement des modèles et visualisation." },
-        { "en": "Django back end exposing scikit-learn pipelines; Angular front end with interactive charts.", "fr": "Back-end Django exposant des pipelines scikit-learn ; front-end Angular avec graphiques interactifs." }
-      ],
       "stack": ["Angular", "Django", "scikit-learn", "MongoDB", "Docker"],
       "links": {}
     },
@@ -262,19 +233,14 @@
       "context": { "en": "ArcelorMittal France", "fr": "ArcelorMittal France" },
       "category": "ai",
       "image": "assets/img/projects/coilcheck.webp",
-      "featured": true,
       "tagline": {
-        "en": "Spotting surface defects on steel coils before they ship.",
-        "fr": "Repérer les défauts de surface des bobines d'acier avant expédition."
+        "en": "Computer vision that spots surface defects on steel coils before they ship.",
+        "fr": "Vision par ordinateur qui repère les défauts de surface des bobines d'acier avant expédition."
       },
       "description": {
-        "en": "An industrial vision pipeline that inspects steel coils right before packaging. Deep-learning models learn what a good coil looks like and flag what deviates, with heatmaps showing operators exactly where to look.",
+        "en": "An industrial vision pipeline that inspects steel coils right before packaging. Deep-learning models learn what a good coil looks like and flag what deviates, with heatmaps showing operators where to look.",
         "fr": "Une chaîne de vision industrielle qui inspecte les bobines d'acier juste avant l'emballage. Des modèles de deep learning apprennent à quoi ressemble une bobine saine et signalent les écarts, avec des cartes de chaleur qui montrent aux opérateurs où regarder."
       },
-      "highlights": [
-        { "en": "Supervised CNNs and anomaly-detection models compared on real line images.", "fr": "Comparaison de CNN supervisés et de modèles de détection d'anomalies sur des images réelles de la ligne." },
-        { "en": "Python, TensorFlow and OpenCV.", "fr": "Python, TensorFlow et OpenCV." }
-      ],
       "stack": ["Python", "TensorFlow", "OpenCV", "CNNs"],
       "links": {}
     },
@@ -282,22 +248,17 @@
       "slug": "roll-power",
       "name": "Roll Power",
       "year": "2022",
-      "context": { "en": "GMTK Game Jam 2022", "fr": "GMTK Game Jam 2022" },
+      "context": { "en": "GMTK Game Jam", "fr": "GMTK Game Jam" },
       "category": "games",
       "image": "assets/img/projects/roll-power.webp",
-      "featured": false,
       "tagline": {
-        "en": "Rolling is your superpower. Push the bombs away before they blow.",
-        "fr": "Rouler est votre super-pouvoir. Écartez les bombes avant qu'elles n'explosent."
+        "en": "Unity game made in 48 hours: you play a die and push bombs away before they blow.",
+        "fr": "Jeu Unity réalisé en 48 heures : vous incarnez un dé et écartez les bombes avant qu'elles n'explosent."
       },
       "description": {
-        "en": "Made in 48 hours for the GMTK Game Jam 2022, on the theme “Roll of the Dice”. You play a die: every roll unleashes projectiles, and you have to push bombs off the arena before they explode. Code, game design and music — all made during the jam.",
-        "fr": "Réalisé en 48 heures pour la GMTK Game Jam 2022, sur le thème « Roll of the Dice ». Vous incarnez un dé : chaque roulade déclenche des projectiles, et il faut pousser les bombes hors de l'arène avant qu'elles n'explosent. Code, game design et musique — tout a été fait pendant la jam."
+        "en": "Made in 48 hours for the GMTK Game Jam 2022 (theme “Roll of the Dice”). Code, game design and an original soundtrack composed in FL Studio.",
+        "fr": "Réalisé en 48 heures pour la GMTK Game Jam 2022 (thème « Roll of the Dice »). Code, game design et bande-son originale composée sur FL Studio."
       },
-      "highlights": [
-        { "en": "Built in Unity (C#) in 48 hours.", "fr": "Développé sous Unity (C#) en 48 heures." },
-        { "en": "Original soundtrack composed in FL Studio.", "fr": "Bande-son originale composée sur FL Studio." }
-      ],
       "stack": ["Unity", "C#", "FL Studio"],
       "links": { "play": "https://zizmantk.itch.io/roll-power" }
     },
@@ -308,19 +269,14 @@
       "context": { "en": "Personal project", "fr": "Projet personnel" },
       "category": "games",
       "image": "assets/img/projects/ztktris.webp",
-      "featured": false,
       "tagline": {
-        "en": "A Tetris remake where holes can never be cleared.",
-        "fr": "Un remake de Tetris où les trous ne s'effacent jamais."
+        "en": "Tetris remake where holes can never be cleared. Playable in the browser.",
+        "fr": "Remake de Tetris où les trous ne s'effacent jamais. Jouable dans le navigateur."
       },
       "description": {
-        "en": "A Tetris remake with one cruel twist: holes you leave behind are marked and can't be cleared, so every mistake stays with you. A start-to-finish Unity project — gameplay, UI, game feel and an original soundtrack. Playable in the browser.",
-        "fr": "Un remake de Tetris avec une règle cruelle : les trous laissés derrière vous sont marqués et ne peuvent plus être effacés, chaque erreur vous suit. Un projet Unity mené de A à Z — gameplay, interface, game feel et bande-son originale. Jouable dans le navigateur."
+        "en": "A Tetris remake with one cruel twist: the holes you leave are marked and can't be cleared. Built start to finish in Unity, with original music; playable on the web and Windows.",
+        "fr": "Un remake de Tetris avec une règle cruelle : les trous laissés sont marqués et ne peuvent plus être effacés. Développé de A à Z sous Unity, avec une musique originale ; jouable sur le web et sous Windows."
       },
-      "highlights": [
-        { "en": "Playable on the web (WebGL) and Windows.", "fr": "Jouable sur le web (WebGL) et Windows." },
-        { "en": "Music and sound design made in FL Studio.", "fr": "Musique et sound design réalisés sur FL Studio." }
-      ],
       "stack": ["Unity", "C#", "FL Studio"],
       "links": { "play": "https://zizmantk.itch.io/zktris", "github": "https://github.com/ZizmanTK/ZTKtetris" }
     },
@@ -331,77 +287,37 @@
       "context": { "en": "Personal project", "fr": "Projet personnel" },
       "category": "web",
       "image": "assets/img/projects/portfolio.webp",
-      "featured": false,
       "tagline": {
-        "en": "Bilingual, prerendered, and generated from a single content file.",
-        "fr": "Bilingue, pré-rendu, et généré à partir d'un seul fichier de contenu."
+        "en": "This site: Angular, prerendered, bilingual; the CV is generated from the same data.",
+        "fr": "Ce site : Angular, pré-rendu, bilingue ; le CV est généré à partir des mêmes données."
       },
       "description": {
-        "en": "The site you're on. An Angular app prerendered to static HTML, in English and French, with light and dark themes. The website and the PDF resume are generated from the same JSON file, so they never drift apart.",
-        "fr": "Le site que vous visitez. Une application Angular pré-rendue en HTML statique, en anglais et en français, avec thèmes clair et sombre. Le site et le CV PDF sont générés à partir du même fichier JSON, ils ne sont donc jamais désynchronisés."
+        "en": "An Angular 20 app prerendered to static HTML, in English and French. The website and the PDF resume are generated from the same JSON file, so they never drift apart.",
+        "fr": "Une application Angular 20 pré-rendue en HTML statique, en anglais et en français. Le site et le CV PDF sont générés à partir du même fichier JSON, ils restent donc toujours cohérents."
       },
-      "highlights": [
-        { "en": "Angular 20: standalone components, signals, zoneless change detection.", "fr": "Angular 20 : composants standalone, signals, détection de changements sans zone.js." },
-        { "en": "Resume PDF rendered from the site's data with headless Chrome.", "fr": "CV PDF généré à partir des données du site avec Chrome headless." }
-      ],
-      "stack": ["Angular", "TypeScript", "SCSS", "SSG"],
+      "stack": ["Angular", "TypeScript", "SCSS"],
       "links": { "github": "https://github.com/ZizmanTK/Portfolio", "site": "https://zizmantk.github.io/Portfolio/" }
     }
   ],
 
   "skills": [
-    {
-      "key": "ai",
-      "group": { "en": "AI & agents", "fr": "IA & agents" },
-      "items": ["LangGraph", "LangChain", "RAG", "MCP", "Agentic AI", "scikit-learn"]
-    },
-    {
-      "key": "vision",
-      "group": { "en": "Computer vision & DL", "fr": "Vision & deep learning" },
-      "items": ["TensorFlow", "Keras", "OpenCV", "CNNs", "Supervised learning", "MATLAB"]
-    },
-    {
-      "key": "backend",
-      "group": { "en": "Back-end & data", "fr": "Back-end & données" },
-      "items": ["FastAPI", "Django", ".NET", "PostgreSQL", "MongoDB", "MySQL"]
-    },
-    {
-      "key": "frontend",
-      "group": { "en": "Front-end", "fr": "Front-end" },
-      "items": ["Angular", "TypeScript", "HTML", "SCSS"]
-    },
-    {
-      "key": "cloud",
-      "group": { "en": "Cloud & tooling", "fr": "Cloud & outils" },
-      "items": ["AWS", "Azure", "Azure DevOps", "IIS", "Docker", "Git"]
-    },
-    {
-      "key": "languages",
-      "group": { "en": "Languages", "fr": "Langages" },
-      "items": ["Python", "TypeScript", "C#", "C++", "C", "SQL"]
-    },
-    {
-      "key": "creative",
-      "group": { "en": "Games & creative", "fr": "Jeux & création" },
-      "items": ["Unity", "FL Studio", "Photoshop"]
-    }
+    { "group": { "en": "AI & LLMs", "fr": "IA & LLM" }, "items": ["LangGraph", "LangChain", "RAG", "MCP", "Agentic AI", "scikit-learn"] },
+    { "group": { "en": "Computer vision", "fr": "Vision par ordinateur" }, "items": ["TensorFlow", "Keras", "OpenCV", "CNNs", "Deep learning", "MATLAB"] },
+    { "group": { "en": "Back-end & data", "fr": "Back-end & données" }, "items": ["Python", "FastAPI", "Django", ".NET", "PostgreSQL", "MongoDB", "MySQL"] },
+    { "group": { "en": "Front-end", "fr": "Front-end" }, "items": ["Angular", "TypeScript", "HTML", "SCSS"] },
+    { "group": { "en": "Cloud & tools", "fr": "Cloud & outils" }, "items": ["AWS", "Azure", "Azure DevOps", "IIS", "Docker", "Git"] },
+    { "group": { "en": "Other languages", "fr": "Autres langages" }, "items": ["C#", "C++", "C", "SQL"] }
   ],
   "badges": [
     { "en": "Python — LinkedIn skill assessment passed", "fr": "Python — évaluation de compétences LinkedIn réussie" }
   ],
 
   "interests": [
-    { "name": { "en": "Volleyball", "fr": "Volley-ball" }, "label": "volleyball", "score": "0.97", "image": "assets/img/interests/volleyball.webp",
-      "text": { "en": "Setter in school tournaments. I love the tactical side of the game.", "fr": "Passeur lors de tournois scolaires. J'adore le côté tactique du jeu." } },
-    { "name": { "en": "Chess", "fr": "Échecs" }, "label": "chess", "score": "0.93", "image": "assets/img/interests/chess.webp",
-      "text": { "en": "Focus and pattern recognition. Long games over blitz.", "fr": "Concentration et reconnaissance de motifs. Parties longues plutôt que blitz." } },
-    { "name": { "en": "Bouldering", "fr": "Escalade" }, "label": "bouldering", "score": "0.88", "image": "assets/img/interests/bouldering.webp",
-      "text": { "en": "Problem-solving with your whole body. Reading the route is half the fun.", "fr": "Résoudre des problèmes avec tout le corps. Lire la voie, c'est la moitié du plaisir." } },
-    { "name": { "en": "Piano & music", "fr": "Piano & musique" }, "label": "music", "score": "0.90", "image": "assets/img/interests/piano.webp",
-      "text": { "en": "Piano to unwind, FL Studio to score my own games.", "fr": "Le piano pour décompresser, FL Studio pour composer la musique de mes jeux." } },
-    { "name": { "en": "Football", "fr": "Football" }, "label": "football", "score": "0.86", "image": "assets/img/interests/soccer.webp",
-      "text": { "en": "Played for years, still watching every big match.", "fr": "Pratiqué pendant des années, je regarde encore tous les grands matchs." } },
-    { "name": { "en": "Reading", "fr": "Lecture" }, "label": "reading", "score": "0.84", "image": "assets/img/interests/reading.webp",
-      "text": { "en": "Mostly fiction and essays — the best way to slow down.", "fr": "Surtout des romans et des essais — la meilleure façon de ralentir." } }
+    { "en": "Game development (Unity)", "fr": "Développement de jeux (Unity)" },
+    { "en": "Music production (FL Studio)", "fr": "Composition musicale (FL Studio)" },
+    { "en": "Volleyball", "fr": "Volley-ball" },
+    { "en": "Chess", "fr": "Échecs" },
+    { "en": "Bouldering", "fr": "Escalade" },
+    { "en": "Piano", "fr": "Piano" }
   ]
 }

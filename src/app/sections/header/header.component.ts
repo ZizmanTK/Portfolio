@@ -14,7 +14,7 @@ import { ThemeService } from '../../core/theme.service';
 import { IconComponent } from '../../shared/icon.component';
 import { LogoComponent } from '../../shared/logo.component';
 
-const SECTIONS = ['about', 'journey', 'projects', 'stack', 'contact'] as const;
+const SECTIONS = ['experience', 'skills', 'projects', 'education', 'contact'] as const;
 
 @Component({
   selector: 'app-header',

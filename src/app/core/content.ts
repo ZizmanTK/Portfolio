@@ -4,7 +4,7 @@ export type Lang = 'en' | 'fr';
 export type L = Record<Lang, string>;
 
 export interface Social { id: 'github' | 'linkedin' | 'itch'; label: string; handle: string; url: string }
-export interface Detection { label: string; score: string }
+export interface Fact { icon: 'briefcase' | 'pin' | 'cap' | 'globe'; label: L; value: L }
 
 export interface Experience {
   role: L; type: L; company: string; logo: string; url: string; location: L;
@@ -20,36 +20,40 @@ export type ProjectCategory = 'web' | 'ai' | 'games';
 
 export interface Project {
   slug: string; name: string; year: string | null; context: L; category: ProjectCategory;
-  image: string; featured: boolean; tagline: L; description: L; highlights: L[]; stack: string[];
+  image: string; tagline: L; description: L; stack: string[];
   links: { play?: string; github?: string; site?: string };
 }
 
-export interface SkillGroup { key: string; group: L; items: string[] }
-export interface Interest extends Detection { name: L; image: string; text: L }
+export interface SkillGroup { group: L; items: string[] }
 
 export interface Site {
   profile: {
-    name: string; firstName: string; lastName: string; role: L; company: string; focus: L; headline: L; mission: L;
-    summary: L; location: L; coords: string; email: string; site: string;
-    portrait: { day: string; night: string }; avatar: string; resume: L;
+    name: string; firstName: string; lastName: string; role: L; company: string; summary: L; mission: L;
+    location: L; email: string; site: string; portrait: string; avatar: string; resume: L;
   };
-  detections: Detection[];
+  facts: Fact[];
+  keySkills: string[];
   socials: Social[];
-  about: { paragraphs: L[]; stats: { value: string; label: L }[] };
-  languages: { code: string; name: L; level: L }[];
+  about: { paragraphs: L[] };
+  languages: { name: L; level: L }[];
   experience: Experience[];
   education: Education[];
   projects: Project[];
   skills: SkillGroup[];
   badges: L[];
-  interests: Interest[];
+  interests: L[];
 }
 
 export const SITE = data as unknown as Site;
 
-/** A stable short "commit hash" for timeline entries, derived from their content. */
-export function shortHash(input: string): string {
-  let h = 0x811c9dc5;
-  for (let i = 0; i < input.length; i++) h = Math.imul(h ^ input.charCodeAt(i), 0x01000193);
-  return (h >>> 0).toString(16).padStart(8, '0').slice(0, 7);
+/** "Built **TxBot** with…" → [{ text: 'Built ', bold: false }, { text: 'TxBot', bold: true }, …] */
+export function richText(text: string): { text: string; bold: boolean }[] {
+  return text.split('**').map((part, i) => ({ text: part, bold: i % 2 === 1 })).filter((s) => s.text);
+}
+
+/** Whole months between two "YYYY-MM" dates, end inclusive (Sep→Sep = 13 months, like LinkedIn). */
+export function monthsBetween(start: string, end: string): number {
+  const [sy, sm] = start.split('-').map(Number);
+  const [ey, em] = end.split('-').map(Number);
+  return (ey - sy) * 12 + (em - sm) + 1;
 }

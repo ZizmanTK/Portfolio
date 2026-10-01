@@ -1,42 +1,35 @@
 @let ui = i18n.ui();
-<section id="projects" class="section" aria-labelledby="projects-title">
+<section id="projects" class="section section--alt" aria-labelledby="projects-title">
   <div class="container">
-    <app-section-heading index="03" [file]="ui.files.projects" [title]="ui.titles.projects" headingId="projects-title">
-      <p class="lead intro">{{ ui.projectsIntro }}</p>
-    </app-section-heading>
-
-    <div class="filters mono" role="group" aria-label="Filter projects">
-      <span class="muted">$ ls projects/ --filter=</span>
-      @for (f of filters; track f) {
-        <button type="button" class="filter" [class.is-active]="filter() === f" [attr.aria-pressed]="filter() === f" (click)="filter.set(f)">
-          {{ ui.filters[f] }}<sup>{{ count(f) }}</sup>
-        </button>
-      }
-    </div>
+    <h2 id="projects-title" class="section-title">{{ ui.sections.projects }}</h2>
 
     <ul role="list" class="grid">
-      @for (p of visible(); track p.slug; let i = $index) {
-        <li [appReveal]="(i % 3) * 80">
-          <button type="button" class="card det det--hover" (click)="open(p)" [attr.aria-label]="p.name + ' — ' + ui.viewProject">
-            <span class="det__tag" aria-hidden="true">{{ p.category }}_project {{ score(p) }}</span>
-            <span class="card__media">
+      @for (p of projects; track p.slug) {
+        <li>
+          <article class="project card">
+            <button type="button" class="project__media" (click)="open(p)" [attr.aria-label]="p.name + ' — ' + ui.viewDetails">
               <img [src]="p.image" alt="" width="1200" height="750" loading="lazy" />
-            </span>
-            <span class="card__body">
-              <span class="card__path mono"><span class="muted">ZizmanTK /</span> {{ p.slug }}</span>
-              <span class="card__name">{{ p.name }}</span>
-              <span class="card__tagline">{{ i18n.t(p.tagline) }}</span>
-              <span class="card__stack">
-                @for (s of p.stack.slice(0, 4); track s) {
-                  <span class="chip">{{ s }}</span>
+            </button>
+            <div class="project__body">
+              <p class="project__meta muted">{{ i18n.t(p.context) }}@if (p.year) { · {{ p.year }}}</p>
+              <h3>{{ p.name }}</h3>
+              <p class="project__tagline">{{ i18n.t(p.tagline) }}</p>
+              <ul role="list" class="tags">
+                @for (s of p.stack; track s) {
+                  <li class="tag">{{ s }}</li>
                 }
-              </span>
-              <span class="card__foot mono">
-                <span>{{ i18n.t(p.context) }}@if (p.year) { · {{ p.year }}}</span>
-                <span class="card__open">README <app-icon name="arrowUpRight" [size]="14" /></span>
-              </span>
-            </span>
-          </button>
+              </ul>
+              <div class="project__actions">
+                <button type="button" class="btn btn--sm" (click)="open(p)">{{ ui.viewDetails }}</button>
+                @if (p.links.play) {
+                  <a class="btn btn--sm" [href]="p.links.play" target="_blank" rel="noopener"><app-icon name="play" [size]="14" /> {{ ui.play }}</a>
+                }
+                @if (p.links.github) {
+                  <a class="btn btn--sm" [href]="p.links.github" target="_blank" rel="noopener"><app-icon name="github" [size]="15" /> {{ ui.source }}</a>
+                }
+              </div>
+            </div>
+          </article>
         </li>
       }
     </ul>
@@ -45,40 +38,31 @@
 
 <dialog #dialog class="modal" (click)="onDialogClick($event)" (close)="selected.set(null)" aria-labelledby="modal-title">
   @if (selected(); as p) {
-    <article class="window modal__window">
-      <div class="window__bar">
-        <span class="window__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="window__tab">{{ p.slug }}/README.md</span>
-        <button type="button" class="icon-btn modal__close" (click)="close()" [attr.aria-label]="ui.close" autofocus>
-          <app-icon name="close" [size]="16" />
-        </button>
-      </div>
+    <article class="modal__inner">
+      <button type="button" class="icon-btn modal__close" (click)="close()" [attr.aria-label]="ui.close" autofocus>
+        <app-icon name="close" [size]="18" />
+      </button>
       <img class="modal__img" [src]="p.image" alt="" width="1200" height="750" />
       <div class="modal__body">
-        <p class="mono muted"># {{ i18n.t(p.context) }}@if (p.year) { · {{ p.year }}}</p>
-        <h3 id="modal-title" class="h2">{{ p.name }}</h3>
-        <p class="lead">{{ i18n.t(p.tagline) }}</p>
-        <p class="modal__desc">{{ i18n.t(p.description) }}</p>
-        <ul class="modal__list">
-          @for (h of p.highlights; track $index) {
-            <li>{{ i18n.t(h) }}</li>
-          }
-        </ul>
-        <ul class="chip-list">
+        <p class="muted">{{ i18n.t(p.context) }}@if (p.year) { · {{ p.year }}}</p>
+        <h3 id="modal-title">{{ p.name }}</h3>
+        <p class="modal__tagline">{{ i18n.t(p.tagline) }}</p>
+        <p>{{ i18n.t(p.description) }}</p>
+        <ul role="list" class="tags">
           @for (s of p.stack; track s) {
-            <li class="chip">{{ s }}</li>
+            <li class="tag">{{ s }}</li>
           }
         </ul>
         @if (p.links.play || p.links.github || p.links.site) {
           <div class="modal__links">
             @if (p.links.play) {
-              <a class="btn btn--signal" [href]="p.links.play" target="_blank" rel="noopener"><app-icon name="play" [size]="15" /> {{ ui.play }}</a>
+              <a class="btn btn--primary" [href]="p.links.play" target="_blank" rel="noopener"><app-icon name="play" [size]="15" /> {{ ui.play }}</a>
             }
             @if (p.links.github) {
-              <a class="btn" [href]="p.links.github" target="_blank" rel="noopener"><app-icon name="github" [size]="15" /> {{ ui.source }}</a>
+              <a class="btn" [href]="p.links.github" target="_blank" rel="noopener"><app-icon name="github" [size]="16" /> {{ ui.source }}</a>
             }
             @if (p.links.site) {
-              <a class="btn" [href]="p.links.site" target="_blank" rel="noopener"><app-icon name="arrowUpRight" [size]="15" /> {{ ui.visit }}</a>
+              <a class="btn" [href]="p.links.site" target="_blank" rel="noopener"><app-icon name="arrowUpRight" [size]="16" /> {{ ui.visit }}</a>
             }
           </div>
         }

@@ -1,42 +1,29 @@
 /* ==========================================================================
-   ZTK design system — "inference meets IDE"
-   An editor-like base (grid, mono labels, file tabs, syntax colours) with a
-   computer-vision signal layer (detection brackets, confidence tags, scan lines).
-   Signal colour = the ZTK crown yellow.
+   Recruiter-first design system: legible type, high contrast, clear hierarchy.
+   The ZTK crown yellow is an accent only (logo, small highlights).
    ========================================================================== */
 
 :root {
-  --bg: #f4f3ef;
-  --grid: rgb(17 19 24 / 0.045);
+  --bg: #ffffff;
+  --bg-alt: #f6f7f9;
   --surface: #ffffff;
-  --surface-2: #eceae4;
-  --code-bg: #f7f6f2;
-  --ink: #111318;
-  --ink-2: #3a3d45;
-  --muted: #6b6e76;
-  --line: #dedbd3;
-  --line-strong: #c6c2b8;
-  --signal: #fbb915;
-  --signal-ink: #8f6200; /* yellow that passes AA as text on light */
-  --signal-soft: rgb(251 185 21 / 0.16);
-  --on-signal: #111318;
-  --logo: #e39f00;
-  --teal: #0f766e;
-  --coral: #c2410c;
-  --violet: #6d28d9;
-  --green: #15803d;
-  --shadow: 0 1px 2px rgb(17 19 24 / 0.05), 0 12px 32px -16px rgb(17 19 24 / 0.22);
-  --header-bg: rgb(244 243 239 / 0.82);
+  --ink: #111827;
+  --ink-2: #374151;
+  --muted: #5b6472;
+  --line: #e5e7eb;
+  --line-strong: #cfd4dc;
+  --accent: #fbb915;
+  --accent-ink: #8a5a00;
+  --accent-soft: #fff6dc;
+  --logo: #e9a400;
+  --on-ink: #ffffff;
+  --shadow: 0 1px 2px rgb(17 24 39 / 0.06), 0 8px 24px -12px rgb(17 24 39 / 0.18);
+  --header-bg: rgb(255 255 255 / 0.9);
 
-  --font-display: 'Space Grotesk', 'Geist', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-
-  --radius-sm: 6px;
-  --radius: 10px;
-  --radius-lg: 14px;
-  --container: 1200px;
-  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --font: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --radius: 12px;
+  --container: 1120px;
+  --gutter: clamp(1rem, 4vw, 2rem);
   --header-h: 64px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
@@ -44,25 +31,20 @@
 }
 
 @mixin dark-tokens {
-  --bg: #0b0c10;
-  --grid: rgb(255 255 255 / 0.035);
-  --surface: #12141a;
-  --surface-2: #1a1d25;
-  --code-bg: #0f1116;
-  --ink: #ecebe6;
-  --ink-2: #c9c7c1;
-  --muted: #8a8983;
-  --line: #23262f;
-  --line-strong: #353947;
-  --signal-ink: #fbb915;
-  --signal-soft: rgb(251 185 21 / 0.12);
+  --bg: #0f1115;
+  --bg-alt: #151821;
+  --surface: #171a22;
+  --ink: #f3f4f6;
+  --ink-2: #d1d5db;
+  --muted: #a1a8b3;
+  --line: #262a34;
+  --line-strong: #353a46;
+  --accent-ink: #fbbf24;
+  --accent-soft: #2a2312;
   --logo: #fbb915;
-  --teal: #2dd4bf;
-  --coral: #fb923c;
-  --violet: #c4b5fd;
-  --green: #86efac;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -18px rgb(0 0 0 / 0.9);
-  --header-bg: rgb(11 12 16 / 0.8);
+  --on-ink: #0f1115;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.8);
+  --header-bg: rgb(15 17 21 / 0.9);
   color-scheme: dark;
 }
 
@@ -75,10 +57,6 @@
     @include dark-tokens;
   }
 }
-
-/* ==========================================================================
-   Base
-   ========================================================================== */
 
 *,
 *::before,
@@ -99,22 +77,16 @@ html {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
 
 body {
   margin: 0;
-  background-color: var(--bg);
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-sans);
-  font-size: 1rem;
+  font-family: var(--font);
+  font-size: 1.0625rem; /* 17px */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -158,19 +130,17 @@ button {
 }
 
 ::selection {
-  background: var(--signal);
-  color: var(--on-signal);
+  background: var(--accent);
+  color: #111827;
 }
 
 :focus-visible {
-  outline: 2px solid var(--signal);
-  outline-offset: 3px;
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* ==========================================================================
-   Layout & type
-   ========================================================================== */
+/* Layout ------------------------------------------------------------------ */
 
 .container {
   width: 100%;
@@ -180,44 +150,34 @@ button {
 }
 
 .section {
-  padding-block: clamp(4rem, 9vw, 7rem);
+  padding-block: clamp(3.5rem, 7vw, 5rem);
+  border-top: 1px solid var(--line);
+
+  &--alt {
+    background: var(--bg-alt);
+  }
 }
 
-.display {
-  font-family: var(--font-display);
+.section-title {
+  margin-bottom: 2rem;
+  font-size: clamp(1.6rem, 3vw, 2rem);
   font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 0.92;
-}
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 
-.h2 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2rem, 4.6vw, 3.4rem);
-  line-height: 1;
-  letter-spacing: -0.035em;
-  text-wrap: balance;
-}
-
-.mono {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  letter-spacing: 0.01em;
+  &::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 4px;
+    margin-top: 0.75rem;
+    border-radius: 2px;
+    background: var(--accent);
+  }
 }
 
 .muted {
   color: var(--muted);
-}
-
-.signal {
-  color: var(--signal-ink);
-}
-
-.lead {
-  font-size: clamp(1.08rem, 1.5vw, 1.22rem);
-  line-height: 1.6;
-  color: var(--ink-2);
-  text-wrap: pretty;
 }
 
 .visually-hidden {
@@ -232,270 +192,107 @@ button {
   border: 0;
 }
 
-/* Syntax colours, for code-flavoured content. */
-.tok-key { color: var(--violet); }
-.tok-str { color: var(--green); }
-.tok-num { color: var(--signal-ink); }
-.tok-com { color: var(--muted); font-style: italic; }
-.tok-fn { color: var(--teal); }
-.tok-pun { color: var(--muted); }
-
-/* ==========================================================================
-   Components
-   ========================================================================== */
+/* Components ---------------------------------------------------------------- */
 
 .btn {
-  --btn-bg: transparent;
-  --btn-fg: var(--ink);
-  --btn-border: var(--line-strong);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
-  min-height: 44px;
-  padding: 0 1.1rem;
-  border: 1px solid var(--btn-border);
-  border-radius: var(--radius-sm);
-  background: var(--btn-bg);
-  color: var(--btn-fg);
-  font-family: var(--font-mono);
-  font-size: 0.88rem;
-  font-weight: 500;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0 1.2rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.98rem;
+  font-weight: 600;
   white-space: nowrap;
   transition:
-    transform 0.2s var(--ease),
     background-color 0.2s var(--ease),
-    border-color 0.2s var(--ease),
-    color 0.2s var(--ease);
+    border-color 0.2s var(--ease);
 
   &:hover {
-    transform: translateY(-1px);
-    border-color: var(--signal);
-    color: var(--signal-ink);
+    border-color: var(--ink);
   }
 
-  &--signal {
-    --btn-bg: var(--signal);
-    --btn-fg: var(--on-signal);
-    --btn-border: var(--signal);
+  &--primary {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--on-ink);
 
     &:hover {
-      --btn-bg: transparent;
-      color: var(--signal-ink);
+      background: var(--ink-2);
+      border-color: var(--ink-2);
     }
   }
 
   &--sm {
-    min-height: 36px;
-    padding: 0 0.8rem;
-    font-size: 0.8rem;
+    min-height: 38px;
+    padding: 0 0.9rem;
+    font-size: 0.9rem;
   }
 }
 
 .icon-btn {
   display: inline-grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: transparent;
+  border-radius: 10px;
+  background: var(--surface);
   color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  transition:
-    border-color 0.2s var(--ease),
-    color 0.2s var(--ease);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: border-color 0.2s;
 
   &:hover {
-    border-color: var(--signal);
-    color: var(--signal-ink);
+    border-color: var(--ink);
   }
 }
 
-.chip {
+.tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.22rem 0.6rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  background: var(--bg-alt);
   border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--surface);
   color: var(--ink-2);
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.84rem;
+  font-weight: 500;
   line-height: 1.5;
   white-space: nowrap;
-
-  i {
-    font-style: normal;
-    color: var(--signal-ink);
-  }
 }
 
-.chip-list {
+.tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
-.panel {
+.card {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-}
-
-/* Editor window chrome: a title bar with a file tab. */
-.window {
-  overflow: hidden;
-  background: var(--code-bg);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-
-  &__bar {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    height: 40px;
-    padding: 0 0.9rem;
-    border-bottom: 1px solid var(--line);
-    background: var(--surface);
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
-
-  &__dots {
-    display: flex;
-    gap: 6px;
-
-    i {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--line-strong);
-    }
-  }
-
-  &__tab {
-    color: var(--ink);
-    padding: 0.2rem 0.6rem;
-    border: 1px solid var(--line);
-    border-bottom-color: transparent;
-    border-radius: 6px 6px 0 0;
-    background: var(--code-bg);
-    transform: translateY(8px);
-  }
-}
-
-/*
- * Detection box: four corner brackets drawn with background gradients, plus
- * an optional confidence tag (.det__tag). Add .det--hover to show on hover only.
- */
-.det {
-  --det: var(--signal);
-  --det-len: 16px;
-  --det-w: 2px;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    pointer-events: none;
-    background:
-      linear-gradient(var(--det), var(--det)) top left / var(--det-len) var(--det-w),
-      linear-gradient(var(--det), var(--det)) top left / var(--det-w) var(--det-len),
-      linear-gradient(var(--det), var(--det)) top right / var(--det-len) var(--det-w),
-      linear-gradient(var(--det), var(--det)) top right / var(--det-w) var(--det-len),
-      linear-gradient(var(--det), var(--det)) bottom left / var(--det-len) var(--det-w),
-      linear-gradient(var(--det), var(--det)) bottom left / var(--det-w) var(--det-len),
-      linear-gradient(var(--det), var(--det)) bottom right / var(--det-len) var(--det-w),
-      linear-gradient(var(--det), var(--det)) bottom right / var(--det-w) var(--det-len);
-    background-repeat: no-repeat;
-    transition:
-      opacity 0.25s var(--ease),
-      inset 0.25s var(--ease);
-  }
-
-  &__tag {
-    position: absolute;
-    left: -6px;
-    top: -30px;
-    z-index: 2;
-    padding: 2px 7px;
-    background: var(--det);
-    color: var(--on-signal);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 500;
-    line-height: 1.5;
-    white-space: nowrap;
-    transition:
-      opacity 0.25s var(--ease),
-      transform 0.25s var(--ease);
-  }
-
-  &--hover {
-    &::after {
-      opacity: 0;
-      inset: 4px;
-    }
-
-    .det__tag {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-
-    &:hover,
-    &:focus-visible,
-    &:focus-within {
-      &::after {
-        opacity: 1;
-        inset: -6px;
-      }
-
-      .det__tag {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  }
+  border-radius: var(--radius);
 }
 
 .link {
-  background-image: linear-gradient(var(--signal), var(--signal));
-  background-size: 0% 2px;
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size 0.3s var(--ease);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 
   &:hover {
-    background-size: 100% 2px;
+    color: var(--accent-ink);
   }
 }
 
-/* Theme-dependent visibility (icons and the day/night portrait). */
 :root:not([data-theme='dark']) .only-dark,
 :root[data-theme='dark'] .only-light {
   display: none !important;
-}
-
-/* Scroll reveal (class is only ever added client-side, see RevealDirective). */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 0.6s var(--ease) var(--reveal-delay, 0ms),
-    transform 0.6s var(--ease) var(--reveal-delay, 0ms);
-
-  &.is-visible {
-    opacity: 1;
-    transform: none;
-  }
 }

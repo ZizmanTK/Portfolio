@@ -1,85 +1,40 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { SITE, shortHash, type L } from '../../core/content';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { SITE, type Experience } from '../../core/content';
 import { I18n } from '../../core/i18n';
-import { RevealDirective } from '../../shared/reveal.directive';
-import { SectionHeadingComponent } from '../../shared/section-heading.component';
+import { RichTextComponent } from '../../shared/rich-text.component';
 
-interface Commit {
-  kind: 'work' | 'edu';
-  hash: string;
+interface CompanyGroup {
+  company: string;
+  url: string;
+  logo: string;
   start: string;
   end: string | null;
-  title: L;
-  org: string;
-  url: string | null;
-  logo: string | null;
-  tag: L | null;
-  where: string;
-  highlights: L[];
-  stack: string[];
-  /** Git-graph drawing flags for this row. */
-  workTop: boolean;
-  workBottom: boolean;
-  eduTop: boolean;
-  eduBottom: boolean;
-  fork: boolean;
+  positions: Experience[];
+}
+
+/** Consecutive positions at the same company are shown together, LinkedIn-style. */
+function groupByCompany(items: Experience[]): CompanyGroup[] {
+  const groups: CompanyGroup[] = [];
+  for (const e of items) {
+    const last = groups.at(-1);
+    if (last && last.company === e.company) {
+      last.positions.push(e);
+      last.start = e.start;
+    } else {
+      groups.push({ company: e.company, url: e.url, logo: e.logo, start: e.start, end: e.end, positions: [e] });
+    }
+  }
+  return groups;
 }
 
 @Component({
   selector: 'app-experience',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeadingComponent, RevealDirective],
+  imports: [RichTextComponent],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.scss',
 })
 export class ExperienceComponent {
   protected readonly i18n = inject(I18n);
-
-  /** Work and education merged into one history, newest first, with lane flags for the graph. */
-  protected readonly commits = computed<Commit[]>(() => {
-    const lang = this.i18n.lang();
-    const base = [
-      ...SITE.experience.map((e) => ({
-        kind: 'work' as const,
-        start: e.start,
-        end: e.end,
-        title: e.role,
-        org: e.company,
-        url: e.url,
-        logo: e.logo,
-        tag: e.type,
-        where: e.location[lang],
-        highlights: e.highlights,
-        stack: e.stack,
-      })),
-      ...SITE.education.map((e) => ({
-        kind: 'edu' as const,
-        start: e.start,
-        end: e.end,
-        title: e.degree,
-        org: e.school,
-        url: e.url,
-        logo: e.logo,
-        tag: null,
-        where: `${e.city}, ${e.country[lang]}`,
-        highlights: [],
-        stack: [],
-      })),
-    ].sort((a, b) => b.start.localeCompare(a.start));
-
-    const lastWork = base.map((c) => c.kind).lastIndexOf('work');
-    const firstEdu = base.findIndex((c) => c.kind === 'edu');
-    const last = base.length - 1;
-    const forks = firstEdu === lastWork + 1;
-
-    return base.map((c, i) => ({
-      ...c,
-      hash: shortHash(c.org + c.start),
-      workTop: i > 0 && i <= lastWork,
-      workBottom: i < lastWork,
-      eduTop: i > firstEdu || (forks && i === firstEdu),
-      eduBottom: i >= firstEdu && i < last,
-      fork: forks && i === lastWork,
-    }));
-  });
+  protected readonly groups = groupByCompany(SITE.experience);
 }

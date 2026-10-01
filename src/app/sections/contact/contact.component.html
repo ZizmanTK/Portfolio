@@ -1,45 +1,31 @@
 @let ui = i18n.ui();
 <section id="contact" class="section" aria-labelledby="contact-title">
-  <div class="container grid">
-    <app-section-heading index="06" [file]="ui.files.contact" [title]="ui.titles.contact" headingId="contact-title">
-      <p class="lead intro">{{ ui.contactIntro }}</p>
-    </app-section-heading>
-
-    <div class="window term">
-      <div class="window__bar">
-        <span class="window__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="window__tab">contact.sh — zsh</span>
-      </div>
-      <div class="term__body mono">
-        <p><span class="ps">$</span> echo $EMAIL</p>
-        <p class="out email">
+  <div class="container">
+    <h2 id="contact-title" class="section-title">{{ ui.sections.contact }}</h2>
+    <div class="card panel">
+      <div class="panel__main">
+        <p class="intro">{{ ui.contactIntro }}</p>
+        <div class="email">
           <a [href]="'mailto:' + profile.email">{{ profile.email }}</a>
           <button type="button" class="btn btn--sm" (click)="copyEmail()" aria-live="polite">
-            <app-icon [name]="copied() ? 'check' : 'copy'" [size]="14" /> {{ copied() ? ui.copied : ui.copy }}
+            <app-icon [name]="copied() ? 'check' : 'copy'" [size]="15" /> {{ copied() ? ui.copied : ui.copy }}
           </button>
-        </p>
-
-        <p><span class="ps">$</span> open --links</p>
-        <ul role="list" class="out links">
+        </div>
+        <ul role="list" class="links">
           @for (s of socials; track s.id) {
             <li>
-              <a [href]="s.url" target="_blank" rel="noopener me">
-                <app-icon [name]="s.id" [size]="16" />
-                <span class="links__label">{{ s.label }}</span>
-                <span class="muted">{{ s.handle }}</span>
-                <app-icon class="links__arrow" name="arrowUpRight" [size]="14" />
+              <a class="btn btn--sm" [href]="s.url" target="_blank" rel="noopener me">
+                <app-icon [name]="s.id" [size]="16" /> {{ s.label }}
               </a>
             </li>
           }
         </ul>
-
-        <p><span class="ps">$</span> curl -O cv.pdf</p>
-        <p class="out">
-          <a class="btn btn--signal" [href]="i18n.t(profile.resume)" download>
-            <app-icon name="download" [size]="15" /> {{ ui.downloadCv }}
-          </a>
-        </p>
-        <p><span class="ps">$</span> <span class="cursor" aria-hidden="true"></span></p>
+      </div>
+      <div class="panel__cv">
+        <a class="btn btn--primary" [href]="i18n.t(profile.resume)" download>
+          <app-icon name="download" [size]="18" /> {{ ui.downloadCv }} (PDF)
+        </a>
+        <a class="link small" [href]="otherResume()" download>{{ ui.otherCv }}</a>
       </div>
     </div>
   </div>
@@ -48,35 +34,15 @@
 <footer class="footer">
   <div class="container footer__inner">
     <div class="footer__brand">
-      <app-logo [size]="22" />
-      <p class="mono muted">© {{ year }} {{ profile.name }} · {{ ui.builtWith }}</p>
+      <app-logo [size]="20" />
+      <p class="muted">© {{ year }} {{ profile.name }} · {{ ui.builtWith }}</p>
     </div>
-    <div class="footer__links mono">
-      <a class="link muted" href="https://github.com/ZizmanTK/Portfolio" target="_blank" rel="noopener">{{ ui.viewSource }}</a>
-      <a class="link muted" [routerLink]="i18n.otherLangPath()">{{ ui.switchLang }}</a>
+    <div class="footer__links">
+      <a class="muted link" href="https://github.com/ZizmanTK/Portfolio" target="_blank" rel="noopener">{{ ui.viewSource }}</a>
+      <a class="muted link" [routerLink]="i18n.otherLangPath()">{{ ui.switchLang }}</a>
       <a class="icon-btn" [routerLink]="homePath()" fragment="top" [attr.aria-label]="ui.backToTop" [title]="ui.backToTop">
-        <app-icon name="arrowUp" [size]="15" />
+        <app-icon name="arrowUp" [size]="16" />
       </a>
     </div>
   </div>
 </footer>
-
-<aside class="lab" [attr.aria-label]="ui.logoLab">
-  <p class="lab__title mono">{{ ui.logoLab }}</p>
-  <div class="lab__options" role="radiogroup" [attr.aria-label]="ui.logoLabHint" [title]="ui.logoLabHint">
-    @for (v of variants; track v; let i = $index) {
-      <button
-        type="button"
-        role="radio"
-        class="lab__opt"
-        [class.is-active]="logos.variant() === v"
-        [attr.aria-checked]="logos.variant() === v"
-        [attr.aria-label]="v"
-        [title]="'0' + (i + 1) + ' ' + v"
-        (click)="logos.set(v)"
-      >
-        <app-logo [variant]="v" [size]="18" />
-      </button>
-    }
-  </div>
-</aside>

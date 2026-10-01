@@ -13,8 +13,9 @@ Everything — profile, experience, education, projects, skills, interests — l
 src/content/site.json
 ```
 
-Every user-facing string is `{ "en": "...", "fr": "..." }`. Interface labels (nav, buttons) are in
-`src/app/core/ui-strings.ts`. Images live in `src/assets/img/`.
+Every user-facing string is `{ "en": "...", "fr": "..." }`; wrap keywords in `**double asterisks**` to bold them
+(on the site and in the CV). Interface labels (nav, buttons) are in `src/app/core/ui-strings.ts`. Images live in
+`src/assets/img/`.
 
 ## Commands
 
@@ -40,8 +41,8 @@ git add -A && git commit -m "Update portfolio" && git push
 ```
 src/content/site.json        content for the site and the resume
 src/app/core/                content types, i18n, theme, SEO
-src/app/sections/            header, hero, about, experience, projects, skills, interests, contact
-src/app/shared/              icons, section heading, scroll-reveal directive
+src/app/sections/            header, hero, experience, skills, projects, education, about, contact
+src/app/shared/              icons, ZTK crown logo, rich text (**bold** keywords)
 scripts/build-resume.mjs     HTML → PDF resume via headless Chrome
 scripts/publish-docs.mjs     copies the build into docs/
 ```

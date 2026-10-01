@@ -1,21 +1,21 @@
 @let ui = i18n.ui();
 <div class="bar container">
-  <a class="brand" [routerLink]="homePath()" fragment="top" (click)="menuOpen.set(false)" aria-label="Abdoul Aziz Maazou — home">
-    <app-logo [size]="26" />
-    <span class="brand__name mono">abdoul-aziz<span class="muted">.maazou</span></span>
+  <a class="brand" [routerLink]="homePath()" fragment="top" (click)="menuOpen.set(false)">
+    <app-logo [size]="24" />
+    <span class="brand__name">{{ profile.name }}</span>
   </a>
 
   <nav class="nav" [attr.aria-label]="ui.menu">
     <ul role="list" class="nav__list">
-      @for (link of links(); track link.id; let i = $index) {
+      @for (link of links(); track link.id) {
         <li>
           <a
-            class="nav__link mono"
+            class="nav__link"
             [class.is-active]="active() === link.id"
             [routerLink]="homePath()"
             [fragment]="link.id"
             (click)="menuOpen.set(false)"
-            ><span class="nav__idx">0{{ i + 1 }}</span>{{ link.label }}</a
+            >{{ link.label }}</a
           >
         </li>
       }
@@ -32,12 +32,12 @@
       >{{ ui.langShort }}</a
     >
     <button type="button" class="icon-btn" (click)="theme.toggle()" [attr.aria-label]="ui.toggleTheme" [title]="ui.toggleTheme">
-      <app-icon class="only-light" name="moon" [size]="16" />
-      <app-icon class="only-dark" name="sun" [size]="16" />
+      <app-icon class="only-light" name="moon" [size]="17" />
+      <app-icon class="only-dark" name="sun" [size]="17" />
     </button>
-    <a class="btn btn--signal btn--sm cv" [href]="i18n.t(profile.resume)" download [attr.aria-label]="ui.downloadCv">
-      <app-icon name="download" [size]="15" />
-      <span>{{ ui.cv }}</span>
+    <a class="btn btn--primary btn--sm cv" [href]="i18n.t(profile.resume)" download [attr.aria-label]="ui.downloadCv">
+      <app-icon name="download" [size]="16" />
+      <span>{{ ui.downloadCv }}</span>
     </a>
     <button
       type="button"
@@ -47,18 +47,16 @@
       aria-controls="mobile-menu"
       [attr.aria-label]="menuOpen() ? ui.close : ui.menu"
     >
-      <app-icon [name]="menuOpen() ? 'close' : 'menu'" [size]="16" />
+      <app-icon [name]="menuOpen() ? 'close' : 'menu'" [size]="17" />
     </button>
   </div>
 </div>
 
 <div id="mobile-menu" class="sheet" [class.is-open]="menuOpen()" [attr.aria-hidden]="!menuOpen()" [attr.inert]="menuOpen() ? null : ''">
   <ul role="list" class="container sheet__list">
-    @for (link of links(); track link.id; let i = $index) {
+    @for (link of links(); track link.id) {
       <li>
-        <a class="sheet__link" [routerLink]="homePath()" [fragment]="link.id" (click)="menuOpen.set(false)">
-          <span class="mono signal">0{{ i + 1 }}</span> ~/{{ link.label }}
-        </a>
+        <a class="sheet__link" [routerLink]="homePath()" [fragment]="link.id" (click)="menuOpen.set(false)">{{ link.label }}</a>
       </li>
     }
   </ul>

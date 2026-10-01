@@ -2,27 +2,25 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { RouterLink } from '@angular/router';
 import { SITE } from '../../core/content';
 import { I18n } from '../../core/i18n';
-import { LOGO_VARIANTS, LogoService } from '../../core/logo.service';
 import { IconComponent } from '../../shared/icon.component';
 import { LogoComponent } from '../../shared/logo.component';
-import { SectionHeadingComponent } from '../../shared/section-heading.component';
 
 @Component({
   selector: 'app-contact',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, IconComponent, LogoComponent, SectionHeadingComponent],
+  imports: [RouterLink, IconComponent, LogoComponent],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
 export class ContactComponent {
   protected readonly i18n = inject(I18n);
-  protected readonly logos = inject(LogoService);
-  protected readonly variants = LOGO_VARIANTS;
   protected readonly profile = SITE.profile;
   protected readonly socials = SITE.socials;
   protected readonly year = new Date().getFullYear();
   protected readonly copied = signal(false);
   protected readonly homePath = computed(() => (this.i18n.lang() === 'fr' ? '/fr' : '/'));
+  /** The CV in the other language, for recruiters who need both. */
+  protected readonly otherResume = computed(() => this.profile.resume[this.i18n.lang() === 'en' ? 'fr' : 'en']);
 
   protected async copyEmail(): Promise<void> {
     try {
