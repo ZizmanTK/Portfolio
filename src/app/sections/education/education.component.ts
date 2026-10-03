@@ -9,7 +9,7 @@ import { I18n } from '../../core/i18n';
     @let ui = i18n.ui();
     <section id="education" class="section" aria-labelledby="education-title">
       <div class="container">
-        <h2 id="education-title" class="section-title">{{ ui.sections.education }}</h2>
+        <h2 id="education-title" class="section-title" data-n="04">{{ ui.sections.education }}</h2>
 
         <ol role="list" class="list card">
           @for (e of education; track e.school) {

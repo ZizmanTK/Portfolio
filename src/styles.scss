@@ -21,6 +21,15 @@
   --header-bg: rgb(255 255 255 / 0.9);
 
   --font: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --cat-ai: #6d28d9;
+  --cat-ai-bg: #f1ebfe;
+  --cat-games: #be185d;
+  --cat-games-bg: #fde8f1;
+  --cat-web: #0f766e;
+  --cat-web-bg: #e0f4f1;
+  --band: #111827;
+  --band-ink: #f9fafb;
   --radius: 12px;
   --container: 1120px;
   --gutter: clamp(1rem, 4vw, 2rem);
@@ -43,6 +52,14 @@
   --accent-soft: #2a2312;
   --logo: #fbb915;
   --on-ink: #0f1115;
+  --cat-ai: #c4b5fd;
+  --cat-ai-bg: #2a2147;
+  --cat-games: #f9a8d4;
+  --cat-games-bg: #3d1f30;
+  --cat-web: #5eead4;
+  --cat-web-bg: #123a36;
+  --band: #090b0f;
+  --band-ink: #f3f4f6;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.8);
   --header-bg: rgb(15 17 21 / 0.9);
   color-scheme: dark;
@@ -159,20 +176,27 @@ button {
 }
 
 .section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
   margin-bottom: 2rem;
-  font-size: clamp(1.6rem, 3vw, 2rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.6vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 
-  &::after {
-    content: '';
-    display: block;
-    width: 48px;
-    height: 4px;
-    margin-top: 0.75rem;
-    border-radius: 2px;
+  &::before {
+    content: attr(data-n);
+    flex-shrink: 0;
+    padding: 0.18em 0.5em 0.12em;
+    border-radius: 8px;
     background: var(--accent);
+    color: #111827;
+    font-size: 0.5em;
+    font-weight: 800;
+    letter-spacing: 0;
+    transform: translateY(-0.25em) rotate(-4deg);
   }
 }
 
@@ -227,6 +251,28 @@ button {
     }
   }
 
+  &--signal {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #111827;
+
+    &:hover {
+      background: #ffcb3d;
+      border-color: #ffcb3d;
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    border-color: rgb(249 250 251 / 0.3);
+    color: var(--band-ink);
+
+    &:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  }
+
   &--sm {
     min-height: 38px;
     padding: 0 0.9rem;
@@ -264,6 +310,13 @@ button {
   font-weight: 500;
   line-height: 1.5;
   white-space: nowrap;
+}
+
+.tag--key {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--ink);
+  font-weight: 600;
 }
 
 .tags {

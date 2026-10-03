@@ -1,8 +1,8 @@
 @let ui = i18n.ui();
-<section id="contact" class="section" aria-labelledby="contact-title">
+<section id="contact" class="section section--band" aria-labelledby="contact-title">
   <div class="container">
-    <h2 id="contact-title" class="section-title">{{ ui.sections.contact }}</h2>
-    <div class="card panel">
+    <h2 id="contact-title" class="section-title" data-n="06">{{ ui.sections.contact }}</h2>
+    <div class="panel">
       <div class="panel__main">
         <p class="intro">{{ ui.contactIntro }}</p>
         <div class="email">
@@ -14,7 +14,7 @@
         <ul role="list" class="links">
           @for (s of socials; track s.id) {
             <li>
-              <a class="btn btn--sm" [href]="s.url" target="_blank" rel="noopener me">
+              <a class="btn btn--sm btn--ghost" [href]="s.url" target="_blank" rel="noopener me">
                 <app-icon [name]="s.id" [size]="16" /> {{ s.label }}
               </a>
             </li>
@@ -22,7 +22,7 @@
         </ul>
       </div>
       <div class="panel__cv">
-        <a class="btn btn--primary" [href]="i18n.t(profile.resume)" download>
+        <a class="btn btn--signal" [href]="i18n.t(profile.resume)" download>
           <app-icon name="download" [size]="18" /> {{ ui.downloadCv }} (PDF)
         </a>
         <a class="link small" [href]="otherResume()" download>{{ ui.otherCv }}</a>

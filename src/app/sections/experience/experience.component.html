@@ -1,7 +1,7 @@
 @let ui = i18n.ui();
 <section id="experience" class="section section--alt" aria-labelledby="experience-title">
   <div class="container">
-    <h2 id="experience-title" class="section-title">{{ ui.sections.experience }}</h2>
+    <h2 id="experience-title" class="section-title" data-n="01">{{ ui.sections.experience }}</h2>
 
     <div class="list">
       @for (g of groups; track g.company + g.start) {
@@ -19,7 +19,7 @@
 
           <ol role="list" class="positions" [class.positions--multi]="g.positions.length > 1">
             @for (p of g.positions; track p.start) {
-              <li class="pos">
+              <li class="pos" [class.pos--current]="!p.end">
                 <div class="pos__head">
                   <div class="pos__title">
                     <h4>{{ i18n.t(p.role) }}</h4>

@@ -1,17 +1,20 @@
 @let ui = i18n.ui();
 <section id="projects" class="section section--alt" aria-labelledby="projects-title">
   <div class="container">
-    <h2 id="projects-title" class="section-title">{{ ui.sections.projects }}</h2>
+    <h2 id="projects-title" class="section-title" data-n="03">{{ ui.sections.projects }}</h2>
 
     <ul role="list" class="grid">
       @for (p of projects; track p.slug) {
         <li>
-          <article class="project card">
+          <article class="project card" [attr.data-cat]="p.category">
             <button type="button" class="project__media" (click)="open(p)" [attr.aria-label]="p.name + ' — ' + ui.viewDetails">
               <img [src]="p.image" alt="" width="1200" height="750" loading="lazy" />
             </button>
             <div class="project__body">
-              <p class="project__meta muted">{{ i18n.t(p.context) }}@if (p.year) { · {{ p.year }}}</p>
+              <p class="project__meta">
+                <span class="cat">{{ ui.cat[p.category] }}</span>
+                <span class="muted">{{ i18n.t(p.context) }}@if (p.year) { · {{ p.year }}}</span>
+              </p>
               <h3>{{ p.name }}</h3>
               <p class="project__tagline">{{ i18n.t(p.tagline) }}</p>
               <ul role="list" class="tags">

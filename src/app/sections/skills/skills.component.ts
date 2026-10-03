@@ -11,7 +11,7 @@ import { IconComponent } from '../../shared/icon.component';
     @let ui = i18n.ui();
     <section id="skills" class="section" aria-labelledby="skills-title">
       <div class="container">
-        <h2 id="skills-title" class="section-title">{{ ui.sections.skills }}</h2>
+        <h2 id="skills-title" class="section-title" data-n="02">{{ ui.sections.skills }}</h2>
 
         <dl class="table card">
           @for (g of groups; track $index) {

@@ -41,7 +41,7 @@ export interface Site {
   projects: Project[];
   skills: SkillGroup[];
   badges: L[];
-  interests: L[];
+  interests: (L & { emoji: string })[];
 }
 
 export const SITE = data as unknown as Site;

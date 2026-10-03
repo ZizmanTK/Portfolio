@@ -313,11 +313,11 @@
   ],
 
   "interests": [
-    { "en": "Game development (Unity)", "fr": "Développement de jeux (Unity)" },
-    { "en": "Music production (FL Studio)", "fr": "Composition musicale (FL Studio)" },
-    { "en": "Volleyball", "fr": "Volley-ball" },
-    { "en": "Chess", "fr": "Échecs" },
-    { "en": "Bouldering", "fr": "Escalade" },
-    { "en": "Piano", "fr": "Piano" }
+    { "emoji": "🎮", "en": "Game development (Unity)", "fr": "Développement de jeux (Unity)" },
+    { "emoji": "🎵", "en": "Music production (FL Studio)", "fr": "Composition musicale (FL Studio)" },
+    { "emoji": "🏐", "en": "Volleyball", "fr": "Volley-ball" },
+    { "emoji": "♟️", "en": "Chess", "fr": "Échecs" },
+    { "emoji": "🧗", "en": "Bouldering", "fr": "Escalade" },
+    { "emoji": "🎹", "en": "Piano", "fr": "Piano" }
   ]
 }

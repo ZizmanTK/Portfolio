@@ -5,6 +5,7 @@ export const UI = {
   en: {
     nav: { experience: 'Experience', skills: 'Skills', projects: 'Projects', education: 'Education', contact: 'Contact' },
     skipToContent: 'Skip to content',
+    hello: 'Sannu! Hi, I’m',
     downloadCv: 'Download CV',
     downloadCvShort: 'CV',
     otherCv: 'CV in French',
@@ -30,6 +31,7 @@ export const UI = {
     languages: 'Languages',
     interests: 'Interests',
     certifications: 'Certifications',
+    cat: { ai: 'AI', games: 'Game', web: 'Web' },
     viewDetails: 'Details',
     play: 'Play',
     source: 'Source code',
@@ -44,6 +46,7 @@ export const UI = {
   fr: {
     nav: { experience: 'Expérience', skills: 'Compétences', projects: 'Projets', education: 'Formation', contact: 'Contact' },
     skipToContent: 'Aller au contenu',
+    hello: 'Sannu ! Bonjour, moi c’est',
     downloadCv: 'Télécharger le CV',
     downloadCvShort: 'CV',
     otherCv: 'CV en anglais',
@@ -69,6 +72,7 @@ export const UI = {
     languages: 'Langues',
     interests: 'Centres d’intérêt',
     certifications: 'Certifications',
+    cat: { ai: 'IA', games: 'Jeu', web: 'Web' },
     viewDetails: 'Détails',
     play: 'Jouer',
     source: 'Code source',

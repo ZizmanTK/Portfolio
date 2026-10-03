@@ -110,7 +110,7 @@ function render(lang) {
 
   const contact = [
     `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>`,
-    esc(p.location[lang]),
+    `<span class="nw">${esc(p.location[lang])}</span>`,
     `<a href="${esc(linkedin.url)}">${esc(stripProtocol(linkedin.url))}</a>`,
     `<a href="${esc(github.url)}">${esc(stripProtocol(github.url))}</a>`,
     `<a href="${esc(p.site)}">${esc(stripProtocol(p.site))}</a>`,
@@ -164,29 +164,31 @@ function render(lang) {
 <title>${esc(p.name)} — ${t(p.role)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Geist:wght@400;500;600;700&display=block" rel="stylesheet">
 <style>
   @page { size: A4; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  body { width: 210mm; padding: 10mm 14mm 3mm; font-family: 'Geist', Arial, sans-serif; font-size: 9pt; line-height: 1.35; color: #111827; }
+  body { width: 210mm; padding: 9mm 14mm 3mm; font-family: 'Geist', Arial, sans-serif; font-size: 9pt; line-height: 1.35; color: #111827; }
   a { color: inherit; text-decoration: none; }
   strong { font-weight: 600; color: #111827; }
 
   header { display: flex; align-items: center; gap: 5mm; }
   .photo { width: 20mm; height: 20mm; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
   .who { flex: 1; }
-  h1 { font-size: 21pt; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+  h1 { font-family: 'Bricolage Grotesque', 'Geist', sans-serif; font-size: 23pt; font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; }
+  h1 mark { padding: 0 0.6mm; background: linear-gradient(transparent 58%, #fbb915 58% 92%, transparent 92%); color: inherit; }
   .title { margin-top: 1mm; font-size: 12pt; font-weight: 600; }
   .title .co { color: #8a5a00; }
   .logo { height: 12mm; align-self: flex-start; }
   .contact { margin-top: 2.2mm; font-size: 8.4pt; color: #374151; }
   .sep { margin: 0 1.6mm; color: #9ca3af; }
-  .contact a { white-space: nowrap; }
+  .contact a, .nw { white-space: nowrap; }
   .facts { margin-top: 3mm; padding: 1.6mm 3mm; border-radius: 1.5mm; background: #fff6dc; font-size: 8.8pt; font-weight: 600; }
   .dot { margin: 0 2mm; color: #e9a400; }
 
-  h2 { margin: 3.4mm 0 1.5mm; padding-bottom: 0.8mm; border-bottom: 0.6mm solid #fbb915; font-size: 10pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  h2 { display: flex; align-items: center; gap: 2mm; margin: 2.8mm 0 1.2mm; padding-bottom: 0.6mm; border-bottom: 0.6mm solid #fbb915; font-family: 'Bricolage Grotesque', 'Geist', sans-serif; font-size: 10.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+  h2::before { content: ''; width: 2.4mm; height: 2.4mm; border-radius: 0.6mm; background: #fbb915; transform: rotate(45deg); }
   .summary { color: #1f2937; }
 
   table { width: 100%; border-collapse: collapse; }
@@ -197,9 +199,9 @@ function render(lang) {
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
   .dates { flex-shrink: 0; font-weight: 600; font-size: 8.6pt; }
   .dates--pos { font-weight: 500; color: #374151; }
-  .company + .company { margin-top: 2.2mm; }
-  .company__head h3 { font-size: 10.4pt; font-weight: 700; }
-  .pos { margin-top: 1.2mm; }
+  .company + .company { margin-top: 1.8mm; }
+  .company__head h3 { font-family: 'Bricolage Grotesque', 'Geist', sans-serif; font-size: 11pt; font-weight: 800; letter-spacing: -0.01em; }
+  .pos { margin-top: 0.9mm; }
   .pos h4 { font-size: 9.6pt; font-weight: 600; }
   .pos .type { font-weight: 400; color: #4b5563; }
   .pos ul { margin: 0.6mm 0 0 4.2mm; color: #1f2937; }
@@ -220,7 +222,7 @@ function render(lang) {
   <header>
     ${L.photo ? `<img class="photo" src="${avatar}" alt="">` : ''}
     <div class="who">
-      <h1>${esc(p.name)}</h1>
+      <h1>${esc(p.firstName)} <mark>${esc(p.lastName)}</mark></h1>
       <p class="title">${t(p.role)} — <span class="co">${esc(p.company)}</span></p>
       <p class="contact">${contact}</p>
     </div>

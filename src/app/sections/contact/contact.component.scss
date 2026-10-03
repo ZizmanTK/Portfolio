@@ -2,13 +2,37 @@
   display: block;
 }
 
+/* dark closing band */
+.section--band {
+  position: relative;
+  overflow: hidden;
+  border-top: 0;
+  background: var(--band);
+  color: var(--band-ink);
+
+  &::before {
+    content: '';
+    position: absolute;
+    right: -120px;
+    top: -140px;
+    width: 460px;
+    height: 460px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(251 185 21 / 0.28), transparent);
+  }
+
+  > * {
+    position: relative;
+  }
+}
+
 .panel {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem 2rem;
-  padding: clamp(1.25rem, 4vw, 2rem);
+  padding: 0;
 
   &__main {
     display: grid;
@@ -24,7 +48,8 @@
 
 .intro {
   max-width: 40rem;
-  color: var(--ink-2);
+  font-size: 1.15rem;
+  color: rgb(249 250 251 / 0.8);
 }
 
 .email {
@@ -56,6 +81,7 @@
 
 .small {
   font-size: 0.92rem;
+  color: rgb(249 250 251 / 0.8);
 }
 
 .footer {

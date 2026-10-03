@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SITE } from '../../core/content';
 import { I18n } from '../../core/i18n';
 import { IconComponent } from '../../shared/icon.component';
+import { LogoComponent } from '../../shared/logo.component';
 import { RichTextComponent } from '../../shared/rich-text.component';
 
 @Component({
   selector: 'app-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IconComponent, RichTextComponent],
+  imports: [IconComponent, LogoComponent, RichTextComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })
