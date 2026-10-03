@@ -7,71 +7,64 @@ import { I18n } from '../../core/i18n';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let ui = i18n.ui();
-    <section id="about" class="section section--alt" aria-labelledby="about-title">
-      <div class="container grid">
-        <div>
-          <h2 id="about-title" class="section-title" data-n="05">{{ ui.sections.about }}</h2>
-          <div class="story">
-            @for (p of paragraphs; track $index) {
-              <p>{{ i18n.t(p) }}</p>
-            }
-            <p class="mission">{{ i18n.t(mission) }}</p>
-          </div>
-        </div>
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container split">
+        <h2 id="about-title" class="section-title">{{ ui.sections.about }}</h2>
 
-        <aside class="side">
-          <div class="card box">
-            <h3>{{ ui.languages }}</h3>
-            <ul role="list" class="langs">
-              @for (l of languages; track $index) {
-                <li><span>{{ i18n.t(l.name) }}</span><span class="muted">{{ i18n.t(l.level) }}</span></li>
-              }
-            </ul>
-          </div>
-          <div class="card box">
-            <h3>{{ ui.interests }}</h3>
-            <ul role="list" class="tags">
-              @for (it of interests; track $index) {
-                <li class="tag tag--fun"><span aria-hidden="true">{{ it.emoji }}</span> {{ i18n.t(it) }}</li>
-              }
-            </ul>
-          </div>
-        </aside>
+        <div class="body">
+          <blockquote class="mission">{{ i18n.t(mission) }}</blockquote>
+
+          @for (p of paragraphs; track $index) {
+            <p class="para">{{ i18n.t(p) }}</p>
+          }
+
+          <dl class="lists">
+            <div class="list">
+              <dt>{{ ui.languages }}</dt>
+              <dd>
+                @for (l of languages; track $index) {
+                  <span class="lang"><strong>{{ i18n.t(l.name) }}</strong> <span class="muted">{{ i18n.t(l.level) }}</span></span>
+                }
+              </dd>
+            </div>
+            <div class="list">
+              <dt>{{ ui.interests }}</dt>
+              <dd>
+                @for (it of interests; track $index) {
+                  <span class="fun"><span aria-hidden="true">{{ it.emoji }}</span><span>{{ i18n.t(it) }}</span></span>
+                }
+              </dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </section>
   `,
   styles: `
-    .grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 3.5rem); align-items: start; }
-    .story { display: grid; gap: 1rem; max-width: 44rem; color: var(--ink-2); }
+    .body { display: grid; gap: 1.25rem; max-width: 46rem; }
     .mission {
-      position: relative;
-      margin-top: 0.5rem;
-      padding: 1.1rem 1.25rem 1.1rem 3.2rem;
-      border-radius: 14px;
-      background: var(--accent-soft);
+      margin: 0 0 0.5rem;
       font-family: var(--font-display);
-      font-size: 1.15rem;
+      font-size: clamp(1.5rem, 3vw, 2rem);
       font-weight: 700;
-      line-height: 1.4;
-      letter-spacing: -0.01em;
-      color: var(--ink);
+      letter-spacing: -0.025em;
+      line-height: 1.25;
     }
     .mission::before {
       content: '“';
-      position: absolute;
-      left: 0.8rem;
-      top: -0.1rem;
-      font-size: 3.4rem;
+      display: block;
+      margin-bottom: -0.35em;
+      font-size: 3.2em;
       line-height: 1;
-      color: var(--accent-ink);
+      color: var(--accent);
     }
-    .tag--fun { padding: 0.3rem 0.75rem; font-size: 0.92rem; }
-    .side { display: grid; gap: 1rem; }
-    .box { padding: 1.25rem 1.4rem; }
-    .box h3 { margin-bottom: 0.75rem; font-size: 1rem; font-weight: 700; }
-    .langs li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; font-weight: 500; }
-    .langs li + li { border-top: 1px solid var(--line); }
-    @media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+    .para { color: var(--ink-2); }
+    .lists { display: grid; gap: 1.25rem; margin: 0.75rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+    .list { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 0.4rem 1rem; }
+    dt { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent-ink); padding-top: 0.2rem; }
+    dd { margin: 0; display: flex; flex-wrap: wrap; gap: 0.2rem 1.4rem; }
+    .lang, .fun { display: inline-flex; gap: 0.4rem; align-items: baseline; }
+    @media (max-width: 560px) { .list { grid-template-columns: minmax(0, 1fr); } }
   `,
 })
 export class AboutComponent {

@@ -1,38 +1,34 @@
 @let ui = i18n.ui();
-<section id="projects" class="section section--alt" aria-labelledby="projects-title">
-  <div class="container">
-    <h2 id="projects-title" class="section-title" data-n="03">{{ ui.sections.projects }}</h2>
+<section id="projects" class="section" aria-labelledby="projects-title">
+  <div class="container split">
+    <h2 id="projects-title" class="section-title">{{ ui.sections.projects }}</h2>
 
     <ul role="list" class="grid">
       @for (p of projects; track p.slug) {
-        <li>
-          <article class="project card" [attr.data-cat]="p.category">
-            <button type="button" class="project__media" (click)="open(p)" [attr.aria-label]="p.name + ' — ' + ui.viewDetails">
-              <img [src]="p.image" alt="" width="1200" height="750" loading="lazy" />
-            </button>
-            <div class="project__body">
-              <p class="project__meta">
-                <span class="cat">{{ ui.cat[p.category] }}</span>
-                <span class="muted">{{ i18n.t(p.context) }}@if (p.year) { · {{ p.year }}}</span>
-              </p>
-              <h3>{{ p.name }}</h3>
-              <p class="project__tagline">{{ i18n.t(p.tagline) }}</p>
-              <ul role="list" class="tags">
-                @for (s of p.stack; track s) {
-                  <li class="tag">{{ s }}</li>
-                }
-              </ul>
-              <div class="project__actions">
-                <button type="button" class="btn btn--sm" (click)="open(p)">{{ ui.viewDetails }}</button>
-                @if (p.links.play) {
-                  <a class="btn btn--sm" [href]="p.links.play" target="_blank" rel="noopener"><app-icon name="play" [size]="14" /> {{ ui.play }}</a>
-                }
-                @if (p.links.github) {
-                  <a class="btn btn--sm" [href]="p.links.github" target="_blank" rel="noopener"><app-icon name="github" [size]="15" /> {{ ui.source }}</a>
-                }
-              </div>
-            </div>
-          </article>
+        <li class="project" [attr.data-cat]="p.category">
+          <button type="button" class="project__media" (click)="open(p)" [attr.aria-label]="p.name + ' — ' + ui.viewDetails">
+            <img [src]="p.image" alt="" width="1200" height="750" loading="lazy" />
+          </button>
+          <p class="project__meta">
+            <span class="cat">{{ ui.cat[p.category] }}</span>
+            <span class="muted">{{ i18n.t(p.context) }}@if (p.year) { · {{ p.year }}}</span>
+          </p>
+          <h3>{{ p.name }}</h3>
+          <p class="project__tagline">{{ i18n.t(p.tagline) }}</p>
+          <ul role="list" class="tags">
+            @for (s of p.stack; track s) {
+              <li class="tag">{{ s }}</li>
+            }
+          </ul>
+          <p class="project__actions">
+            <button type="button" class="link" (click)="open(p)">{{ ui.viewDetails }}</button>
+            @if (p.links.play) {
+              <a class="link" [href]="p.links.play" target="_blank" rel="noopener">{{ ui.play }} ↗</a>
+            }
+            @if (p.links.github) {
+              <a class="link" [href]="p.links.github" target="_blank" rel="noopener">{{ ui.source }} ↗</a>
+            }
+          </p>
         </li>
       }
     </ul>

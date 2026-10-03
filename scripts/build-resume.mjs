@@ -184,7 +184,7 @@ function render(lang) {
   .contact { margin-top: 2.2mm; font-size: 8.4pt; color: #374151; }
   .sep { margin: 0 1.6mm; color: #9ca3af; }
   .contact a, .nw { white-space: nowrap; }
-  .facts { margin-top: 3mm; padding: 1.6mm 3mm; border-radius: 1.5mm; background: #fff6dc; font-size: 8.8pt; font-weight: 600; }
+  .facts { margin-top: 3mm; padding: 1.6mm 0; border-top: 0.3mm solid #e5e0d0; border-bottom: 0.3mm solid #e5e0d0; font-size: 8.8pt; font-weight: 600; }
   .dot { margin: 0 2mm; color: #e9a400; }
 
   h2 { display: flex; align-items: center; gap: 2mm; margin: 2.8mm 0 1.2mm; padding-bottom: 0.6mm; border-bottom: 0.6mm solid #fbb915; font-family: 'Bricolage Grotesque', 'Geist', sans-serif; font-size: 10.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }

@@ -1,13 +1,13 @@
 @let ui = i18n.ui();
-<section id="experience" class="section section--alt" aria-labelledby="experience-title">
-  <div class="container">
-    <h2 id="experience-title" class="section-title" data-n="01">{{ ui.sections.experience }}</h2>
+<section id="experience" class="section" aria-labelledby="experience-title">
+  <div class="container split">
+    <h2 id="experience-title" class="section-title">{{ ui.sections.experience }}</h2>
 
     <div class="list">
       @for (g of groups; track g.company + g.start) {
-        <article class="company card">
+        <article class="company">
           <header class="company__head">
-            <img class="logo" [src]="g.logo" [alt]="g.company + ' logo'" width="52" height="52" loading="lazy" />
+            <img class="logo" [src]="g.logo" [alt]="g.company + ' logo'" width="44" height="44" loading="lazy" />
             <div>
               <h3><a class="link-plain" [href]="g.url" target="_blank" rel="noopener">{{ g.company }}</a></h3>
               <p class="muted">

@@ -10,10 +10,10 @@ import { IconComponent } from '../../shared/icon.component';
   template: `
     @let ui = i18n.ui();
     <section id="skills" class="section" aria-labelledby="skills-title">
-      <div class="container">
-        <h2 id="skills-title" class="section-title" data-n="02">{{ ui.sections.skills }}</h2>
+      <div class="container split">
+        <h2 id="skills-title" class="section-title">{{ ui.sections.skills }}</h2>
 
-        <dl class="table card">
+        <dl class="rows">
           @for (g of groups; track $index) {
             <div class="row">
               <dt>{{ i18n.t(g.group) }}</dt>
@@ -39,21 +39,22 @@ import { IconComponent } from '../../shared/icon.component';
     </section>
   `,
   styles: `
-    .table { margin: 0; overflow: hidden; }
+    .rows { margin: 0; }
     .row {
       display: grid;
-      grid-template-columns: 220px minmax(0, 1fr);
-      gap: 0.5rem 1.5rem;
-      align-items: center;
-      padding: 1rem 1.5rem;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 0.35rem 1.5rem;
+      padding: 0.95rem 0;
+      border-bottom: 1px solid var(--line);
     }
-    .row + .row { border-top: 1px solid var(--line); }
-    dt { font-weight: 700; }
+    .row:first-child { padding-top: 0; }
+    dt { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; }
     dd { margin: 0; }
+    .tags { font-size: 1rem; }
     .cert { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 500; }
     .cert app-icon { color: #15803d; }
     @media (max-width: 640px) {
-      .row { grid-template-columns: minmax(0, 1fr); padding: 1rem; }
+      .row { grid-template-columns: minmax(0, 1fr); }
     }
   `,
 })
