@@ -6,14 +6,18 @@ export type L = Record<Lang, string>;
 export interface Social { id: 'github' | 'linkedin' | 'itch'; label: string; handle: string; url: string }
 export interface Fact { icon: 'briefcase' | 'pin' | 'cap' | 'globe'; label: L; value: L }
 
+export interface CardPoint extends L { case?: string }
+
 export interface Experience {
   role: L; type: L; company: string; logo: string; url: string; location: L;
   start: string; end: string | null; highlights: L[]; stack: string[];
+  /** Short version used on the website's experience cards (the CV uses `highlights`). */
+  card: CardPoint[]; cardStack: string[]; title?: L;
 }
 
 export interface Education {
   degree: L; school: string; logo: string | null; url: string | null; city: string; country: L;
-  start: string; end: string;
+  start: string; end: string; award?: L;
 }
 
 export type ProjectCategory = 'web' | 'ai' | 'games';
@@ -21,16 +25,27 @@ export type ProjectCategory = 'web' | 'ai' | 'games';
 export interface Project {
   slug: string; name: string; year: string | null; context: L; category: ProjectCategory;
   image: string; tagline: L; description: L; stack: string[];
-  links: { play?: string; github?: string; site?: string };
+  links: { play?: string; github?: string; site?: string; demo?: string };
+  featured?: boolean; kicker?: L; when?: string; problem?: L; builtWith?: L; status?: L;
+  visual?: 'pipeline'; hue?: [string, string];
 }
+
+export interface Stat { value: string; accent: string; label: L; note: L }
+export interface RouteStop { city: string; what: L; now?: boolean }
 
 export interface SkillGroup { group: L; items: string[] }
 
 export interface Site {
   profile: {
     name: string; firstName: string; lastName: string; role: L; company: string; summary: L; mission: L;
-    location: L; email: string; site: string; portrait: string; avatar: string; resume: L;
+    location: L; email: string; site: string; portrait: string; portraitCutout: string; avatar: string; resume: L;
   };
+  hero: { greetings: string[]; tagline: L; contract: L; location: L };
+  stats: Stat[];
+  story: L[];
+  aboutShort: L[];
+  route: RouteStop[];
+  contact: { title: L; text: L };
   facts: Fact[];
   keySkills: string[];
   socials: Social[];
