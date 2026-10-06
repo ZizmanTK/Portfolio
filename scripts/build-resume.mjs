@@ -51,7 +51,7 @@ const LABELS = {
     interests: 'Interests',
     certifications: 'Certification',
     present: 'Present',
-    now: 'Now', contract: 'Contract', based: 'Based in', speaks: 'Speaks', award: 'Award',
+    now: 'Now', exp: 'Experience', contract: 'Contract', based: 'Based in', speaks: 'Speaks', award: 'Award',
     photo: false,
   },
   fr: {
@@ -66,7 +66,7 @@ const LABELS = {
     interests: 'Centres d’intérêt',
     certifications: 'Certification',
     present: 'Aujourd’hui',
-    now: 'Poste', contract: 'Contrat', based: 'Basé à', speaks: 'Langues', award: 'Distinction',
+    now: 'Poste', exp: 'Expérience', contract: 'Contrat', based: 'Basé à', speaks: 'Langues', award: 'Distinction',
     photo: true, // photos are customary on French CVs
   },
 };
@@ -121,7 +121,7 @@ function render(lang) {
 
   // The same four facts as the website's hero.
   const facts = [
-    [L.now, `${t(p.role)}, ${esc(p.company)}`],
+    [L.exp, t(site.facts.find((f) => f.icon === 'briefcase').value)],
     [L.contract, t(h.contract)],
     [L.based, t(h.location)],
     [L.speaks, t(h.languages)],
@@ -132,15 +132,20 @@ function render(lang) {
     return start.slice(0, 4) === end.slice(0, 4) ? start.slice(0, 4) : `${start.slice(0, 4)}–${end.slice(2, 4)}`;
   };
 
-  const experience = site.experience
-    .map((e) => `
-      <div class="row">
-        <div class="when"><b${e.end ? '' : ' class="cur"'}>${years(e.start, e.end)}</b><span>${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</span></div>
-        <div class="what">
-          <h3>${t(e.role)}</h3>
-          <p class="meta">${esc(e.company)} · ${t(e.type)} · ${t(e.location)}</p>
-          <ul>${e.highlights.map((x) => `<li>${r(x)}</li>`).join('')}</ul>
-        </div>
+  // Roles grouped under their company, so the BASSETTI progression (internship, fixed-term,
+  // permanent) reads as one story and the company line isn't repeated.
+  const experience = groupByCompany(site.experience)
+    .map((g) => `
+      <div class="co">
+        <p class="co-h"><b>${esc(g.company)}</b><span>${t(g.positions[0].location).split(' · ')[0]} · ${years(g.start, g.end)}</span></p>
+        ${g.positions.map((e) => `
+        <div class="row">
+          <div class="when"><b${e.end ? '' : ' class="cur"'}>${years(e.start, e.end)}</b><span>${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</span></div>
+          <div class="what">
+            <h3>${t(e.role)} <span class="ty">· ${t(e.type)}</span></h3>
+            <ul>${e.highlights.map((x) => `<li>${r(x)}</li>`).join('')}</ul>
+          </div>
+        </div>`).join('')}
       </div>`)
     .join('');
 
@@ -184,7 +189,7 @@ function render(lang) {
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body { width: 210mm; min-height: 297mm; font-family: 'Archivo', Arial, sans-serif; font-size: 8.3pt; line-height: 1.36; color: #3a3935; background: #fff; }
   a { color: inherit; text-decoration: none; }
-  strong { font-weight: 600; color: #141413; }
+  strong { font-weight: 600; color: #262522; }
 
   /* header: the website's hero, on paper */
   .band { position: relative; overflow: hidden; background: radial-gradient(60% 90% at 30% 40%, rgba(251,185,21,.10), transparent 70%), #0d0d0e; color: #eeece7; padding: 7mm 12mm 4.6mm; }
@@ -215,6 +220,12 @@ function render(lang) {
   .when b.cur { color: #141413; }
   .when b.cur::after { content: ''; display: inline-block; width: 1.6mm; height: 1.6mm; margin-left: 1.4mm; border-radius: 50%; background: #fbb915; vertical-align: 0.6mm; }
   .when span { display: block; margin-top: 0.8mm; font-size: 7pt; color: #8a877f; }
+  .co + .co { margin-top: 1.6mm; }
+  .co-h { display: flex; align-items: baseline; gap: 2.4mm; padding: 1.4mm 0 0.6mm; border-top: 0.35mm solid #141413; }
+  .co-h b { font-size: 10.4pt; font-weight: 700; color: #141413; letter-spacing: -0.01em; }
+  .co-h span { font-size: 8pt; color: #77746c; }
+  .co .row:first-of-type { border-top-color: #e7e4dc; }
+  h3 .ty { font-weight: 400; color: #77746c; font-size: 8.4pt; }
   h3 { font-size: 9.6pt; font-weight: 600; line-height: 1.25; color: #141413; letter-spacing: -0.005em; }
   .meta { font-size: 8.2pt; color: #77746c; }
   ul { margin-top: 0.7mm; list-style: none; }
@@ -230,9 +241,19 @@ function render(lang) {
   .kv .k { font-weight: 600; color: #141413; font-size: 8.4pt; }
   .kv .v { color: #3a3935; }
   .lv { color: #8a877f; }
+  /* French runs longer: a touch denser so it stays on one page */
+  body.fr ul { font-size: 7.9pt; }
+  body.fr .row { padding: 0.85mm 0; }
+  body.fr section { margin-top: 1.5mm; }
+  body.fr .summary { font-size: 8.8pt; }
+  body.fr .kv { padding: 0.75mm 0; }
+  /* English has room to breathe */
+  body.en section { margin-top: 2.5mm; }
+  body.en .row { padding: 1.4mm 0; }
+  body.en .kv { padding: 1mm 0; }
 </style>
 </head>
-<body>
+<body class="${lang}">
   <header class="band">
     <div class="top">
       <div>
@@ -248,7 +269,7 @@ function render(lang) {
     ${sec('01', L.summary, `<p class="summary">${r(p.summary)}</p>`)}
     ${sec('02', L.experience, experience)}
     ${sec('03', L.education, education)}
-    ${sec('04', L.skills, `<div class="grid2">${skills}</div>`)}
+    ${sec('04', L.skills, skills)}
     ${sec('05', L.additional, `
       <div class="row kv"><div class="k">${L.languages}</div><div class="v">${languages}</div></div>
       <div class="row kv"><div class="k">${L.projects}</div><div class="v">Unity${lang === 'fr' ? ' :' : ':'} ${games}, ${esc(stripProtocol(itch.url))}</div></div>
