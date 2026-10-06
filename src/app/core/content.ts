@@ -1,4 +1,5 @@
 import data from '../../content/site.json';
+import skillIcons from '../../content/skill-icons.json';
 
 export type Lang = 'en' | 'fr';
 export type L = Record<Lang, string>;
@@ -65,6 +66,9 @@ export interface Site {
 }
 
 export const SITE = data as unknown as Site;
+
+/** Single-colour icon (SVG data URI for a CSS mask) and brand colour per skill name. */
+export const SKILL_ICONS = (skillIcons as { icons: Record<string, { mask: string; hex: string }> }).icons;
 
 /** "Built **TxBot** with…" → [{ text: 'Built ', bold: false }, { text: 'TxBot', bold: true }, …] */
 export function richText(text: string): { text: string; bold: boolean }[] {
