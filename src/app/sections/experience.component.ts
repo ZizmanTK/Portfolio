@@ -1,125 +1,75 @@
-import {
-  ChangeDetectionStrategy, Component, DestroyRef, ElementRef, afterNextRender, computed, inject, signal, viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SITE } from '../core/content';
 import { I18n } from '../core/i18n';
-import { Scroll } from '../core/scroll';
 import { AccentTextComponent } from '../shared/accent-text.component';
-
-/** Oldest first: the section reads as a journey from the steel line to the current permanent role. */
-const ROLES = [...SITE.experience].reverse();
+import { RevealDirective } from '../shared/reveal.directive';
+import { SectionHeadComponent } from '../shared/section-head.component';
 
 /**
- * Experience pins to the screen and scrolling walks through the roles, oldest to now:
- * the rail fills, the year in the background changes, and each role's card slides in.
- * Clicking a role scrolls to its stop.
+ * Experience as a list a recruiter can scan in seconds: dates, role, company, contract.
+ * Each row opens to show what I did and the stack; the current role starts open.
  */
 @Component({
   selector: 'app-experience',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AccentTextComponent, RouterLink],
+  imports: [AccentTextComponent, RouterLink, RevealDirective, SectionHeadComponent],
   template: `
-    <section class="sec" id="experience">
-      <h2 class="tt rv"><span class="n">02</span>{{ i18n.ui().sections.experience }}</h2>
-      <p class="lead rv"><app-accent mode="b" [text]="i18n.ui().expLead" /></p>
-
-      <div class="jr" #pin [style.--n]="roles().length">
-        <div class="jr-in">
-          <ol class="jl">
-            <i class="fill" aria-hidden="true"></i>
-            @for (r of roles(); track $index; let i = $index) {
-              <li [class.on]="sel() === i" [class.past]="sel() > i" [class.now]="r.current">
-                <button type="button" (click)="go(i)" [attr.aria-current]="sel() === i ? 'step' : null">
-                  <span class="yr">{{ r.year }}</span>
-                  <b>{{ r.short }}</b>
-                  <span class="co">{{ r.company }}</span>
-                </button>
-              </li>
-            }
-          </ol>
-
-          <div class="jd" aria-live="polite">
-            @for (c of [card()]; track c.i) {
-              <p class="ghost" aria-hidden="true">{{ c.current ? i18n.ui().now : c.year }}</p>
-              <article class="jc">
-                <p class="step kick"><span class="y">{{ c.i + 1 < 10 ? '0' : '' }}{{ c.i + 1 }}</span> / {{ roles().length < 10 ? '0' : '' }}{{ roles().length }}</p>
-                <span class="pill" [class.y]="c.current">{{ c.current ? i18n.ui().nowPill : c.type }}</span>
-                <h3>{{ c.title }}</h3>
-                <p class="co">{{ c.company }} · {{ c.location }}</p>
-                <p class="dt">{{ c.dates }} · <b>{{ c.duration }}</b></p>
-                <ul>
-                  @for (pt of c.points; track $index) {
-                    <li [style.--k]="$index">
-                      <app-accent mode="b" [text]="i18n.t(pt)" />
-                      @if (pt.case) { <a class="cs" [routerLink]="[]" [fragment]="pt.case">{{ i18n.ui().caseStudy }}</a> }
-                    </li>
-                  }
-                </ul>
-                <footer>@for (s of c.stack; track s) { <span>{{ s }}</span> }</footer>
-              </article>
-            }
-            <i class="q" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
+    <section class="sec w" id="experience">
+      <app-sec-head idx="01" [title]="ui().sections.experience" [intro]="ui().intro.experience" />
+      <ol class="xp">
+        @for (r of rows(); track $index; let i = $index) {
+          <li [class.open]="open().has(i)" reveal>
+            <button type="button" [attr.aria-expanded]="open().has(i)" [attr.aria-controls]="'xp-' + i" (click)="toggle(i)">
+              <span class="when num">@if (r.current) { <i aria-hidden="true"></i> }{{ r.dates }}</span>
+              <span class="role"><b>{{ r.title }}</b><span>{{ r.company }}</span></span>
+              <span class="where">{{ r.type }} · {{ r.location }}</span>
+              <span class="tog" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" /></svg></span>
+            </button>
+            <div class="body" [id]="'xp-' + i" role="region" [attr.aria-label]="r.title + ', ' + r.company" [attr.inert]="open().has(i) ? null : ''">
+              <div>
+                <div class="g">
+                  <ul class="pts">
+                    @for (pt of r.points; track $index) {
+                      <li>
+                        <app-accent mode="b" [text]="i18n.t(pt)" />
+                        @if (pt.case) { <a [routerLink]="[]" [fragment]="pt.case">{{ ui().caseStudy }}</a> }
+                      </li>
+                    }
+                  </ul>
+                  <div class="stk"><p class="lab">{{ ui().stack }}</p><p>{{ r.stack }}</p></div>
+                </div>
+              </div>
+            </div>
+          </li>
+        }
+      </ol>
     </section>
   `,
 })
 export class ExperienceComponent {
   protected readonly i18n = inject(I18n);
-  private readonly scroll = inject(Scroll);
-  private readonly pin = viewChild.required<ElementRef<HTMLElement>>('pin');
-  protected readonly sel = signal(0);
+  protected readonly ui = this.i18n.ui;
+  /** Rows that are open; the current role (first) starts open. */
+  protected readonly open = signal(new Set([0]));
 
-  protected readonly roles = computed(() =>
-    ROLES.map((e) => ({
+  protected readonly rows = computed(() =>
+    SITE.experience.map((e) => ({
       current: e.end === null,
-      year: e.start.slice(0, 4),
-      short: this.i18n.t(e.short),
+      dates: `${this.i18n.month(e.start)} — ${e.end ? this.i18n.month(e.end) : this.ui().present}`,
+      title: this.i18n.t(e.title ?? e.role),
       company: e.company,
+      type: this.i18n.t(e.type),
+      location: this.i18n.t(e.location),
+      points: e.card,
+      stack: e.stack.join(', '),
     })),
   );
 
-  protected readonly card = computed(() => {
-    const i = this.sel();
-    const e = ROLES[i];
-    return {
-      i,
-      current: e.end === null,
-      year: e.start.slice(0, 4),
-      type: this.i18n.t(e.type),
-      dates: `${this.i18n.month(e.start)} → ${e.end ? this.i18n.month(e.end) : this.i18n.ui().present}`,
-      title: this.i18n.t(e.title ?? e.role),
-      company: e.company,
-      location: this.i18n.t(e.location),
-      duration: this.i18n.duration(e.start, e.end),
-      points: e.card,
-      stack: e.cardStack,
-    };
-  });
-
-  constructor() {
-    const destroy = inject(DestroyRef);
-    afterNextRender(() => {
-      const el = this.pin().nativeElement;
-      const n = ROLES.length;
-      const off = this.scroll.register(el, 'pin', (p) => {
-        const x = p * n;
-        const i = Math.min(n - 1, Math.floor(x));
-        // --q: progress through the current role, drives the thin bar under the card.
-        el.style.setProperty('--q', Math.min(1, x - i).toFixed(3));
-        if (i !== this.sel()) this.sel.set(i);
-      });
-      destroy.onDestroy(off);
-    });
-  }
-
-  /** Scroll to the middle of a role's stretch of the pinned section. */
-  protected go(i: number): void {
-    const el = this.pin().nativeElement;
-    const top = el.getBoundingClientRect().top + scrollY;
-    const run = el.offsetHeight - innerHeight;
-    this.scroll.toY(top + ((i + 0.35) / ROLES.length) * run);
+  protected toggle(i: number): void {
+    const next = new Set(this.open());
+    if (next.has(i)) next.delete(i);
+    else next.add(i);
+    this.open.set(next);
   }
 }

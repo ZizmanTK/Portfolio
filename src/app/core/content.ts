@@ -32,7 +32,7 @@ export interface Project {
   visual?: 'pipeline'; hue?: [string, string];
 }
 
-export interface RouteStop { city: string; what: L; now?: boolean; lon: number; lat: number; years: string }
+export interface RouteStop { city: string; country: L; what: L; now?: boolean; years: string }
 
 export interface SkillGroup { group: L; items: string[] }
 
@@ -41,9 +41,11 @@ export interface Site {
     name: string; firstName: string; lastName: string; role: L; company: string; summary: L; mission: L;
     location: L; email: string; site: string; portrait: string; portraitCutout: string; avatar: string; resume: L;
   };
-  hero: { greetings: string[]; tagline: L; contract: L; location: L };
-  /** Opening paragraph revealed word by word while the About section is pinned. */
+  hero: { greetings: string[]; tagline: L; contract: L; location: L; hello: L; lede: L; languages: L };
+  /** The large opening paragraph of the About section (**marked** words in full white). */
   statement: L;
+  /** Short paragraphs under About › Outside work. */
+  outside: L[];
   aboutShort: L[];
   route: RouteStop[];
   contact: { title: L; text: L };

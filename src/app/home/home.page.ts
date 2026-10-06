@@ -33,13 +33,11 @@ import { ContactComponent } from '../sections/contact.component';
     <app-header />
     <main id="main" tabindex="-1">
       <app-hero />
-      <div class="wrap">
-        <app-about />
-        <app-experience />
-        <app-projects />
-        <app-games />
-        <app-skills />
-      </div>
+      <app-experience />
+      <app-projects />
+      <app-about />
+      <app-skills />
+      <app-games />
       <app-contact />
     </main>
   `,

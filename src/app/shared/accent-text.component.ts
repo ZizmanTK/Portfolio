@@ -6,7 +6,7 @@ import { richText } from '../core/content';
   selector: 'app-accent',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `@for (s of segments(); track $index) {@if (s.bold) {<span [class]="mode()">{{ s.text }}</span>} @else {<span>{{ s.text }}</span>}}`,
-  styles: `:host { display: contents; } .b { color: var(--tx); font-weight: 700; }`,
+  styles: `:host { display: contents; }`,
 })
 export class AccentTextComponent {
   readonly text = input.required<string>();

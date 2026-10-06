@@ -820,12 +820,24 @@
       "fr": "Je conçois des **agents LLM, du RAG** et de la **vision par ordinateur** qui partent en production."
     },
     "contract": {
-      "en": "permanent (CDI)",
+      "en": "Permanent (CDI)",
       "fr": "CDI"
     },
     "location": {
-      "en": "Grenoble, hybrid",
-      "fr": "Grenoble, hybride"
+      "en": "Grenoble, France · hybrid",
+      "fr": "Grenoble, France · hybride"
+    },
+    "hello": {
+      "en": "hello in Hausa",
+      "fr": "bonjour en haoussa"
+    },
+    "lede": {
+      "en": "AI engineer building LLM agents and computer vision that ship to production.",
+      "fr": "Ingénieur IA : je conçois des agents LLM et de la vision par ordinateur qui partent en production."
+    },
+    "languages": {
+      "en": "French, English, Hausa",
+      "fr": "Français, anglais, haoussa"
     }
   },
   "aboutShort": [
@@ -847,17 +859,25 @@
       },
       "lon": 2.11,
       "lat": 13.51,
-      "years": "2015–18"
+      "years": "2015–18",
+      "country": {
+        "en": "Niger",
+        "fr": "Niger"
+      }
     },
     {
       "city": "Rabat",
       "what": {
-        "en": "CPGE · maths & physics",
-        "fr": "CPGE · maths & physique"
+        "en": "Preparatory classes · maths & physics",
+        "fr": "Classes préparatoires · maths & physique"
       },
       "lon": -6.84,
       "lat": 34.02,
-      "years": "2018–20"
+      "years": "2018–20",
+      "country": {
+        "en": "Morocco",
+        "fr": "Maroc"
+      }
     },
     {
       "city": "Strasbourg",
@@ -867,7 +887,11 @@
       },
       "lon": 7.75,
       "lat": 48.57,
-      "years": "2020–24"
+      "years": "2020–24",
+      "country": {
+        "en": "France",
+        "fr": "France"
+      }
     },
     {
       "city": "Uckange",
@@ -877,7 +901,11 @@
       },
       "lon": 6.15,
       "lat": 49.3,
-      "years": "2023"
+      "years": "2023",
+      "country": {
+        "en": "France",
+        "fr": "France"
+      }
     },
     {
       "city": "Grenoble",
@@ -888,7 +916,11 @@
       "now": true,
       "lon": 5.72,
       "lat": 45.19,
-      "years": "2024 →"
+      "years": "2024 →",
+      "country": {
+        "en": "France",
+        "fr": "France"
+      }
     }
   ],
   "contact": {
@@ -902,7 +934,17 @@
     }
   },
   "statement": {
-    "en": "I’m an **AI engineer** on a **permanent contract** at **BASSETTI France**, in Grenoble. I build **LLM agents** that answer from company knowledge, I trained models that catch **defects on steel coils**, and I write the **Angular** and **FastAPI** code that puts them in people’s hands. I work in **French**, **English** and **Hausa**.",
-    "fr": "Je suis **ingénieur IA** en **CDI** chez **BASSETTI France**, à Grenoble. Je conçois des **agents LLM** qui répondent à partir des connaissances de l’entreprise, j’ai entraîné des modèles qui repèrent les **défauts sur bobines d’acier**, et j’écris le code **Angular** et **FastAPI** qui les met entre les mains des utilisateurs. Je travaille en **français**, en **anglais** et en **haoussa**."
-  }
+    "en": "I’m an **AI engineer at BASSETTI France** in Grenoble. I build **agentic assistants** grounded in company knowledge, and the FastAPI and Angular code that turns them into tools people use. My background is **images and signals**, which is how computer vision became my way into AI.",
+    "fr": "Je suis **ingénieur IA chez BASSETTI France**, à Grenoble. Je conçois des **assistants agentiques** ancrés dans les connaissances de l’entreprise, et le code FastAPI et Angular qui en fait des outils utilisés au quotidien. Ma formation est tournée vers **l’image et le signal** : c’est par la vision par ordinateur que je suis arrivé à l’IA."
+  },
+  "outside": [
+    {
+      "en": "I make small Unity games and compose their soundtracks in FL Studio. Roll Power was built in 48 hours for the GMTK Game Jam.",
+      "fr": "Je crée de petits jeux Unity et compose leur bande-son sur FL Studio. Roll Power a été réalisé en 48 heures pour la GMTK Game Jam."
+    },
+    {
+      "en": "I work in French and English, and also speak Hausa.",
+      "fr": "Je travaille en français et en anglais, et je parle aussi haoussa."
+    }
+  ]
 }

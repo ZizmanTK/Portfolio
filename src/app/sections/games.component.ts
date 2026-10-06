@@ -1,51 +1,42 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SITE } from '../core/content';
 import { I18n } from '../core/i18n';
-import { AccentTextComponent } from '../shared/accent-text.component';
-import { FxDirective } from '../shared/fx.directive';
+import { RevealDirective } from '../shared/reveal.directive';
+import { SectionHeadComponent } from '../shared/section-head.component';
 
-/**
- * Both games are being upgraded: the cards show "living" placeholders (slow pan over a screenshot,
- * scanlines, pulsing play button) until real gameplay clips and soundtrack files are added.
- */
+/** Side projects, kept secondary: two games (being upgraded) and the soundtrack line. */
 @Component({
   selector: 'app-games',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AccentTextComponent, FxDirective],
+  imports: [RevealDirective, SectionHeadComponent],
   template: `
-    <section class="sec" id="games">
-      <h2 class="tt rv"><span class="n">04</span>{{ i18n.ui().sections.games }}</h2>
-      <p class="lead rv"><app-accent mode="b" [text]="i18n.ui().gamesLead" /></p>
-      <div class="gm">
-        @for (g of games; track g.slug; let i = $index) {
-          <a class="gcard" fx="view" [style.--side]="i % 2 ? 1 : -1" [href]="g.links.play" target="_blank" rel="noopener">
-            <div class="clip" [style.--a]="g.hue?.[0]" [style.--b]="g.hue?.[1]">
-              <img [src]="g.image" [alt]="g.name" loading="lazy" />
-              <span class="scan" aria-hidden="true"></span>
-              <span class="play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="#111"><path d="M7 4v16l13-8z" /></svg></span>
-              <span class="soon">{{ i18n.ui().clipSoon }}</span>
-              <span class="rec" aria-hidden="true">● REC</span>
-            </div>
-            <div class="gt">
-              <p class="kick">{{ i18n.t(g.kicker!) }}</p>
+    <section class="sec w" id="games">
+      <app-sec-head idx="05" [title]="ui().sections.games" [intro]="ui().intro.games" />
+      <div class="g">
+        <div class="side">
+          @for (g of games; track g.slug; let i = $index) {
+            <a class="gm" [href]="g.links.play" target="_blank" rel="noopener" reveal>
+              <div class="im">
+                <img [src]="g.image" alt="" loading="lazy" />
+                <span class="soon">{{ i === 0 ? ui().clipSoon : ui().upgrading }}</span>
+              </div>
               <h3>{{ g.name }}</h3>
               <p>{{ i18n.t(g.tagline) }}</p>
-              <span class="go">{{ i18n.ui().play }}</span>
-            </div>
-          </a>
-        }
-      </div>
-      <div class="sound" fx="enter">
-        <span class="disc" aria-hidden="true"><i></i></span>
-        <div class="sinfo"><p class="kick y">{{ i18n.ui().soundtrack }}</p><p class="stx">{{ i18n.ui().soundtrackText }}</p></div>
-        <span class="eq" aria-hidden="true">@for (b of bars; track $index) { <i></i> }</span>
-        <span class="sbtn">{{ i18n.ui().listenSoon }}</span>
+              <span class="lk">{{ ui().play }}</span>
+            </a>
+          }
+        </div>
+        <div class="ost" reveal>
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span>{{ ui().soundtrack }}</span>
+          <span class="s">{{ ui().soundtrackSoon }}</span>
+        </div>
       </div>
     </section>
   `,
 })
 export class GamesComponent {
   protected readonly i18n = inject(I18n);
+  protected readonly ui = this.i18n.ui;
   protected readonly games = SITE.projects.filter((p) => p.category === 'games');
-  protected readonly bars = Array.from({ length: 12 });
 }
