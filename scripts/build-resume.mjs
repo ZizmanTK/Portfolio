@@ -2,8 +2,9 @@
  * Builds the downloadable resume PDFs (EN + FR) from src/content/site.json,
  * the same file the website renders — so the two never drift apart.
  *
- * Layout is recruiter- and ATS-friendly: one column, standard section names,
- * real selectable text, dates right-aligned, keywords bolded (**like this** in the JSON).
+ * Same design language as the website: a dark band with the surname set big in Archivo's
+ * condensed cut, then ruled rows (years on the left, details on the right). Still ATS-friendly:
+ * one reading order, standard section names, real selectable text.
  *
  *   npm run resume                    → src/assets/resume/*.pdf
  *   npm run resume -- --keep-html     → keep the intermediate HTML for debugging
@@ -50,6 +51,7 @@ const LABELS = {
     interests: 'Interests',
     certifications: 'Certification',
     present: 'Present',
+    now: 'Now', contract: 'Contract', based: 'Based in', speaks: 'Speaks', award: 'Award',
     photo: false,
   },
   fr: {
@@ -64,6 +66,7 @@ const LABELS = {
     interests: 'Centres d’intérêt',
     certifications: 'Certification',
     present: 'Aujourd’hui',
+    now: 'Poste', contract: 'Contrat', based: 'Basé à', speaks: 'Langues', award: 'Distinction',
     photo: true, // photos are customary on French CVs
   },
 };
@@ -102,60 +105,70 @@ function render(lang) {
   const t = (v) => esc(v[lang]);
   const r = (v) => rich(v[lang]);
   const p = site.profile;
-  const avatar = pathToFileURL(join(root, 'src', p.avatar)).href;
-  const logo = pathToFileURL(join(root, 'src/assets/img/logo.svg')).href;
+  const portrait = pathToFileURL(join(root, 'src', p.portraitCutout)).href;
   const linkedin = site.socials.find((s) => s.id === 'linkedin');
   const github = site.socials.find((s) => s.id === 'github');
   const itch = site.socials.find((s) => s.id === 'itch');
+  const h = site.hero;
 
   const contact = [
+    ...(L.photo ? [`<span>${t(h.location)}</span>`] : []),
     `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>`,
-    `<span class="nw">${esc(p.location[lang])}</span>`,
     `<a href="${esc(linkedin.url)}">${esc(stripProtocol(linkedin.url))}</a>`,
     `<a href="${esc(github.url)}">${esc(stripProtocol(github.url))}</a>`,
     `<a href="${esc(p.site)}">${esc(stripProtocol(p.site))}</a>`,
-  ].join('<span class="sep">|</span>');
+  ].join('');
 
-  const facts = site.facts.filter((f) => f.icon !== 'pin').map((f) => `<span>${t(f.value)}</span>`).join('<span class="dot">•</span>');
+  // The same four facts as the website's hero.
+  const facts = [
+    [L.now, `${t(p.role)}, ${esc(p.company)}`],
+    [L.contract, t(h.contract)],
+    [L.based, t(h.location)],
+    [L.speaks, t(h.languages)],
+  ].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
 
-  const skills = site.skills
-    .map((g) => `<tr><th>${t(g.group)}</th><td>${g.items.map(esc).join(', ')}</td></tr>`)
-    .join('');
-  const certs = site.badges.map((b) => t(b)).join(' · ');
+  const years = (start, end) => {
+    if (!end) return `${start.slice(0, 4)}–${L.now.toLowerCase() === 'poste' ? 'auj.' : 'now'}`;
+    return start.slice(0, 4) === end.slice(0, 4) ? start.slice(0, 4) : `${start.slice(0, 4)}–${end.slice(2, 4)}`;
+  };
 
-  const experience = groupByCompany(site.experience)
-    .map(
-      (g) => `
-      <div class="company">
-        <div class="row company__head"><h3>${esc(g.company)}</h3><span class="dates">${esc(month(g.start, lang))} – ${esc(month(g.end, lang))}</span></div>
-        ${g.positions
-          .map(
-            (e) => `
-          <div class="pos">
-            <div class="row"><h4>${t(e.role)} <span class="type">· ${t(e.type)} · ${t(e.location)}</span></h4><span class="dates dates--pos">${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</span></div>
-            <ul>${e.highlights.map((h) => `<li>${r(h)}</li>`).join('')}</ul>
-          </div>`,
-          )
-          .join('')}
-      </div>`,
-    )
+  const experience = site.experience
+    .map((e) => `
+      <div class="row">
+        <div class="when"><b${e.end ? '' : ' class="cur"'}>${years(e.start, e.end)}</b><span>${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</span></div>
+        <div class="what">
+          <h3>${t(e.role)}</h3>
+          <p class="meta">${esc(e.company)} · ${t(e.type)} · ${t(e.location)}</p>
+          <ul>${e.highlights.map((x) => `<li>${r(x)}</li>`).join('')}</ul>
+        </div>
+      </div>`)
     .join('');
 
   const education = site.education
-    .map(
-      (e) => `
-      <div class="row edu"><div><h4>${t(e.degree)}</h4><p>${esc(e.school)} — ${esc(e.city)}, ${t(e.country)}</p></div><span class="dates">${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</span></div>`,
-    )
+    .map((e) => `
+      <div class="row">
+        <div class="when"><b>${e.start.slice(0, 4)}–${e.end.slice(2, 4)}</b></div>
+        <div class="what">
+          <h3>${t(e.degree)}</h3>
+          <p class="meta">${esc(e.school)} · ${esc(e.city)}, ${t(e.country)}</p>
+          ${e.award ? `<p class="aw"><em>${L.award}</em>${t(e.award)}</p>` : ''}
+        </div>
+      </div>`)
+    .join('');
+
+  const skills = site.skills
+    .map((g) => `<div class="row kv"><div class="k">${t(g.group)}</div><div class="v">${g.items.map(esc).join(', ')}</div></div>`)
     .join('');
 
   const games = site.projects
     .filter((pr) => pr.category === 'games')
-    .map((pr) => `<strong>${esc(pr.name)}</strong> (${pr.slug === 'roll-power' ? `${t(pr.context)} ` : ''}${esc(pr.year ?? '')})`)
-    .join(' · ');
-
-  const languages = site.languages.map((l) => `${t(l.name)} (${t(l.level).toLowerCase()})`).join(' · ');
-  // The CV keeps the first four interests to stay on one page; the site lists them all.
+    .map((pr) => `<strong>${esc(pr.name)}</strong> (${pr.slug === 'roll-power' ? `${t(pr.context)}, ` : ''}${esc(pr.year ?? '')})`)
+    .join(', ');
+  const languages = site.languages.map((l) => `${t(l.name)} <span class="lv">${t(l.level).toLowerCase()}</span>`).join(' · ');
   const interests = site.interests.slice(0, 4).map((i) => t(i)).join(' · ');
+  const certs = site.badges.map((b) => t(b)).join(' · ');
+
+  const sec = (n, title, body) => `<section><h2><span class="n">${n}</span>${title}</h2>${body}</section>`;
 
   return `<!doctype html>
 <html lang="${lang}">
@@ -164,90 +177,84 @@ function render(lang) {
 <title>${esc(p.name)} — ${t(p.role)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Geist:wght@400;500;600;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=block" rel="stylesheet">
 <style>
   @page { size: A4; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  body { width: 210mm; padding: 9mm 14mm 3mm; font-family: 'Geist', Arial, sans-serif; font-size: 9pt; line-height: 1.35; color: #111827; }
+  body { width: 210mm; min-height: 297mm; font-family: 'Archivo', Arial, sans-serif; font-size: 8.3pt; line-height: 1.36; color: #3a3935; background: #fff; }
   a { color: inherit; text-decoration: none; }
-  strong { font-weight: 600; color: #111827; }
+  strong { font-weight: 600; color: #141413; }
 
-  header { display: flex; align-items: center; gap: 5mm; }
-  .photo { width: 20mm; height: 20mm; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
-  .who { flex: 1; }
-  h1 { font-family: 'Bricolage Grotesque', 'Geist', sans-serif; font-size: 23pt; font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; }
-  h1 mark { padding: 0 0.6mm; background: linear-gradient(transparent 58%, #fbb915 58% 92%, transparent 92%); color: inherit; }
-  .title { margin-top: 1mm; font-size: 12pt; font-weight: 600; }
-  .title .co { color: #8a5a00; }
-  .logo { height: 12mm; align-self: flex-start; }
-  .contact { margin-top: 2.2mm; font-size: 8.4pt; color: #374151; }
-  .sep { margin: 0 1.6mm; color: #9ca3af; }
-  .contact a, .nw { white-space: nowrap; }
-  .facts { margin-top: 3mm; padding: 1.6mm 0; border-top: 0.3mm solid #e5e0d0; border-bottom: 0.3mm solid #e5e0d0; font-size: 8.8pt; font-weight: 600; }
-  .dot { margin: 0 2mm; color: #e9a400; }
+  /* header: the website's hero, on paper */
+  .band { position: relative; overflow: hidden; background: radial-gradient(60% 90% at 30% 40%, rgba(251,185,21,.10), transparent 70%), #0d0d0e; color: #eeece7; padding: 7mm 12mm 4.6mm; }
+  .top { display: grid; grid-template-columns: 1fr 64mm; gap: 8mm; align-items: end; }
+  h1 { font-weight: 600; font-size: 13pt; line-height: 1.1; letter-spacing: -0.01em; }
+  h1 .sur { display: block; margin: 1mm 0 0 -0.8mm; font-weight: 800; font-stretch: 62%; font-size: 70pt; line-height: 0.8; letter-spacing: -0.005em; text-transform: uppercase; color: #fbb915; }
+  .role { margin-top: 2.8mm; font-size: 11pt; font-weight: 500; color: #eeece7; }
+  .role span { color: #a3a19b; }
+  .facts { border-top: 0.25mm solid rgba(238,236,231,.18); }
+  .facts div { display: grid; grid-template-columns: 19mm 1fr; gap: 2mm; padding: 1.5mm 0; border-bottom: 0.25mm solid rgba(238,236,231,.18); font-size: 8.2pt; }
+  .facts dt { color: #8d8b85; }
+  .facts dd { color: #eeece7; }
+  .photo { position: absolute; right: 10mm; bottom: -5.5mm; height: 56mm; width: auto; filter: drop-shadow(0 4mm 8mm rgba(0,0,0,.5)); }
+  .photo ~ .contact { max-width: calc(100% - 50mm); }
+  .contact { display: flex; flex-wrap: wrap; gap: 1mm 6mm; margin-top: 4mm; padding-top: 2.2mm; border-top: 0.25mm solid rgba(238,236,231,.18); font-size: 8.2pt; color: #c9c7c1; }
+  .strip { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 14mm; border-bottom: 0.25mm solid #e3e0d8; }
+  .strip div { padding: 1.8mm 3mm 1.8mm 0; }
+  .strip div + div { padding-left: 3mm; border-left: 0.25mm solid #e3e0d8; }
+  .strip dt { font-size: 7pt; letter-spacing: 0.12em; text-transform: uppercase; color: #8a877f; }
+  .strip dd { margin-top: 0.4mm; font-size: 8.4pt; font-weight: 500; color: #141413; }
 
-  h2 { display: flex; align-items: center; gap: 2mm; margin: 2.8mm 0 1.2mm; padding-bottom: 0.6mm; border-bottom: 0.6mm solid #fbb915; font-family: 'Bricolage Grotesque', 'Geist', sans-serif; font-size: 10.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
-  h2::before { content: ''; width: 2.4mm; height: 2.4mm; border-radius: 0.6mm; background: #fbb915; transform: rotate(45deg); }
-  .summary { color: #1f2937; }
-
-  table { width: 100%; border-collapse: collapse; }
-  th { width: 38mm; padding: 0.5mm 3mm 0.5mm 0; text-align: left; vertical-align: top; font-weight: 600; }
-  td { padding: 0.5mm 0; color: #1f2937; }
-  .cert { margin-top: 1mm; }
-
-  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
-  .dates { flex-shrink: 0; font-weight: 600; font-size: 8.6pt; }
-  .dates--pos { font-weight: 500; color: #374151; }
-  .company + .company { margin-top: 1.8mm; }
-  .company__head h3 { font-family: 'Bricolage Grotesque', 'Geist', sans-serif; font-size: 11pt; font-weight: 800; letter-spacing: -0.01em; }
-  .pos { margin-top: 0.9mm; }
-  .pos h4 { font-size: 9.6pt; font-weight: 600; }
-  .pos .type { font-weight: 400; color: #4b5563; }
-  .pos ul { margin: 0.6mm 0 0 4.2mm; color: #1f2937; }
-  .pos li { padding-left: 0.6mm; }
-  .pos li + li { margin-top: 0.3mm; }
-  .pos li::marker { color: #b07800; }
-
-  .edu + .edu { margin-top: 1mm; }
-  .edu h4 { font-size: 9.4pt; font-weight: 600; }
-  .edu p { color: #374151; }
-
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
-  .two h2 { margin-top: 4mm; }
-  .muted { color: #4b5563; }
+  main { position: relative; padding: 0 12mm 0; }
+  section { margin-top: 2mm; }
+  h2 { display: flex; align-items: baseline; gap: 2.4mm; padding-bottom: 0.9mm; font-size: 7.6pt; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #141413; }
+  h2 .n { font-weight: 700; color: #b07c00; letter-spacing: 0.04em; }
+  .row { display: grid; grid-template-columns: 23mm 1fr; gap: 4mm; padding: 1.15mm 0; border-top: 0.25mm solid #e7e4dc; }
+  .when b { display: block; font-weight: 700; font-stretch: 62%; font-size: 13pt; line-height: 0.95; color: #8a877f; text-transform: uppercase; }
+  .when b.cur { color: #141413; }
+  .when b.cur::after { content: ''; display: inline-block; width: 1.6mm; height: 1.6mm; margin-left: 1.4mm; border-radius: 50%; background: #fbb915; vertical-align: 0.6mm; }
+  .when span { display: block; margin-top: 0.8mm; font-size: 7pt; color: #8a877f; }
+  h3 { font-size: 9.6pt; font-weight: 600; line-height: 1.25; color: #141413; letter-spacing: -0.005em; }
+  .meta { font-size: 8.2pt; color: #77746c; }
+  ul { margin-top: 0.7mm; list-style: none; }
+  li { padding-left: 3.4mm; background: linear-gradient(#e0a100, #e0a100) 0 0.68em / 1.8mm 0.3mm no-repeat; }
+  li + li { margin-top: 0.3mm; }
+  ul { font-size: 8.1pt; line-height: 1.32; }
+  .aw { margin-top: 0.8mm; }
+  .aw em { font-style: normal; font-size: 6.8pt; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #b07c00; margin-right: 2mm; }
+  .summary { font-size: 9pt; line-height: 1.4; color: #3a3935; padding: 1.6mm 0 0.6mm; border-top: 0.25mm solid #e7e4dc; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm; }
+  .kv { grid-template-columns: 31mm 1fr; padding: 0.9mm 0; align-items: baseline; }
+  .grid2 .kv { grid-template-columns: 25mm 1fr; gap: 3mm; }
+  .kv .k { font-weight: 600; color: #141413; font-size: 8.4pt; }
+  .kv .v { color: #3a3935; }
+  .lv { color: #8a877f; }
 </style>
 </head>
 <body>
-  <header>
-    ${L.photo ? `<img class="photo" src="${avatar}" alt="">` : ''}
-    <div class="who">
-      <h1>${esc(p.firstName)} <mark>${esc(p.lastName)}</mark></h1>
-      <p class="title">${t(p.role)} — <span class="co">${esc(p.company)}</span></p>
-      <p class="contact">${contact}</p>
+  <header class="band">
+    <div class="top">
+      <div>
+        <h1>${esc(p.firstName)} <span class="sur">${esc(p.lastName)}</span></h1>
+        <p class="role">${t(p.role)} <span>· ${esc(p.company)}</span></p>
+      </div>
+      ${L.photo ? '' : `<dl class="facts">${facts}</dl>`}
     </div>
-    <img class="logo" src="${logo}" alt="">
+    ${L.photo ? `<img class="photo" src="${portrait}" alt="">` : ''}
+    <p class="contact">${contact}</p>
   </header>
-  <p class="facts">${facts}</p>
-
-  <h2>${L.summary}</h2>
-  <p class="summary">${r(p.summary)}</p>
-
-  <h2>${L.skills}</h2>
-  <table>${skills}<tr><th>${L.certifications}</th><td>${certs}</td></tr></table>
-
-  <h2>${L.experience}</h2>
-  ${experience}
-
-  <h2>${L.education}</h2>
-  ${education}
-
-  <h2>${L.additional}</h2>
-  <table>
-    <tr><th>${L.languages}</th><td>${languages}</td></tr>
-    <tr><th>${L.projects}</th><td>Unity${lang === 'fr' ? ' :' : ':'} ${games} — <a href="${esc(itch.url)}">${esc(stripProtocol(itch.url))}</a></td></tr>
-    <tr><th>${L.interests}</th><td>${interests}</td></tr>
-  </table>
+  <main>
+    ${sec('01', L.summary, `<p class="summary">${r(p.summary)}</p>`)}
+    ${sec('02', L.experience, experience)}
+    ${sec('03', L.education, education)}
+    ${sec('04', L.skills, `<div class="grid2">${skills}</div>`)}
+    ${sec('05', L.additional, `
+      <div class="row kv"><div class="k">${L.languages}</div><div class="v">${languages}</div></div>
+      <div class="row kv"><div class="k">${L.projects}</div><div class="v">Unity${lang === 'fr' ? ' :' : ':'} ${games}, ${esc(stripProtocol(itch.url))}</div></div>
+      <div class="row kv"><div class="k">${L.certifications}</div><div class="v">${certs}</div></div>
+      <div class="row kv"><div class="k">${L.interests}</div><div class="v">${interests}</div></div>`)}
+  </main>
 </body>
 </html>`;
 }
