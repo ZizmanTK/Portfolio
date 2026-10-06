@@ -22,7 +22,7 @@ const LINKS = ['experience', 'work', 'about', 'contact'] as const;
             <a class="sl" [routerLink]="homePath()" [fragment]="l.id" [class.on]="active() === l.id" [attr.aria-current]="active() === l.id ? 'location' : null">{{ l.label }}</a>
           }
           <a class="lang" [routerLink]="i18n.otherLangPath()" [attr.aria-label]="i18n.ui().switchLang" [attr.hreflang]="i18n.lang() === 'en' ? 'fr' : 'en'">{{ i18n.ui().langShort }}</a>
-          <a class="cv" [href]="resume()" download>{{ i18n.ui().resume }} ↓</a>
+          <a class="cv" [href]="resume()" download>{{ i18n.ui().resume }}</a>
         </nav>
       </div>
     </header>

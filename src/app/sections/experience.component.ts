@@ -21,9 +21,8 @@ import { SectionHeadComponent } from '../shared/section-head.component';
         @for (r of rows(); track $index; let i = $index) {
           <li [class.open]="open().has(i)" reveal>
             <button type="button" [attr.aria-expanded]="open().has(i)" [attr.aria-controls]="'xp-' + i" (click)="toggle(i)">
-              <span class="when num">@if (r.current) { <i aria-hidden="true"></i> }{{ r.dates }}</span>
-              <span class="role"><b>{{ r.title }}</b><span>{{ r.company }}</span></span>
-              <span class="where">{{ r.type }} · {{ r.location }}</span>
+              <span class="when"><b class="num">{{ r.years }}</b><span>@if (r.current) { <i aria-hidden="true"></i> }{{ r.dates }}</span></span>
+              <span class="role"><b>{{ r.title }}</b><span>{{ r.company }} · {{ r.type }} · {{ r.location }}</span></span>
               <span class="tog" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" /></svg></span>
             </button>
             <div class="body" [id]="'xp-' + i" role="region" [attr.aria-label]="r.title + ', ' + r.company" [attr.inert]="open().has(i) ? null : ''">
@@ -56,7 +55,8 @@ export class ExperienceComponent {
   protected readonly rows = computed(() =>
     SITE.experience.map((e) => ({
       current: e.end === null,
-      dates: `${this.i18n.month(e.start)} — ${e.end ? this.i18n.month(e.end) : this.ui().present}`,
+      years: e.end ? (e.start.slice(0, 4) === e.end.slice(0, 4) ? e.start.slice(0, 4) : `${e.start.slice(0, 4)}–${e.end.slice(2, 4)}`) : `${e.start.slice(0, 4)}–${this.ui().now}`,
+      dates: `${this.i18n.month(e.start)} – ${e.end ? this.i18n.month(e.end) : this.ui().present} · ${this.i18n.duration(e.start, e.end)}`,
       title: this.i18n.t(e.title ?? e.role),
       company: e.company,
       type: this.i18n.t(e.type),

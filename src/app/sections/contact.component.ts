@@ -17,8 +17,8 @@ import { RevealDirective } from '../shared/reveal.directive';
         <p class="ask">{{ ui().contactAsk }}</p>
         <a class="mail" [href]="'mailto:' + p.email">{{ p.email }}</a>
         <div class="acts">
-          <a class="btn p" [href]="resume()" download>{{ ui().resumePdf }} ↓</a>
-          @for (s of socials; track s.id) { <a class="btn" [href]="s.url" rel="me">{{ s.label }} ↗</a> }
+          <a class="btn p" [href]="resume()" download>{{ ui().resumePdf }}</a>
+          @for (s of socials; track s.id) { <a class="btn" [href]="s.url" rel="me">{{ s.label }}</a> }
         </div>
       </div>
       <footer class="ft">

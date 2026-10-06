@@ -34,7 +34,7 @@ import { FxDirective } from '../shared/fx.directive';
               <div><dt>{{ ui().facts.speaks }}</dt><dd>{{ i18n.t(h.languages) }}</dd></div>
             </dl>
             <div class="acts">
-              <a class="btn p" [href]="resume()" download>{{ ui().downloadResume }} ↓</a>
+              <a class="btn p" [href]="resume()" download>{{ ui().downloadResume }}</a>
               <a class="btn" [href]="'mailto:' + p.email">{{ ui().email }}</a>
             </div>
           </div>

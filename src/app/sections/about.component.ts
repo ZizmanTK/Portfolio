@@ -22,7 +22,7 @@ import { SectionHeadComponent } from '../shared/section-head.component';
           <ol class="route">
             @for (s of route; track s.city) {
               <li [class.now]="s.now">
-                <span class="num">{{ s.years }}</span>
+                <span class="num">{{ s.years }}{{ s.now ? '–' + ui().now : '' }}</span>
                 <div><b>{{ s.city }}, {{ i18n.t(s.country) }}</b><em>{{ i18n.t(s.what) }}</em></div>
               </li>
             }
