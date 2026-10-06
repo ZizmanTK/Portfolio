@@ -13,6 +13,8 @@ export interface Experience {
   start: string; end: string | null; highlights: L[]; stack: string[];
   /** Short version used on the website's experience cards (the CV uses `highlights`). */
   card: CardPoint[]; cardStack: string[]; title?: L;
+  /** Label on the timeline segment ("AI Engineer · permanent"). */
+  short: L;
 }
 
 export interface Education {
@@ -30,8 +32,9 @@ export interface Project {
   visual?: 'pipeline'; hue?: [string, string];
 }
 
-export interface Stat { value: string; accent: string; label: L; note: L }
 export interface RouteStop { city: string; what: L; now?: boolean }
+/** Draggable sticker under the hero; `to` is the section/project id it jumps to on click. */
+export interface Sticker { label: L; to?: string; tone?: 'y' }
 
 export interface SkillGroup { group: L; items: string[] }
 
@@ -41,8 +44,8 @@ export interface Site {
     location: L; email: string; site: string; portrait: string; portraitCutout: string; avatar: string; resume: L;
   };
   hero: { greetings: string[]; tagline: L; contract: L; location: L };
-  stats: Stat[];
-  story: L[];
+  now: { building: L; lately: L; speaks: string };
+  stickers: Sticker[];
   aboutShort: L[];
   route: RouteStop[];
   contact: { title: L; text: L };

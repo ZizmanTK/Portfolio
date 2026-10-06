@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, afterNextRender, computed, inject, signal } from '@angular/core';
 import { SITE } from '../core/content';
 import { I18n } from '../core/i18n';
 import { IconComponent } from '../shared/icon.component';
 import { AccentTextComponent } from '../shared/accent-text.component';
+import { StickersComponent } from './stickers.component';
 
 @Component({
   selector: 'app-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IconComponent, AccentTextComponent],
+  imports: [IconComponent, AccentTextComponent, StickersComponent],
   template: `
     <section class="hero" id="top">
       <div class="stage">
@@ -38,16 +39,17 @@ import { AccentTextComponent } from '../shared/accent-text.component';
     </section>
 
     <div class="wrap">
-      <div class="nums">
-        @for (s of stats; track $index) {
-          <div><b>{{ s.value }}<i>{{ s.accent }}</i></b><span>{{ i18n.t(s.label) }}<br />{{ i18n.t(s.note) }}</span></div>
-        }
+      <div class="nowbar">
+        <p class="clock">
+          <i aria-hidden="true"></i>
+          <b>Grenoble</b>
+          <span><time>{{ time() }}</time> {{ i18n.ui().nowBar.local }}</span>
+        </p>
+        <p><b>{{ i18n.ui().nowBar.building }}</b><span>{{ i18n.t(now.building) }}</span></p>
+        <p><b>{{ i18n.ui().nowBar.lately }}</b><span>{{ i18n.t(now.lately) }}</span></p>
+        <p><b>{{ i18n.ui().nowBar.speaks }}</b><span>{{ now.speaks }}</span></p>
       </div>
-    </div>
-    <div class="mq" aria-hidden="true">
-      <div class="tr">
-        @for (item of storyTwice; track $index) { <span>{{ i18n.t(item) }}</span> }
-      </div>
+      <app-stickers />
     </div>
   `,
 })
@@ -55,11 +57,23 @@ export class HeroComponent {
   protected readonly i18n = inject(I18n);
   protected readonly p = SITE.profile;
   protected readonly hero = SITE.hero;
-  protected readonly stats = SITE.stats;
+  protected readonly now = SITE.now;
   /** Rotating word above the name; the first one repeats so the loop restarts seamlessly. */
   protected readonly greetings = [...SITE.hero.greetings, SITE.hero.greetings[0]];
-  protected readonly storyTwice = [...SITE.story, ...SITE.story];
   protected readonly linkedin = SITE.socials.find((s) => s.id === 'linkedin')!.url;
   protected readonly github = SITE.socials.find((s) => s.id === 'github')!.url;
   protected readonly resume = computed(() => this.i18n.t(this.p.resume));
+  /** Grenoble wall-clock time; blank until the page runs in a browser. */
+  protected readonly time = signal('--:--');
+
+  constructor() {
+    const destroy = inject(DestroyRef);
+    afterNextRender(() => {
+      const fmt = new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Paris' });
+      const tick = () => this.time.set(fmt.format(new Date()));
+      tick();
+      const id = setInterval(tick, 15_000);
+      destroy.onDestroy(() => clearInterval(id));
+    });
+  }
 }

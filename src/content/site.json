@@ -219,7 +219,11 @@
         "MCP",
         "FastAPI",
         "Angular"
-      ]
+      ],
+      "short": {
+        "en": "AI Engineer · permanent",
+        "fr": "Ingénieur IA · CDI"
+      }
     },
     {
       "role": {
@@ -275,7 +279,11 @@
         "Django",
         "Angular",
         "scikit-learn"
-      ]
+      ],
+      "short": {
+        "en": "AI Engineer · fixed-term",
+        "fr": "Ingénieur IA · CDD"
+      }
     },
     {
       "role": {
@@ -327,7 +335,11 @@
         "Django",
         "MongoDB",
         "Python"
-      ]
+      ],
+      "short": {
+        "en": "R&I intern",
+        "fr": "Stagiaire R&I"
+      }
     },
     {
       "role": {
@@ -385,6 +397,10 @@
       "title": {
         "en": "Computer Vision Engineer",
         "fr": "Ingénieur vision par ordinateur"
+      },
+      "short": {
+        "en": "Vision intern",
+        "fr": "Stagiaire vision"
       }
     }
   ],
@@ -812,82 +828,6 @@
       "fr": "Grenoble, hybride"
     }
   },
-  "stats": [
-    {
-      "value": "2",
-      "accent": "+",
-      "label": {
-        "en": "years as an AI engineer",
-        "fr": "ans comme ingénieur IA"
-      },
-      "note": {
-        "en": "(3+ incl. internships)",
-        "fr": "(3+ avec les stages)"
-      }
-    },
-    {
-      "value": "CDI",
-      "accent": "",
-      "label": {
-        "en": "permanent contract",
-        "fr": "contrat à durée indéterminée"
-      },
-      "note": {
-        "en": "at BASSETTI France",
-        "fr": "chez BASSETTI France"
-      }
-    },
-    {
-      "value": "3",
-      "accent": "",
-      "label": {
-        "en": "AI products built",
-        "fr": "produits IA réalisés"
-      },
-      "note": {
-        "en": "in industry",
-        "fr": "en entreprise"
-      }
-    },
-    {
-      "value": "3",
-      "accent": "",
-      "label": {
-        "en": "languages",
-        "fr": "langues"
-      },
-      "note": {
-        "en": "French · English · Hausa",
-        "fr": "Français · Anglais · Haoussa"
-      }
-    }
-  ],
-  "story": [
-    {
-      "en": "TEEXMA · BASSETTI’s materials-data platform",
-      "fr": "TEEXMA · la plateforme de données matériaux de BASSETTI"
-    },
-    {
-      "en": "Steel-coil defect detection",
-      "fr": "Détection de défauts sur bobines d’acier"
-    },
-    {
-      "en": "Machine learning on materials data",
-      "fr": "Machine learning sur données matériaux"
-    },
-    {
-      "en": "LLM agents over company knowledge",
-      "fr": "Agents LLM sur les connaissances de l’entreprise"
-    },
-    {
-      "en": "French · English · Hausa",
-      "fr": "Français · Anglais · Haoussa"
-    },
-    {
-      "en": "Unity games with my own music",
-      "fr": "Jeux Unity avec ma propre musique"
-    }
-  ],
   "aboutShort": [
     {
       "en": "I’m an AI engineer at **BASSETTI France** in Grenoble. I build **agentic assistants** with LangGraph and LangChain, ground them in company knowledge with **retrieval-augmented generation**, and ship the FastAPI and Angular code that turns them into tools people use.",
@@ -945,5 +885,89 @@
       "en": "Hiring for AI, LLM or computer-vision work? Write to me — I answer in French, English or Hausa.",
       "fr": "Vous recrutez pour de l’IA, des LLM ou de la vision par ordinateur ? Écrivez-moi — je réponds en français, en anglais ou en haoussa."
     }
-  }
+  },
+  "now": {
+    "building": {
+      "en": "Agentic AI over company knowledge at BASSETTI France",
+      "fr": "IA agentique sur les connaissances de l’entreprise chez BASSETTI France"
+    },
+    "lately": {
+      "en": "Upgrading Roll Power & ZKTris, with new tracks",
+      "fr": "Mise à jour de Roll Power & ZKTris, avec de nouveaux morceaux"
+    },
+    "speaks": "FR · EN · HA"
+  },
+  "stickers": [
+    {
+      "label": {
+        "en": "CDI at BASSETTI",
+        "fr": "CDI chez BASSETTI"
+      },
+      "to": "experience",
+      "tone": "y"
+    },
+    {
+      "label": {
+        "en": "LLM agents",
+        "fr": "Agents LLM"
+      },
+      "to": "txbot"
+    },
+    {
+      "label": {
+        "en": "RAG",
+        "fr": "RAG"
+      },
+      "to": "txbot"
+    },
+    {
+      "label": {
+        "en": "Computer vision",
+        "fr": "Vision par ordinateur"
+      },
+      "to": "coilcheck"
+    },
+    {
+      "label": {
+        "en": "Steel coils",
+        "fr": "Bobines d’acier"
+      },
+      "to": "coilcheck"
+    },
+    {
+      "label": {
+        "en": "Materials data",
+        "fr": "Données matériaux"
+      },
+      "to": "remind"
+    },
+    {
+      "label": {
+        "en": "Angular + FastAPI",
+        "fr": "Angular + FastAPI"
+      },
+      "to": "skills"
+    },
+    {
+      "label": {
+        "en": "Unity + FL Studio",
+        "fr": "Unity + FL Studio"
+      },
+      "to": "games"
+    },
+    {
+      "label": {
+        "en": "Niamey → Grenoble",
+        "fr": "Niamey → Grenoble"
+      },
+      "to": "about"
+    },
+    {
+      "label": {
+        "en": "Sannu · Bonjour · Hello",
+        "fr": "Sannu · Bonjour · Hello"
+      },
+      "to": "contact"
+    }
+  ]
 }
