@@ -18,6 +18,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const site = JSON.parse(readFileSync(join(root, 'src/content/site.json'), 'utf8'));
+const ICONS = JSON.parse(readFileSync(join(root, 'src/content/skill-icons.json'), 'utf8')).icons;
 const outDir = join(root, 'src/assets/resume');
 const keepHtml = process.argv.includes('--keep-html');
 
@@ -83,6 +84,16 @@ function month(ym, lang) {
   );
 }
 
+/** "1 yr 2 mo" / "1 an 2 mois" between two YYYY-MM dates (end inclusive; null = this month). */
+function spanOf(start, end, lang) {
+  const now = new Date();
+  const until = end ?? `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const [sy, sm] = start.split('-').map(Number), [ey, em] = until.split('-').map(Number);
+  const total = (ey - sy) * 12 + (em - sm) + 1, y = Math.floor(total / 12), m = total % 12;
+  const fr = lang === 'fr';
+  return [y ? (fr ? `${y} an${y > 1 ? 's' : ''}` : `${y} yr${y > 1 ? 's' : ''}`) : '', m ? (fr ? `${m} mois` : `${m} mo`) : ''].filter(Boolean).join(' ');
+}
+
 const stripProtocol = (url) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 
 /** Consecutive positions at the same company, grouped (as on the website). */
@@ -107,6 +118,7 @@ function render(lang) {
   const p = site.profile;
   const photo = pathToFileURL(join(root, 'src/assets/img/headshot.jpg')).href;
   // Logos are single-colour marks (alpha masks) tinted like the text, as on the website.
+  const span = (s, e) => spanOf(s, e, lang);
   const logo = (path) => (path ? `<span class="lg" style="--m:url('${pathToFileURL(join(root, 'src', path)).href}')"></span>` : '');
   const linkedin = site.socials.find((s) => s.id === 'linkedin');
   const github = site.socials.find((s) => s.id === 'github');
@@ -135,18 +147,20 @@ function render(lang) {
 
   // Roles grouped under their company, so the BASSETTI progression (internship, fixed-term,
   // permanent) reads as one story and the company line isn't repeated.
+  // One block per company: the years and total time on the left (BASSETTI reads as 2024–now),
+  // each role underneath with its own dates.
   const experience = groupByCompany(site.experience)
     .map((g) => `
-      <div class="co">
-        <p class="co-h">${logo(g.positions[0].logo)}<b>${esc(g.company)}</b><span>${t(g.positions[0].location).split(' · ')[0]} · ${years(g.start, g.end)}</span></p>
-        ${g.positions.map((e) => `
-        <div class="row">
-          <div class="when"><b${e.end ? '' : ' class="cur"'}>${years(e.start, e.end)}</b><span>${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</span></div>
-          <div class="what">
-            <h3>${t(e.role)} <span class="ty">· ${t(e.type)}</span></h3>
+      <div class="row co">
+        <div class="when"><b${g.end ? '' : ' class="cur"'}>${years(g.start, g.end)}</b><span>${esc(month(g.start, lang))} – ${esc(month(g.end, lang))} · ${span(g.start, g.end)}</span>${logo(g.positions[0].logo)}</div>
+        <div class="what">
+          <h3 class="co-n">${esc(g.company)} <span class="ty">· ${t(g.positions[0].location)}</span></h3>
+          ${g.positions.map((e) => `
+          <div class="rl">
+            <p class="rl-h"><b>${t(e.role)}</b> · ${t(e.type)} · ${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</p>
             <ul>${e.highlights.map((x) => `<li>${r(x)}</li>`).join('')}</ul>
-          </div>
-        </div>`).join('')}
+          </div>`).join('')}
+        </div>
       </div>`)
     .join('');
 
@@ -163,7 +177,7 @@ function render(lang) {
     .join('');
 
   const skills = site.skills
-    .map((g) => `<div class="row kv"><div class="k">${t(g.group)}</div><div class="v">${g.items.map(esc).join(', ')}</div></div>`)
+    .map((g) => `<div class="row kv"><div class="k">${t(g.group)}</div><div class="v sk">${g.items.map((it) => `<span><i style="--i:url('${ICONS[it]?.mask ?? ''}')"></i>${esc(it)}</span>`).join('')}</div></div>`)
     .join('');
 
   const games = site.projects
@@ -206,8 +220,6 @@ function render(lang) {
   .facts dd { color: #eeece7; }
   /* company and school logos */
   .lg { display: block; width: 18mm; height: 5.6mm; background: #8a877f; -webkit-mask: var(--m) no-repeat left center / contain; mask: var(--m) no-repeat left center / contain; }
-  .co-h .lg { display: inline-block; width: auto; min-width: 5.6mm; aspect-ratio: 1; height: 4.6mm; margin-right: 0.6mm; align-self: center; }
-  .co-h .lg[style*='arcelormittal'] { aspect-ratio: 2.43; }
   .when .lg { margin-top: 1.4mm; }
   main { position: relative; padding: 0 12mm 0; }
   section { margin-top: 2mm; }
@@ -218,11 +230,13 @@ function render(lang) {
   .when b.cur { color: #141413; }
   .when b.cur::after { content: ''; display: inline-block; width: 1.6mm; height: 1.6mm; margin-left: 1.4mm; border-radius: 50%; background: #fbb915; vertical-align: 0.6mm; }
   .when span { display: block; margin-top: 0.8mm; font-size: 7pt; color: #8a877f; }
-  .co + .co { margin-top: 1.6mm; }
-  .co-h { display: flex; align-items: baseline; gap: 2.4mm; padding: 1.4mm 0 0.6mm; border-top: 0.35mm solid #141413; }
-  .co-h b { font-size: 10.4pt; font-weight: 700; color: #141413; letter-spacing: -0.01em; }
-  .co-h span { font-size: 8pt; color: #77746c; }
-  .co .row:first-of-type { border-top-color: #e7e4dc; }
+  .co-n { font-size: 10.6pt; font-weight: 700; letter-spacing: -0.01em; }
+  .rl { margin-top: 1.2mm; }
+  .rl-h { font-size: 8.4pt; color: #77746c; }
+  .rl-h b { font-size: 9.4pt; font-weight: 600; color: #141413; }
+  .sk { display: flex; flex-wrap: wrap; gap: 0.6mm 3.6mm; }
+  .sk span { display: inline-flex; align-items: center; gap: 1.2mm; }
+  .sk i { width: 3.2mm; height: 3.2mm; background: #8a877f; -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat; }
   h3 .ty { font-weight: 400; color: #77746c; font-size: 8.4pt; }
   h3 { font-size: 9.6pt; font-weight: 600; line-height: 1.25; color: #141413; letter-spacing: -0.005em; }
   .meta { font-size: 8.2pt; color: #77746c; }
