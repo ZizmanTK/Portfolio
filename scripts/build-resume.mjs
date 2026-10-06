@@ -106,7 +106,8 @@ function render(lang) {
   const r = (v) => rich(v[lang]);
   const p = site.profile;
   const photo = pathToFileURL(join(root, 'src/assets/img/headshot.jpg')).href;
-  const logo = (path) => (path ? `<img class="lg" src="${pathToFileURL(join(root, 'src', path)).href}" alt="">` : '');
+  // Logos are single-colour marks (alpha masks) tinted like the text, as on the website.
+  const logo = (path) => (path ? `<span class="lg" style="--m:url('${pathToFileURL(join(root, 'src', path)).href}')"></span>` : '');
   const linkedin = site.socials.find((s) => s.id === 'linkedin');
   const github = site.socials.find((s) => s.id === 'github');
   const itch = site.socials.find((s) => s.id === 'itch');
@@ -152,9 +153,8 @@ function render(lang) {
   const education = site.education
     .map((e) => `
       <div class="row">
-        <div class="when"><b>${e.start.slice(0, 4)}–${e.end.slice(2, 4)}</b></div>
-        <div class="what ed">
-          ${logo(e.logo)}
+        <div class="when"><b>${e.start.slice(0, 4)}–${e.end.slice(2, 4)}</b>${logo(e.logo)}</div>
+        <div class="what">
           <h3>${t(e.degree)}</h3>
           <p class="meta">${esc(e.school)} · ${esc(e.city)}, ${t(e.country)}</p>
           ${e.award ? `<p class="aw"><em>${L.award}</em>${t(e.award)}</p>` : ''}
@@ -205,12 +205,10 @@ function render(lang) {
   .facts dt { color: #8d8b85; }
   .facts dd { color: #eeece7; }
   /* company and school logos */
-  .lg { width: 5.2mm; height: 5.2mm; object-fit: contain; flex: none; }
-  .co-h .lg { margin-right: 0.4mm; align-self: center; }
-  .what.ed { display: grid; grid-template-columns: 7.4mm 1fr; column-gap: 2.6mm; }
-  .what.ed .lg { width: 7.4mm; height: 7.4mm; }
-  .what.ed .lg { grid-row: 1 / span 3; margin-top: 0.4mm; }
-  .what.ed > :not(.lg) { grid-column: 2; }
+  .lg { display: block; width: 18mm; height: 5.6mm; background: #8a877f; -webkit-mask: var(--m) no-repeat left center / contain; mask: var(--m) no-repeat left center / contain; }
+  .co-h .lg { display: inline-block; width: auto; min-width: 5.6mm; aspect-ratio: 1; height: 4.6mm; margin-right: 0.6mm; align-self: center; }
+  .co-h .lg[style*='arcelormittal'] { aspect-ratio: 2.43; }
+  .when .lg { margin-top: 1.4mm; }
   main { position: relative; padding: 0 12mm 0; }
   section { margin-top: 2mm; }
   h2 { display: flex; align-items: baseline; gap: 2.4mm; padding-bottom: 0.9mm; font-size: 7.6pt; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #141413; }
