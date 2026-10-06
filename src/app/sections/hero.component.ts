@@ -22,7 +22,7 @@ import { FxDirective } from '../shared/fx.directive';
       <div class="base">
         <div class="w g">
           <div class="hi">
-            <p class="hello"><b>Sannu</b> — {{ i18n.t(h.hello) }}</p>
+            <p class="hello"><b>Sannu</b>, {{ i18n.t(h.hello) }}</p>
             <h1>{{ p.name }}</h1>
             <p class="lede">{{ i18n.t(h.lede) }}</p>
           </div>

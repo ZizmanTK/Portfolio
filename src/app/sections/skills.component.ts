@@ -21,9 +21,8 @@ import { SectionHeadComponent } from '../shared/section-head.component';
       <ol class="rows edu">
         @for (e of education; track e.school) {
           <li class="row g" reveal>
-            <span class="yr num">{{ e.start.slice(0, 4) }}–{{ e.end.slice(2, 4) }}</span>
+            <span class="yr"><b class="num">{{ e.start.slice(0, 4) }}–{{ e.end.slice(2, 4) }}</b>@if (e.logo) { <i class="mark" [style.--m]="'url(' + e.logo + ')'" aria-hidden="true"></i> }</span>
             <div class="dg">
-              @if (e.logo) { <img class="co-logo" [src]="e.logo" alt="" width="44" height="44" /> }
               <b>{{ i18n.t(e.degree) }}</b>
               <span>{{ e.school }} · {{ e.city }}, {{ i18n.t(e.country) }}</span>
               @if (e.award) { <p class="aw"><em>{{ ui().award }}</em>{{ i18n.t(e.award) }}</p> }
