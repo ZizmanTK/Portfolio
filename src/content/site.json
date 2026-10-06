@@ -632,7 +632,7 @@
         "fr": "Projet personnel"
       },
       "category": "games",
-      "image": "assets/img/projects/ztktris.webp",
+      "image": "assets/img/projects/zktris-poster.webp",
       "tagline": {
         "en": "Tetris remake where holes can never be cleared. Playable in the browser.",
         "fr": "Remake de Tetris où les trous ne s'effacent jamais. Jouable dans le navigateur."
@@ -651,13 +651,14 @@
         "github": "https://github.com/ZizmanTK/ZTKtetris"
       },
       "kicker": {
-        "en": "Personal · 2022 · upgrade in progress",
-        "fr": "Personnel · 2022 · mise à jour en cours"
+        "en": "Personal · 2022 · upgraded to Unity 6 in 2026",
+        "fr": "Personnel · 2022 · passé à Unity 6 en 2026"
       },
       "hue": [
         "#fbb915",
         "#7a3aff"
-      ]
+      ],
+      "video": "assets/video/zktris-gameplay.mp4"
     },
     {
       "slug": "portfolio",

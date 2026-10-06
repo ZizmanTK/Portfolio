@@ -9,7 +9,7 @@ const BASE = '/Portfolio/';
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json',
   '.svg': 'image/svg+xml', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.png': 'image/png', '.ico': 'image/x-icon',
-  '.pdf': 'application/pdf', '.xml': 'application/xml', '.txt': 'text/plain',
+  '.pdf': 'application/pdf', '.mp4': 'video/mp4', '.xml': 'application/xml', '.txt': 'text/plain',
 };
 
 async function resolve(path) {

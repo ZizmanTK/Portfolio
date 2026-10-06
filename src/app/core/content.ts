@@ -30,6 +30,8 @@ export interface Project {
   links: { play?: string; github?: string; site?: string; demo?: string };
   featured?: boolean; kicker?: L; when?: string; problem?: L; builtWith?: L; status?: L;
   visual?: 'pipeline'; hue?: [string, string];
+  /** Muted, looping gameplay clip shown instead of the still image. */
+  video?: string;
 }
 
 export interface RouteStop { city: string; country: L; what: L; now?: boolean; years: string }
