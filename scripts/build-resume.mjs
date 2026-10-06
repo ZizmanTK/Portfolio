@@ -105,14 +105,14 @@ function render(lang) {
   const t = (v) => esc(v[lang]);
   const r = (v) => rich(v[lang]);
   const p = site.profile;
-  const portrait = pathToFileURL(join(root, 'src', p.portraitCutout)).href;
+  const photo = pathToFileURL(join(root, 'src/assets/img/headshot.jpg')).href;
+  const logo = (path) => (path ? `<img class="lg" src="${pathToFileURL(join(root, 'src', path)).href}" alt="">` : '');
   const linkedin = site.socials.find((s) => s.id === 'linkedin');
   const github = site.socials.find((s) => s.id === 'github');
   const itch = site.socials.find((s) => s.id === 'itch');
   const h = site.hero;
 
   const contact = [
-    ...(L.photo ? [`<span>${t(h.location)}</span>`] : []),
     `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>`,
     `<a href="${esc(linkedin.url)}">${esc(stripProtocol(linkedin.url))}</a>`,
     `<a href="${esc(github.url)}">${esc(stripProtocol(github.url))}</a>`,
@@ -137,7 +137,7 @@ function render(lang) {
   const experience = groupByCompany(site.experience)
     .map((g) => `
       <div class="co">
-        <p class="co-h"><b>${esc(g.company)}</b><span>${t(g.positions[0].location).split(' · ')[0]} · ${years(g.start, g.end)}</span></p>
+        <p class="co-h">${logo(g.positions[0].logo)}<b>${esc(g.company)}</b><span>${t(g.positions[0].location).split(' · ')[0]} · ${years(g.start, g.end)}</span></p>
         ${g.positions.map((e) => `
         <div class="row">
           <div class="when"><b${e.end ? '' : ' class="cur"'}>${years(e.start, e.end)}</b><span>${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</span></div>
@@ -153,7 +153,8 @@ function render(lang) {
     .map((e) => `
       <div class="row">
         <div class="when"><b>${e.start.slice(0, 4)}–${e.end.slice(2, 4)}</b></div>
-        <div class="what">
+        <div class="what ed">
+          ${logo(e.logo)}
           <h3>${t(e.degree)}</h3>
           <p class="meta">${esc(e.school)} · ${esc(e.city)}, ${t(e.country)}</p>
           ${e.award ? `<p class="aw"><em>${L.award}</em>${t(e.award)}</p>` : ''}
@@ -191,26 +192,25 @@ function render(lang) {
   a { color: inherit; text-decoration: none; }
   strong { font-weight: 600; color: #262522; }
 
-  /* header: the website's hero, on paper */
-  .band { position: relative; overflow: hidden; background: radial-gradient(60% 90% at 30% 40%, rgba(251,185,21,.10), transparent 70%), #0d0d0e; color: #eeece7; padding: 7mm 12mm 4.6mm; }
-  .top { display: grid; grid-template-columns: 1fr 64mm; gap: 8mm; align-items: end; }
-  h1 { font-weight: 600; font-size: 13pt; line-height: 1.1; letter-spacing: -0.01em; }
-  h1 .sur { display: block; margin: 1mm 0 0 -0.8mm; font-weight: 800; font-stretch: 62%; font-size: 70pt; line-height: 0.8; letter-spacing: -0.005em; text-transform: uppercase; color: #fbb915; }
-  .role { margin-top: 2.8mm; font-size: 11pt; font-weight: 500; color: #eeece7; }
-  .role span { color: #a3a19b; }
+  /* header: dark band like the website, headshot, name, contacts, the hero's facts */
+  .band { display: grid; grid-template-columns: 27mm 1fr 60mm; gap: 6mm; align-items: center; padding: 7mm 12mm; background: radial-gradient(60% 120% at 25% 30%, rgba(251,185,21,.09), transparent 70%), #0d0d0e; color: #eeece7; }
+  .photo { width: 27mm; height: 33.75mm; object-fit: cover; border-radius: 2.4mm; }
+  h1 { font-weight: 700; font-size: 23pt; line-height: 1; letter-spacing: -0.02em; color: #eeece7; }
+  h1 .sur { color: #fbb915; }
+  .role { margin-top: 2mm; font-size: 11pt; font-weight: 500; color: #eeece7; }
+  .role span { color: #a3a19b; white-space: nowrap; }
+  .contact { display: flex; flex-wrap: wrap; gap: 0.6mm 4.5mm; margin-top: 3.4mm; font-size: 8pt; color: #c9c7c1; }
   .facts { border-top: 0.25mm solid rgba(238,236,231,.18); }
-  .facts div { display: grid; grid-template-columns: 19mm 1fr; gap: 2mm; padding: 1.5mm 0; border-bottom: 0.25mm solid rgba(238,236,231,.18); font-size: 8.2pt; }
+  .facts div { display: grid; grid-template-columns: 19mm 1fr; gap: 2mm; padding: 1.35mm 0; border-bottom: 0.25mm solid rgba(238,236,231,.18); font-size: 8pt; }
   .facts dt { color: #8d8b85; }
   .facts dd { color: #eeece7; }
-  .photo { position: absolute; right: 10mm; bottom: -5.5mm; height: 56mm; width: auto; filter: drop-shadow(0 4mm 8mm rgba(0,0,0,.5)); }
-  .photo ~ .contact { max-width: calc(100% - 50mm); }
-  .contact { display: flex; flex-wrap: wrap; gap: 1mm 6mm; margin-top: 4mm; padding-top: 2.2mm; border-top: 0.25mm solid rgba(238,236,231,.18); font-size: 8.2pt; color: #c9c7c1; }
-  .strip { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 14mm; border-bottom: 0.25mm solid #e3e0d8; }
-  .strip div { padding: 1.8mm 3mm 1.8mm 0; }
-  .strip div + div { padding-left: 3mm; border-left: 0.25mm solid #e3e0d8; }
-  .strip dt { font-size: 7pt; letter-spacing: 0.12em; text-transform: uppercase; color: #8a877f; }
-  .strip dd { margin-top: 0.4mm; font-size: 8.4pt; font-weight: 500; color: #141413; }
-
+  /* company and school logos */
+  .lg { width: 5.2mm; height: 5.2mm; object-fit: contain; flex: none; }
+  .co-h .lg { margin-right: 0.4mm; align-self: center; }
+  .what.ed { display: grid; grid-template-columns: 7.4mm 1fr; column-gap: 2.6mm; }
+  .what.ed .lg { width: 7.4mm; height: 7.4mm; }
+  .what.ed .lg { grid-row: 1 / span 3; margin-top: 0.4mm; }
+  .what.ed > :not(.lg) { grid-column: 2; }
   main { position: relative; padding: 0 12mm 0; }
   section { margin-top: 2mm; }
   h2 { display: flex; align-items: baseline; gap: 2.4mm; padding-bottom: 0.9mm; font-size: 7.6pt; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #141413; }
@@ -255,22 +255,20 @@ function render(lang) {
 </head>
 <body class="${lang}">
   <header class="band">
-    <div class="top">
-      <div>
-        <h1>${esc(p.firstName)} <span class="sur">${esc(p.lastName)}</span></h1>
-        <p class="role">${t(p.role)} <span>· ${esc(p.company)}</span></p>
-      </div>
-      ${L.photo ? '' : `<dl class="facts">${facts}</dl>`}
+    <img class="photo" src="${photo}" alt="">
+    <div class="who">
+      <h1>${esc(p.firstName)} <span class="sur">${esc(p.lastName)}</span></h1>
+      <p class="role">${t(p.role)} <span>· ${esc(p.company)}</span></p>
+      <p class="contact">${contact}</p>
     </div>
-    ${L.photo ? `<img class="photo" src="${portrait}" alt="">` : ''}
-    <p class="contact">${contact}</p>
+    <dl class="facts">${facts}</dl>
   </header>
   <main>
-    ${sec('01', L.summary, `<p class="summary">${r(p.summary)}</p>`)}
-    ${sec('02', L.experience, experience)}
-    ${sec('03', L.education, education)}
-    ${sec('04', L.skills, skills)}
-    ${sec('05', L.additional, `
+    ${sec('#1', L.summary, `<p class="summary">${r(p.summary)}</p>`)}
+    ${sec('#2', L.experience, experience)}
+    ${sec('#3', L.education, education)}
+    ${sec('#4', L.skills, skills)}
+    ${sec('#5', L.additional, `
       <div class="row kv"><div class="k">${L.languages}</div><div class="v">${languages}</div></div>
       <div class="row kv"><div class="k">${L.projects}</div><div class="v">Unity${lang === 'fr' ? ' :' : ':'} ${games}, ${esc(stripProtocol(itch.url))}</div></div>
       <div class="row kv"><div class="k">${L.certifications}</div><div class="v">${certs}</div></div>
