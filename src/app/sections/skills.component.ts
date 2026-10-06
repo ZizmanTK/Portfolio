@@ -11,7 +11,7 @@ import { SectionHeadComponent } from '../shared/section-head.component';
   imports: [RevealDirective, SectionHeadComponent],
   template: `
     <section class="sec w" id="skills">
-      <app-sec-head idx="04" [title]="ui().sections.skills" [intro]="ui().intro.skills" />
+      <app-sec-head idx="#4" [title]="ui().sections.skills" [intro]="ui().intro.skills" />
       <div class="rows">
         @for (g of skills; track $index) {
           <div class="row g" reveal><h3 class="lab">{{ i18n.t(g.group) }}</h3><p>{{ g.items.join(', ') }}</p></div>
@@ -23,6 +23,7 @@ import { SectionHeadComponent } from '../shared/section-head.component';
           <li class="row g" reveal>
             <span class="yr num">{{ e.start.slice(0, 4) }}–{{ e.end.slice(2, 4) }}</span>
             <div class="dg">
+              @if (e.logo) { <img class="co-logo" [src]="e.logo" alt="" width="44" height="44" /> }
               <b>{{ i18n.t(e.degree) }}</b>
               <span>{{ e.school }} · {{ e.city }}, {{ i18n.t(e.country) }}</span>
               @if (e.award) { <p class="aw"><em>{{ ui().award }}</em>{{ i18n.t(e.award) }}</p> }

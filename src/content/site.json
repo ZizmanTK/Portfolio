@@ -165,7 +165,7 @@
         "fr": "CDI"
       },
       "company": "BASSETTI France",
-      "logo": "assets/logos/bassetti-group.svg",
+      "logo": "assets/logos/bassetti-group-icon.svg",
       "url": "https://www.bassetti-group.com/",
       "location": {
         "en": "Grenoble · hybrid",
@@ -235,7 +235,7 @@
         "fr": "CDD"
       },
       "company": "BASSETTI France",
-      "logo": "assets/logos/bassetti-group.svg",
+      "logo": "assets/logos/bassetti-group-icon.svg",
       "url": "https://www.bassetti-group.com/",
       "location": {
         "en": "Grenoble · hybrid",
@@ -295,7 +295,7 @@
         "fr": "Stage"
       },
       "company": "BASSETTI France",
-      "logo": "assets/logos/bassetti-group.svg",
+      "logo": "assets/logos/bassetti-group-icon.svg",
       "url": "https://www.bassetti-group.com/",
       "location": {
         "en": "Grenoble · on-site",
@@ -351,7 +351,7 @@
         "fr": "Stage"
       },
       "company": "ArcelorMittal France",
-      "logo": "assets/logos/arcelormittal.svg",
+      "logo": "assets/logos/arcelormittal-icon.svg",
       "url": "https://france.arcelormittal.com/",
       "location": {
         "en": "Uckange",
@@ -411,7 +411,7 @@
         "fr": "Diplôme d'ingénieur — Images, Signaux et Science de données"
       },
       "school": "Télécom Physique Strasbourg",
-      "logo": "assets/logos/tps.svg",
+      "logo": "assets/logos/tps-icon.svg",
       "url": "https://www.telecom-physique.fr/",
       "city": "Strasbourg",
       "country": {
@@ -427,7 +427,7 @@
         "fr": "Classes préparatoires (CPGE) — Maths & Physique"
       },
       "school": "CPGE Ibn Ghazi",
-      "logo": "assets/logos/ibn-ghazi.svg",
+      "logo": "assets/logos/ibn-ghazi-icon.webp",
       "url": "https://ibnghazicpge.ac.ma/",
       "city": "Rabat",
       "country": {
@@ -443,7 +443,7 @@
         "fr": "Baccalauréat scientifique"
       },
       "school": "Lycée d'Excellence de Niamey",
-      "logo": null,
+      "logo": "assets/logos/lex-niamey-icon.webp",
       "url": null,
       "city": "Niamey",
       "country": {

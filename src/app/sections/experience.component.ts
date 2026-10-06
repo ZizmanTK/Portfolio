@@ -16,13 +16,13 @@ import { SectionHeadComponent } from '../shared/section-head.component';
   imports: [AccentTextComponent, RouterLink, RevealDirective, SectionHeadComponent],
   template: `
     <section class="sec w" id="experience">
-      <app-sec-head idx="01" [title]="ui().sections.experience" [intro]="ui().intro.experience" />
+      <app-sec-head idx="#1" [title]="ui().sections.experience" [intro]="ui().intro.experience" />
       <ol class="xp">
         @for (r of rows(); track $index; let i = $index) {
           <li [class.open]="open().has(i)" reveal>
             <button type="button" [attr.aria-expanded]="open().has(i)" [attr.aria-controls]="'xp-' + i" (click)="toggle(i)">
               <span class="when"><b class="num">{{ r.years }}</b><span>@if (r.current) { <i aria-hidden="true"></i> }{{ r.dates }}</span></span>
-              <span class="role"><b>{{ r.title }}</b><span>{{ r.company }} · {{ r.type }} · {{ r.location }}</span></span>
+              <span class="role"><img class="co-logo" [src]="r.logo" alt="" width="44" height="44" /><span class="rt"><b>{{ r.title }}</b><span>{{ r.company }} · {{ r.type }} · {{ r.location }}</span></span></span>
               <span class="tog" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" /></svg></span>
             </button>
             <div class="body" [id]="'xp-' + i" role="region" [attr.aria-label]="r.title + ', ' + r.company" [attr.inert]="open().has(i) ? null : ''">
@@ -59,6 +59,7 @@ export class ExperienceComponent {
       dates: `${this.i18n.month(e.start)} – ${e.end ? this.i18n.month(e.end) : this.ui().present} · ${this.i18n.duration(e.start, e.end)}`,
       title: this.i18n.t(e.title ?? e.role),
       company: e.company,
+      logo: e.logo,
       type: this.i18n.t(e.type),
       location: this.i18n.t(e.location),
       points: e.card,

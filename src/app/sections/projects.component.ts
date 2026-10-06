@@ -15,11 +15,11 @@ import { SectionHeadComponent } from '../shared/section-head.component';
   imports: [RevealDirective, SectionHeadComponent],
   template: `
     <section class="sec w" id="work">
-      <app-sec-head idx="02" [title]="ui().sections.work" [intro]="ui().intro.work" />
+      <app-sec-head idx="#2" [title]="ui().sections.work" [intro]="ui().intro.work" />
       <div class="work">
         @for (p of projects; track p.slug; let i = $index; let odd = $odd) {
           <article class="pj" [class.rev]="odd" [id]="p.slug" [attr.aria-labelledby]="p.slug + '-t'">
-            <p class="k" reveal><span class="num y">0{{ i + 1 }}</span><span>{{ i18n.t(p.kicker!) }}</span><span>{{ p.when }}</span></p>
+            <p class="k" reveal><span class="num y">#{{ i + 1 }}</span><span>{{ i18n.t(p.kicker!) }}</span><span>{{ p.when }}</span></p>
             <div class="pstage">
               <h3 class="pname" [id]="p.slug + '-t'" reveal>{{ p.name }}</h3>
               <div class="vis" reveal>

@@ -12,7 +12,7 @@ import { SectionHeadComponent } from '../shared/section-head.component';
   imports: [AccentTextComponent, RevealDirective, SectionHeadComponent],
   template: `
     <section class="sec w" id="about">
-      <app-sec-head idx="03" [title]="ui().sections.about" [intro]="ui().intro.about" />
+      <app-sec-head idx="#3" [title]="ui().sections.about" [intro]="ui().intro.about" />
       <div class="g">
         <p class="big" reveal><app-accent mode="b" [text]="i18n.t(statement)" /></p>
       </div>
