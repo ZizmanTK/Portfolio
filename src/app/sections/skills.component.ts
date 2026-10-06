@@ -1,16 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SITE } from '../core/content';
 import { I18n } from '../core/i18n';
+import { FxDirective } from '../shared/fx.directive';
 
 @Component({
   selector: 'app-skills',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FxDirective],
   template: `
     <section class="sec" id="skills">
       <h2 class="tt rv"><span class="n">05</span>{{ i18n.ui().sections.skills }}</h2>
-      <dl class="skl rv">
-        @for (g of skills; track $index) {
-          <div><dt>{{ i18n.t(g.group) }}</dt><dd>{{ g.items.join(', ') }}</dd></div>
+      <dl class="skl" fx="enter">
+        @for (g of skills; track $index; let r = $index) {
+          <div [style.--r]="r"><dt>{{ i18n.t(g.group) }}</dt><dd>@for (it of g.items; track it; let last = $last) {<span [style.--k]="$index">{{ it }}{{ last ? '' : ',' }}</span>{{ ' ' }}}</dd></div>
         }
       </dl>
     </section>
@@ -19,7 +21,7 @@ import { I18n } from '../core/i18n';
       <h2 class="tt rv"><span class="n">06</span>{{ i18n.ui().sections.education }}</h2>
       <div class="ed">
         @for (e of education; track e.school) {
-          <div class="rv">
+          <div fx="enter">
             <p class="yr">{{ e.start.slice(0, 4) }} – {{ e.end.slice(0, 4) }}</p>
             <div>
               <h4>{{ i18n.t(e.degree) }}</h4>

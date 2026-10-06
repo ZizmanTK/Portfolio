@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SITE } from '../core/content';
 import { I18n } from '../core/i18n';
 import { AccentTextComponent } from '../shared/accent-text.component';
+import { FxDirective } from '../shared/fx.directive';
 
 /**
  * Both games are being upgraded: the cards show "living" placeholders (slow pan over a screenshot,
@@ -10,14 +11,14 @@ import { AccentTextComponent } from '../shared/accent-text.component';
 @Component({
   selector: 'app-games',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AccentTextComponent],
+  imports: [AccentTextComponent, FxDirective],
   template: `
     <section class="sec" id="games">
       <h2 class="tt rv"><span class="n">04</span>{{ i18n.ui().sections.games }}</h2>
       <p class="lead rv"><app-accent mode="b" [text]="i18n.ui().gamesLead" /></p>
       <div class="gm">
-        @for (g of games; track g.slug) {
-          <a class="gcard rv" [href]="g.links.play" target="_blank" rel="noopener">
+        @for (g of games; track g.slug; let i = $index) {
+          <a class="gcard" fx="view" [style.--side]="i % 2 ? 1 : -1" [href]="g.links.play" target="_blank" rel="noopener">
             <div class="clip" [style.--a]="g.hue?.[0]" [style.--b]="g.hue?.[1]">
               <img [src]="g.image" [alt]="g.name" loading="lazy" />
               <span class="scan" aria-hidden="true"></span>
@@ -34,7 +35,7 @@ import { AccentTextComponent } from '../shared/accent-text.component';
           </a>
         }
       </div>
-      <div class="sound rv">
+      <div class="sound" fx="enter">
         <span class="disc" aria-hidden="true"><i></i></span>
         <div class="sinfo"><p class="kick y">{{ i18n.ui().soundtrack }}</p><p class="stx">{{ i18n.ui().soundtrackText }}</p></div>
         <span class="eq" aria-hidden="true">@for (b of bars; track $index) { <i></i> }</span>

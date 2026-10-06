@@ -844,28 +844,40 @@
       "what": {
         "en": "Scientific baccalaureate",
         "fr": "Baccalauréat scientifique"
-      }
+      },
+      "lon": 2.11,
+      "lat": 13.51,
+      "years": "2015–18"
     },
     {
       "city": "Rabat",
       "what": {
         "en": "CPGE · maths & physics",
         "fr": "CPGE · maths & physique"
-      }
+      },
+      "lon": -6.84,
+      "lat": 34.02,
+      "years": "2018–20"
     },
     {
       "city": "Strasbourg",
       "what": {
         "en": "Engineering degree · images, signals & data",
         "fr": "Diplôme d’ingénieur · image, signal & données"
-      }
+      },
+      "lon": 7.75,
+      "lat": 48.57,
+      "years": "2020–24"
     },
     {
       "city": "Uckange",
       "what": {
         "en": "Computer vision at ArcelorMittal",
         "fr": "Vision par ordinateur chez ArcelorMittal"
-      }
+      },
+      "lon": 6.15,
+      "lat": 49.3,
+      "years": "2023"
     },
     {
       "city": "Grenoble",
@@ -873,7 +885,10 @@
         "en": "AI Engineer at BASSETTI France",
         "fr": "Ingénieur IA chez BASSETTI France"
       },
-      "now": true
+      "now": true,
+      "lon": 5.72,
+      "lat": 45.19,
+      "years": "2024 →"
     }
   ],
   "contact": {
@@ -886,88 +901,8 @@
       "fr": "Vous recrutez pour de l’IA, des LLM ou de la vision par ordinateur ? Écrivez-moi — je réponds en français, en anglais ou en haoussa."
     }
   },
-  "now": {
-    "building": {
-      "en": "Agentic AI over company knowledge at BASSETTI France",
-      "fr": "IA agentique sur les connaissances de l’entreprise chez BASSETTI France"
-    },
-    "lately": {
-      "en": "Upgrading Roll Power & ZKTris, with new tracks",
-      "fr": "Mise à jour de Roll Power & ZKTris, avec de nouveaux morceaux"
-    },
-    "speaks": "FR · EN · HA"
-  },
-  "stickers": [
-    {
-      "label": {
-        "en": "CDI at BASSETTI",
-        "fr": "CDI chez BASSETTI"
-      },
-      "to": "experience",
-      "tone": "y"
-    },
-    {
-      "label": {
-        "en": "LLM agents",
-        "fr": "Agents LLM"
-      },
-      "to": "txbot"
-    },
-    {
-      "label": {
-        "en": "RAG",
-        "fr": "RAG"
-      },
-      "to": "txbot"
-    },
-    {
-      "label": {
-        "en": "Computer vision",
-        "fr": "Vision par ordinateur"
-      },
-      "to": "coilcheck"
-    },
-    {
-      "label": {
-        "en": "Steel coils",
-        "fr": "Bobines d’acier"
-      },
-      "to": "coilcheck"
-    },
-    {
-      "label": {
-        "en": "Materials data",
-        "fr": "Données matériaux"
-      },
-      "to": "remind"
-    },
-    {
-      "label": {
-        "en": "Angular + FastAPI",
-        "fr": "Angular + FastAPI"
-      },
-      "to": "skills"
-    },
-    {
-      "label": {
-        "en": "Unity + FL Studio",
-        "fr": "Unity + FL Studio"
-      },
-      "to": "games"
-    },
-    {
-      "label": {
-        "en": "Niamey → Grenoble",
-        "fr": "Niamey → Grenoble"
-      },
-      "to": "about"
-    },
-    {
-      "label": {
-        "en": "Sannu · Bonjour · Hello",
-        "fr": "Sannu · Bonjour · Hello"
-      },
-      "to": "contact"
-    }
-  ]
+  "statement": {
+    "en": "I’m an **AI engineer** on a **permanent contract** at **BASSETTI France**, in Grenoble. I build **LLM agents** that answer from company knowledge, I trained models that catch **defects on steel coils**, and I write the **Angular** and **FastAPI** code that puts them in people’s hands. I work in **French**, **English** and **Hausa**.",
+    "fr": "Je suis **ingénieur IA** en **CDI** chez **BASSETTI France**, à Grenoble. Je conçois des **agents LLM** qui répondent à partir des connaissances de l’entreprise, j’ai entraîné des modèles qui repèrent les **défauts sur bobines d’acier**, et j’écris le code **Angular** et **FastAPI** qui les met entre les mains des utilisateurs. Je travaille en **français**, en **anglais** et en **haoussa**."
+  }
 }

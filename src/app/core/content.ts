@@ -32,9 +32,7 @@ export interface Project {
   visual?: 'pipeline'; hue?: [string, string];
 }
 
-export interface RouteStop { city: string; what: L; now?: boolean }
-/** Draggable sticker under the hero; `to` is the section/project id it jumps to on click. */
-export interface Sticker { label: L; to?: string; tone?: 'y' }
+export interface RouteStop { city: string; what: L; now?: boolean; lon: number; lat: number; years: string }
 
 export interface SkillGroup { group: L; items: string[] }
 
@@ -44,8 +42,8 @@ export interface Site {
     location: L; email: string; site: string; portrait: string; portraitCutout: string; avatar: string; resume: L;
   };
   hero: { greetings: string[]; tagline: L; contract: L; location: L };
-  now: { building: L; lately: L; speaks: string };
-  stickers: Sticker[];
+  /** Opening paragraph revealed word by word while the About section is pinned. */
+  statement: L;
   aboutShort: L[];
   route: RouteStop[];
   contact: { title: L; text: L };
