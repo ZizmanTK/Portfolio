@@ -2,8 +2,9 @@
  * Builds the downloadable resume PDFs (EN + FR) from src/content/site.json,
  * the same file the website renders — so the two never drift apart.
  *
- * Same design language as the website: a dark band with the surname set big in Archivo's
- * condensed cut, then ruled rows (years on the left, details on the right). Still ATS-friendly:
+ * Same design language as the website: a dark band where the job title is the loudest line,
+ * then ruled rows (years on the left, details on the right). Ordered by what a recruiter checks
+ * first: title, specialties, contact, availability, then jobs and degree. Still ATS-friendly:
  * one reading order, standard section names, real selectable text.
  *
  *   npm run resume                    → src/assets/resume/*.pdf
@@ -50,9 +51,8 @@ const LABELS = {
     projects: 'Side projects',
     languages: 'Languages',
     interests: 'Interests',
-    certifications: 'Certification',
     present: 'Present',
-    now: 'Now', exp: 'Experience', contract: 'Contract', based: 'Based in', speaks: 'Speaks', award: 'Award',
+    now: 'Now', exp: 'Experience', status: 'Status', based: 'Based in', speaks: 'Speaks', award: 'Award',
     photo: false,
   },
   fr: {
@@ -65,9 +65,8 @@ const LABELS = {
     projects: 'Projets personnels',
     languages: 'Langues',
     interests: 'Centres d’intérêt',
-    certifications: 'Certification',
     present: 'Aujourd’hui',
-    now: 'Poste', exp: 'Expérience', contract: 'Contrat', based: 'Basé à', speaks: 'Langues', award: 'Distinction',
+    now: 'Poste', exp: 'Expérience', status: 'Statut', based: 'Basé à', speaks: 'Langues', award: 'Distinction',
     photo: true, // photos are customary on French CVs
   },
 };
@@ -127,15 +126,16 @@ function render(lang) {
 
   const contact = [
     `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>`,
+    ...(p.phone ? [`<a href="tel:${esc(p.phone.replace(/s/g, ''))}">${esc(p.phone)}</a>`] : []),
     `<a href="${esc(linkedin.url)}">${esc(stripProtocol(linkedin.url))}</a>`,
     `<a href="${esc(github.url)}">${esc(stripProtocol(github.url))}</a>`,
     `<a href="${esc(p.site)}">${esc(stripProtocol(p.site))}</a>`,
   ].join('');
 
-  // The same four facts as the website's hero.
+  // The same four facts as the website's hero, availability first.
   const facts = [
-    [L.exp, t(site.facts.find((f) => f.icon === 'briefcase').value)],
-    [L.contract, t(h.contract)],
+    [L.status, `<b class="st">${t(h.status)}</b>`],
+    [L.exp, t(h.experience)],
     [L.based, t(h.location)],
     [L.speaks, t(h.languages)],
   ].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
@@ -154,10 +154,10 @@ function render(lang) {
       <div class="row co">
         <div class="when"><b${g.end ? '' : ' class="cur"'}>${years(g.start, g.end)}</b><span>${esc(month(g.start, lang))} – ${esc(month(g.end, lang))} · ${span(g.start, g.end)}</span>${logo(g.positions[0].logo)}</div>
         <div class="what">
-          <h3 class="co-n">${esc(g.company)} <span class="ty">· ${t(g.positions[0].location)}</span></h3>
+          <h3 class="co-n">${t(g.positions[0].role)} · ${esc(g.company)} <span class="ty">· ${t(g.positions[0].location)}</span></h3>
           ${g.positions.map((e) => `
           <div class="rl">
-            <p class="rl-h"><b>${t(e.role)}</b> · ${t(e.type)} · ${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</p>
+            <p class="rl-h">${g.positions.length > 1 ? `<b>${t(e.role)}</b> · ` : ''}${t(e.type)} · ${esc(month(e.start, lang))} – ${esc(month(e.end, lang))}</p>
             <ul>${e.highlights.map((x) => `<li>${r(x)}</li>`).join('')}</ul>
           </div>`).join('')}
         </div>
@@ -186,7 +186,6 @@ function render(lang) {
     .join(', ');
   const languages = site.languages.map((l) => `${t(l.name)} <span class="lv">${t(l.level).toLowerCase()}</span>`).join(' · ');
   const interests = site.interests.slice(0, 4).map((i) => t(i)).join(' · ');
-  const certs = site.badges.map((b) => t(b)).join(' · ');
 
   const sec = (n, title, body) => `<section><h2><span class="n">${n}</span>${title}</h2>${body}</section>`;
 
@@ -209,10 +208,12 @@ function render(lang) {
   /* header: dark band like the website, headshot, name, contacts, the hero's facts */
   .band { display: grid; grid-template-columns: 27mm 1fr 60mm; gap: 6mm; align-items: center; padding: 7mm 12mm; background: radial-gradient(60% 120% at 25% 30%, rgba(251,185,21,.09), transparent 70%), #0d0d0e; color: #eeece7; }
   .photo { width: 27mm; height: 33.75mm; object-fit: cover; border-radius: 2.4mm; }
-  h1 { font-weight: 700; font-size: 23pt; line-height: 1; letter-spacing: -0.02em; color: #eeece7; }
-  h1 .sur { color: #fbb915; }
-  .role { margin-top: 2mm; font-size: 11pt; font-weight: 500; color: #eeece7; }
-  .role span { color: #a3a19b; white-space: nowrap; }
+  h1 { font-weight: 600; font-size: 15pt; line-height: 1.05; letter-spacing: -0.01em; color: #eeece7; }
+  .role { margin-top: 1.2mm; font-size: 25pt; line-height: 1; font-weight: 700; letter-spacing: -0.02em; color: #fbb915; }
+  .focus { margin-top: 2mm; font-size: 9.4pt; font-weight: 500; color: #eeece7; }
+  .focus i { font-style: normal; color: #fbb915; margin: 0 1.6mm; }
+  .facts .st { font-weight: 600; color: #eeece7; }
+  .facts .st::before { content: ''; display: inline-block; width: 1.6mm; height: 1.6mm; margin-right: 1.6mm; border-radius: 50%; background: #fbb915; vertical-align: 0.3mm; }
   .contact { display: flex; flex-wrap: wrap; gap: 0.6mm 4.5mm; margin-top: 3.4mm; font-size: 8pt; color: #c9c7c1; }
   .facts { border-top: 0.25mm solid rgba(238,236,231,.18); }
   .facts div { display: grid; grid-template-columns: 19mm 1fr; gap: 2mm; padding: 1.35mm 0; border-bottom: 0.25mm solid rgba(238,236,231,.18); font-size: 8pt; }
@@ -269,8 +270,9 @@ function render(lang) {
   <header class="band">
     <img class="photo" src="${photo}" alt="">
     <div class="who">
-      <h1>${esc(p.firstName)} <span class="sur">${esc(p.lastName)}</span></h1>
-      <p class="role">${t(p.role)} <span>· ${esc(p.company)}</span></p>
+      <h1>${esc(p.name)}</h1>
+      <p class="role">${t(h.role)}</p>
+      <p class="focus">${h.focus.map((f) => t(f)).join('<i>·</i>')}</p>
       <p class="contact">${contact}</p>
     </div>
     <dl class="facts">${facts}</dl>
@@ -283,7 +285,6 @@ function render(lang) {
     ${sec('#5', L.additional, `
       <div class="row kv"><div class="k">${L.languages}</div><div class="v">${languages}</div></div>
       <div class="row kv"><div class="k">${L.projects}</div><div class="v">Unity${lang === 'fr' ? ' :' : ':'} ${games}, ${esc(stripProtocol(itch.url))}</div></div>
-      <div class="row kv"><div class="k">${L.certifications}</div><div class="v">${certs}</div></div>
       <div class="row kv"><div class="k">${L.interests}</div><div class="v">${interests}</div></div>`)}
   </main>
 </body>

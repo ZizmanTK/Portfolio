@@ -3,7 +3,7 @@ import type { Lang } from './content';
 /** Interface copy that isn't part of the portfolio content itself. */
 export const UI = {
   en: {
-    nav: { experience: 'Experience', work: 'Work', about: 'About', contact: 'Contact' },
+    nav: { experience: 'Experience', work: 'Work', skills: 'Skills', about: 'About', contact: 'Contact' },
     skipToContent: 'Skip to content',
     resume: 'Résumé',
     resumePdf: 'Résumé PDF',
@@ -12,7 +12,7 @@ export const UI = {
     switchLang: 'Voir en français',
     langShort: 'FR',
     photoAlt: 'Portrait of Abdoul Aziz Maazou',
-    facts: { now: 'Now', contract: 'Contract', based: 'Based in', speaks: 'Speaks' },
+    facts: { status: 'Status', experience: 'Experience', based: 'Based in', speaks: 'Speaks' },
     sections: {
       experience: 'Experience',
       work: 'Work',
@@ -25,7 +25,8 @@ export const UI = {
       experience: 'From a steel line to a **permanent AI engineer** role. Four roles, two companies, since 2023.',
       work: 'Three AI systems built in industry, from the first prototype to the people who use them.',
       about: 'From Niamey to Grenoble, by way of Rabat and Strasbourg.',
-      skills: 'What I work with every day, and where I learned it.',
+      education: 'An engineering degree in images, signals and data science, after two years of preparatory classes.',
+      skills: 'What I work with every day, AI first.',
       games: 'Unity games with soundtracks I compose in FL Studio. ZKTris has just been upgraded; Roll Power’s update is in progress.',
     },
     now: 'now',
@@ -60,7 +61,7 @@ export const UI = {
     footer: 'Grenoble, France',
   },
   fr: {
-    nav: { experience: 'Expérience', work: 'Projets', about: 'À propos', contact: 'Contact' },
+    nav: { experience: 'Expérience', work: 'Projets', skills: 'Compétences', about: 'À propos', contact: 'Contact' },
     skipToContent: 'Aller au contenu',
     resume: 'CV',
     resumePdf: 'CV PDF',
@@ -69,7 +70,7 @@ export const UI = {
     switchLang: 'View in English',
     langShort: 'EN',
     photoAlt: 'Portrait d’Abdoul Aziz Maazou',
-    facts: { now: 'Poste', contract: 'Contrat', based: 'Basé à', speaks: 'Langues' },
+    facts: { status: 'Statut', experience: 'Expérience', based: 'Basé à', speaks: 'Langues' },
     sections: {
       experience: 'Expérience',
       work: 'Projets',
@@ -82,7 +83,8 @@ export const UI = {
       experience: 'D’une ligne d’acier à un poste d’**ingénieur IA en CDI**. Quatre postes, deux entreprises, depuis 2023.',
       work: 'Trois systèmes d’IA réalisés en entreprise, du premier prototype jusqu’aux utilisateurs.',
       about: 'De Niamey à Grenoble, en passant par Rabat et Strasbourg.',
-      skills: 'Ce que j’utilise au quotidien, et où je l’ai appris.',
+      education: 'Un diplôme d’ingénieur en image, signal et science des données, après deux ans de classes préparatoires.',
+      skills: 'Ce que j’utilise au quotidien, l’IA en premier.',
       games: 'Des jeux Unity dont je compose la bande-son sur FL Studio. ZKTris vient d’être mis à jour ; celle de Roll Power est en cours.',
     },
     now: 'auj.',

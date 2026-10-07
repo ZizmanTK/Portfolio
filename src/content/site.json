@@ -816,21 +816,47 @@
       "Bonjour,",
       "Hello,"
     ],
+    "hello": {
+      "en": "I’m Aziz",
+      "fr": "moi, c’est Aziz"
+    },
+    "role": {
+      "en": "AI Engineer",
+      "fr": "Ingénieur IA"
+    },
+    "focus": [
+      {
+        "en": "LLM agents",
+        "fr": "Agents LLM"
+      },
+      {
+        "en": "RAG",
+        "fr": "RAG"
+      },
+      {
+        "en": "Computer vision",
+        "fr": "Vision par ordinateur"
+      },
+      {
+        "en": "Full-stack",
+        "fr": "Full-stack"
+      }
+    ],
+    "status": {
+      "en": "Open to work",
+      "fr": "Ouvert aux opportunités"
+    },
+    "experience": {
+      "en": "3+ years · BASSETTI France",
+      "fr": "3+ ans · BASSETTI France"
+    },
     "tagline": {
       "en": "Building **LLM agents, RAG** and **computer vision** that ship to production.",
       "fr": "Je conçois des **agents LLM, du RAG** et de la **vision par ordinateur** qui partent en production."
     },
-    "contract": {
-      "en": "Permanent (CDI)",
-      "fr": "CDI"
-    },
     "location": {
       "en": "Grenoble, France · hybrid",
       "fr": "Grenoble, France · hybride"
-    },
-    "hello": {
-      "en": "I’m Aziz",
-      "fr": "moi, c’est Aziz"
     },
     "lede": {
       "en": "AI engineer building LLM agents and computer vision that ship to production.",

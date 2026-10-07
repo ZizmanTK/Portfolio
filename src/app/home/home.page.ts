@@ -35,8 +35,8 @@ import { ContactComponent } from '../sections/contact.component';
       <app-hero />
       <app-experience />
       <app-projects />
-      <app-about />
       <app-skills />
+      <app-about />
       <app-games />
       <app-contact />
     </main>

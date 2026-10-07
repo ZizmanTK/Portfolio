@@ -19,8 +19,8 @@ function byCompany(items: Experience[]): Experience[][] {
 
 /**
  * Experience, one row per company so the time spent there reads as one block (BASSETTI:
- * internship, fixed-term, then permanent). A row opens to show each role with its dates,
- * what I did and the stack. The current company starts open.
+ * internship, fixed-term, then permanent). Each row leads with the job title and company, then
+ * the dates; every row starts open because recruiters skim, they don't click.
  */
 @Component({
   selector: 'app-experience',
@@ -38,7 +38,7 @@ function byCompany(items: Experience[]): Experience[][] {
                 <span>@if (c.current) { <i aria-hidden="true"></i> }{{ c.dates }}</span>
                 <i class="mark" [style.--m]="'url(' + c.logo + ')'" aria-hidden="true"></i>
               </span>
-              <span class="role"><span class="rt"><b>{{ c.company }}</b><span>{{ c.title }} · {{ c.location }}</span></span></span>
+              <span class="role"><span class="rt"><b>{{ c.title }} <em>· {{ c.company }}</em></b><span>{{ c.type }} · {{ c.location }}</span></span></span>
               <span class="tog" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" /></svg></span>
             </button>
             <div class="body" [id]="'xp-' + i" role="region" [attr.aria-label]="c.company" [attr.inert]="open().has(i) ? null : ''">
@@ -74,8 +74,8 @@ function byCompany(items: Experience[]): Experience[][] {
 export class ExperienceComponent {
   protected readonly i18n = inject(I18n);
   protected readonly ui = this.i18n.ui;
-  /** Companies that are open; the current one (first) starts open. */
-  protected readonly open = signal(new Set([0]));
+  /** Companies that are open; all of them start open. */
+  protected readonly open = signal(new Set(byCompany(SITE.experience).map((_, i) => i)));
 
   protected readonly companies = computed(() =>
     byCompany(SITE.experience).map((roles) => {
@@ -91,7 +91,8 @@ export class ExperienceComponent {
         current: end === null,
         years,
         dates: `${this.i18n.month(start)} – ${end ? this.i18n.month(end) : this.ui().present} · ${this.i18n.duration(start, end)}`,
-        title: `${this.i18n.t(latest.title ?? latest.role)} · ${this.i18n.t(latest.type)}`,
+        title: this.i18n.t(latest.title ?? latest.role),
+        type: this.i18n.t(latest.type),
         location: this.i18n.t(latest.location),
         roles: roles.map((e) => ({
           title: this.i18n.t(e.title ?? e.role),

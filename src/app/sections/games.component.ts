@@ -12,7 +12,7 @@ import { SectionHeadComponent } from '../shared/section-head.component';
   imports: [RevealDirective, SectionHeadComponent, InViewVideoDirective],
   template: `
     <section class="sec w" id="games">
-      <app-sec-head idx="#5" [title]="ui().sections.games" [intro]="ui().intro.games" />
+      <app-sec-head idx="#6" [title]="ui().sections.games" [intro]="ui().intro.games" />
       <div class="g">
         <div class="side">
           @for (g of games; track g.slug) {

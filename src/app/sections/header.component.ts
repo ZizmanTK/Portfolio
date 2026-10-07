@@ -4,9 +4,9 @@ import { SITE } from '../core/content';
 import { I18n } from '../core/i18n';
 import { LogoComponent } from '../shared/logo.component';
 
-const LINKS = ['experience', 'work', 'about', 'contact'] as const;
+const LINKS = ['experience', 'work', 'skills', 'about', 'contact'] as const;
 
-/** Sticky header: mark and name, four section links (the current one lit), language, résumé. */
+/** Sticky header: mark and name, section links (the current one lit), language, résumé. */
 @Component({
   selector: 'app-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,9 +42,9 @@ export class HeaderComponent {
   constructor() {
     const destroy = inject(DestroyRef);
     afterNextRender(() => {
-      // Skills and games are part of "About" in the nav; the contact link lights up at the end.
-      const ids = ['experience', 'work', 'about', 'skills', 'games', 'contact'];
-      const navOf: Record<string, string> = { skills: 'about', games: 'about' };
+      // Education sits under "Skills" and games under "About"; the contact link lights up at the end.
+      const ids = ['experience', 'work', 'education', 'skills', 'about', 'games', 'contact'];
+      const navOf: Record<string, string> = { education: 'skills', games: 'about' };
       const onScroll = () => {
         const line = innerHeight * 0.4;
         let cur: string | null = null;

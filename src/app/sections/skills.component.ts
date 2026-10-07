@@ -4,20 +4,14 @@ import { I18n } from '../core/i18n';
 import { RevealDirective } from '../shared/reveal.directive';
 import { SectionHeadComponent } from '../shared/section-head.component';
 
-/** Skills as ruled rows (group · tools, set large enough to read), then education in the same rhythm. */
+/** Education first (the degree is what recruiters check), then skills as ruled rows, AI first. */
 @Component({
   selector: 'app-skills',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RevealDirective, SectionHeadComponent],
   template: `
-    <section class="sec w" id="skills">
-      <app-sec-head idx="#4" [title]="ui().sections.skills" [intro]="ui().intro.skills" />
-      <div class="rows">
-        @for (g of skills; track $index) {
-          <div class="row g" reveal><h3 class="lab">{{ i18n.t(g.group) }}</h3><ul class="sk">@for (it of g.items; track it) { <li [style.--i]="icon(it).mask" [style.--h]="icon(it).hex"><i aria-hidden="true"></i>{{ it }}</li> }</ul></div>
-        }
-      </div>
-      <h3 class="subh lab" id="education" reveal>{{ ui().sections.education }}</h3>
+    <section class="sec w" id="education">
+      <app-sec-head idx="#3" [title]="ui().sections.education" [intro]="ui().intro.education" />
       <ol class="rows edu">
         @for (e of education; track e.school) {
           <li class="row g" reveal>
@@ -30,6 +24,14 @@ import { SectionHeadComponent } from '../shared/section-head.component';
           </li>
         }
       </ol>
+    </section>
+    <section class="sec w" id="skills">
+      <app-sec-head idx="#4" [title]="ui().sections.skills" [intro]="ui().intro.skills" />
+      <div class="rows">
+        @for (g of skills; track $index) {
+          <div class="row g" reveal><h3 class="lab">{{ i18n.t(g.group) }}</h3><ul class="sk">@for (it of g.items; track it) { <li [style.--i]="icon(it).mask" [style.--h]="icon(it).hex"><i aria-hidden="true"></i>{{ it }}</li> }</ul></div>
+        }
+      </div>
     </section>
   `,
 })

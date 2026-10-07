@@ -4,9 +4,10 @@ import { I18n } from '../core/i18n';
 import { FxDirective } from '../shared/fx.directive';
 
 /**
- * First screen: the surname set big behind the portrait, then the two things a recruiter
- * reads first: who (name + one line) on the left, the facts and actions on the right.
- * While it scrolls away (`--p`), the surname drifts up slower than the page.
+ * First screen, ordered by what a recruiter checks in the first seconds: the job title set big
+ * behind the portrait, then name + title + specialties on the left, and on the right that I'm
+ * open to work, how much experience, where, which languages, and the résumé.
+ * While it scrolls away (`--p`), the big title drifts up slower than the page.
  */
 @Component({
   selector: 'app-hero',
@@ -15,7 +16,7 @@ import { FxDirective } from '../shared/fx.directive';
   template: `
     <section class="hero" id="top" fx="leave">
       <div class="stage">
-        <p class="sur" aria-hidden="true">{{ p.lastName }}</p>
+        <p class="sur" aria-hidden="true">{{ i18n.t(h.role) }}</p>
         <img class="me" [src]="p.portraitCutout" [alt]="i18n.ui().photoAlt" width="1368" height="1823" fetchpriority="high" />
         <div class="shade"></div>
       </div>
@@ -23,19 +24,20 @@ import { FxDirective } from '../shared/fx.directive';
         <div class="w g">
           <div class="hi">
             <p class="hello"><b>Sannu</b>, {{ i18n.t(h.hello) }}</p>
-            <h1>{{ p.name }}</h1>
-            <p class="lede">{{ i18n.t(h.lede) }}</p>
+            <h1>{{ p.name }}<span class="ttl">{{ i18n.t(h.role) }}</span></h1>
+            <ul class="focus">@for (f of h.focus; track $index) { <li>{{ i18n.t(f) }}</li> }</ul>
           </div>
           <div class="facts">
             <dl>
-              <div><dt>{{ ui().facts.now }}</dt><dd>{{ i18n.t(p.role) }}, {{ p.company }}</dd></div>
-              <div><dt>{{ ui().facts.contract }}</dt><dd>{{ i18n.t(h.contract) }}</dd></div>
+              <div class="st"><dt>{{ ui().facts.status }}</dt><dd><i aria-hidden="true"></i>{{ i18n.t(h.status) }}</dd></div>
+              <div><dt>{{ ui().facts.experience }}</dt><dd>{{ i18n.t(h.experience) }}</dd></div>
               <div><dt>{{ ui().facts.based }}</dt><dd>{{ i18n.t(h.location) }}</dd></div>
               <div><dt>{{ ui().facts.speaks }}</dt><dd>{{ i18n.t(h.languages) }}</dd></div>
             </dl>
             <div class="acts">
               <a class="btn p" [href]="resume()" download>{{ ui().downloadResume }}</a>
               <a class="btn" [href]="'mailto:' + p.email">{{ ui().email }}</a>
+              <a class="btn" [href]="linkedin" target="_blank" rel="noopener">LinkedIn</a>
             </div>
           </div>
         </div>
@@ -48,5 +50,6 @@ export class HeroComponent {
   protected readonly ui = this.i18n.ui;
   protected readonly p = SITE.profile;
   protected readonly h = SITE.hero;
+  protected readonly linkedin = SITE.socials.find((s) => s.id === 'linkedin')!.url;
   protected readonly resume = computed(() => this.i18n.t(this.p.resume));
 }

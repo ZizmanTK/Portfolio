@@ -42,9 +42,12 @@ export interface SkillGroup { group: L; items: string[] }
 export interface Site {
   profile: {
     name: string; firstName: string; lastName: string; role: L; company: string; summary: L; mission: L;
-    location: L; email: string; site: string; portrait: string; portraitCutout: string; avatar: string; resume: L;
+    location: L; email: string; phone?: string; site: string; portrait: string; portraitCutout: string; avatar: string; resume: L;
   };
-  hero: { greetings: string[]; tagline: L; contract: L; location: L; hello: L; lede: L; languages: L };
+  hero: {
+    greetings: string[]; hello: L; role: L; focus: L[]; status: L; experience: L;
+    tagline: L; location: L; lede: L; languages: L;
+  };
   /** The large opening paragraph of the About section (**marked** words in full white). */
   statement: L;
   /** Short paragraphs under About › Outside work. */

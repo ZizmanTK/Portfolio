@@ -8,13 +8,13 @@ const COPY: Record<Lang, { title: string; description: string; locale: string }>
   en: {
     title: 'Abdoul Aziz Maazou — AI Engineer',
     description:
-      'AI engineer at BASSETTI France in Grenoble: agentic AI, RAG, computer vision and full-stack development. Experience, projects, skills and resume.',
+      'AI engineer, open to work. 3+ years at BASSETTI France in Grenoble: LLM agents, RAG, computer vision and full-stack development. Experience, projects, skills and resume.',
     locale: 'en_US',
   },
   fr: {
     title: 'Abdoul Aziz Maazou — Ingénieur en Intelligence Artificielle',
     description:
-      'Ingénieur en IA chez BASSETTI France à Grenoble : IA agentique, RAG, vision par ordinateur et développement full-stack. Expérience, projets, compétences et CV.',
+      'Ingénieur IA ouvert aux opportunités. 3+ ans chez BASSETTI France à Grenoble : agents LLM, RAG, vision par ordinateur et développement full-stack. Expérience, projets, compétences et CV.',
     locale: 'fr_FR',
   },
 };
