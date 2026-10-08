@@ -318,8 +318,10 @@ html.moving [reveal].in { opacity: 1; transform: none; }
   .hero .stage { position: relative; height: 118vw; overflow: hidden; }
   .sur { font-size: 21.8vw; top: 14vw; }
   .me { height: 96%; }
-  .hero .shade { height: 30%; }
-  .hero .base { position: relative; padding-bottom: 0; }
+  /* name and specialties sit on the bottom of the photo, as on desktop */
+  .hero .shade { height: 55%; background: linear-gradient(to bottom, transparent, rgba(13, 13, 14, 0.9) 58%, var(--bg)); }
+  .hero .base { position: relative; z-index: 1; margin-top: -150px; padding-bottom: 0; }
+  .hi { text-shadow: 0 2px 18px rgba(13, 13, 14, 0.85); }
   .hi h1 { font-size: 36px; }
   .focus { font-size: 16px; }
   .facts { margin-top: 28px; }
