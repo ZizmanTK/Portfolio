@@ -5,7 +5,8 @@ import { FxDirective } from '../shared/fx.directive';
 
 /**
  * First screen, ordered by what a recruiter checks in the first seconds: the job title set big
- * behind the portrait, then name + title + specialties on the left, and on the right that I'm
+ * across the full width behind the portrait (always in English, in both languages), then name +
+ * specialties on the left, and on the right that I'm
  * open to work, how much experience, where, which languages, and the résumé.
  * While it scrolls away (`--p`), the big title drifts up slower than the page.
  */
@@ -16,7 +17,7 @@ import { FxDirective } from '../shared/fx.directive';
   template: `
     <section class="hero" id="top" fx="leave">
       <div class="stage">
-        <p class="sur" aria-hidden="true">{{ i18n.t(h.role) }}</p>
+        <p class="sur" lang="en">{{ h.role.en }}</p>
         <img class="me" [src]="p.portraitCutout" [alt]="i18n.ui().photoAlt" width="1368" height="1823" fetchpriority="high" />
         <div class="shade"></div>
       </div>
@@ -24,7 +25,7 @@ import { FxDirective } from '../shared/fx.directive';
         <div class="w g">
           <div class="hi">
             <p class="hello"><b>Sannu</b>, {{ i18n.t(h.hello) }}</p>
-            <h1>{{ p.name }}<span class="ttl">{{ i18n.t(h.role) }}</span></h1>
+            <h1>{{ p.name }}</h1>
             <ul class="focus">@for (f of h.focus; track $index) { <li>{{ i18n.t(f) }}</li> }</ul>
           </div>
           <div class="facts">

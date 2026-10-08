@@ -88,8 +88,8 @@ html.moving [reveal].in { opacity: 1; transform: none; }
 .hero { position: relative; height: calc(100svh - 68px); min-height: 700px; max-height: 980px; overflow: hidden; --p: 0; }
 .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(42% 52% at 50% 46%, rgba(251, 185, 21, 0.1), transparent 70%); }
 .sur {
-  position: absolute; left: 0; right: 0; top: 21%; text-align: center; text-transform: uppercase;
-  font-weight: 800; font-stretch: 62%; font-size: min(17vw, 250px); line-height: 0.8; letter-spacing: -0.01em;
+  position: absolute; left: 0; right: 0; top: 8%; text-align: center; text-transform: uppercase;
+  font-weight: 800; font-stretch: 62%; font-size: min(21.8vw, 520px); line-height: 0.8; letter-spacing: -0.01em;
   white-space: nowrap; color: var(--y); user-select: none;
   transform: translateY(calc(var(--p) * 140px));
 }
@@ -104,8 +104,7 @@ html.moving [reveal].in { opacity: 1; transform: none; }
 .hi { grid-column: 1 / 7; }
 .hi .hello { font-size: 15px; color: var(--mute); margin-bottom: 14px; }
 .hi .hello b { color: var(--y); font-weight: 600; }
-.hi h1 { font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.015em; }
-.hi h1 .ttl { display: block; margin-top: 6px; font-size: 60px; line-height: 0.98; letter-spacing: -0.03em; }
+.hi h1 { font-weight: 600; font-size: 46px; line-height: 1.02; letter-spacing: -0.025em; }
 .focus { display: flex; flex-wrap: wrap; gap: 6px 0; margin-top: 18px; font-size: 18px; color: var(--ink2); }
 .focus li + li::before { content: '·'; margin: 0 10px; color: var(--y); font-weight: 700; }
 .facts { grid-column: 8 / 13; }
@@ -317,12 +316,11 @@ html.moving [reveal].in { opacity: 1; transform: none; }
   .nav nav { gap: 20px; }
   .hero { height: auto; min-height: 0; max-height: none; overflow: visible; --p: 0 !important; }
   .hero .stage { position: relative; height: 118vw; overflow: hidden; }
-  .sur { font-size: 16.5vw; top: 24vw; }
+  .sur { font-size: 21.8vw; top: 14vw; }
   .me { height: 96%; }
   .hero .shade { height: 30%; }
   .hero .base { position: relative; padding-bottom: 0; }
-  .hi h1 { font-size: 22px; }
-  .hi h1 .ttl { font-size: 46px; }
+  .hi h1 { font-size: 36px; }
   .focus { font-size: 16px; }
   .facts { margin-top: 28px; }
   .facts dl div { grid-template-columns: 96px 1fr; }
