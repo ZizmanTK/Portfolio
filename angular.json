@@ -24,7 +24,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
+              { "glob": "**/*", "input": "src/assets", "output": "assets", "ignore": ["**/*.md"] },
               { "glob": "robots.txt", "input": "src/public", "output": "/" },
               { "glob": "sitemap.xml", "input": "src/public", "output": "/" },
               { "glob": "404.html", "input": "src/public", "output": "/" }
