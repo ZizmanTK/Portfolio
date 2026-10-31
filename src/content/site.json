@@ -977,5 +977,558 @@
       "en": "I work in French and English, and also speak Hausa.",
       "fr": "Je travaille en français et en anglais, et je parle aussi haoussa."
     }
-  ]
+  ],
+  "day": {
+    "$comment": "The walk through a day (website only; the PDF CV does not read this block). Facts (schools, dates, roles, places, stacks) come from the sections above; this block only holds the day's framing: the hour of each stop, the place shown in the bar, the sentences, scene notes, captions and the descriptions of the drawings.",
+    "places": {
+      "top": {
+        "en": "first light",
+        "fr": "premières lueurs"
+      },
+      "niamey": {
+        "en": "Niamey",
+        "fr": "Niamey"
+      },
+      "knight": {
+        "en": "Niamey to Rabat",
+        "fr": "de Niamey à Rabat"
+      },
+      "rabat": {
+        "en": "Rabat",
+        "fr": "Rabat"
+      },
+      "signal": {
+        "en": "Rabat to Strasbourg",
+        "fr": "de Rabat à Strasbourg"
+      },
+      "strasbourg": {
+        "en": "Strasbourg",
+        "fr": "Strasbourg"
+      },
+      "uckange": {
+        "en": "Uckange",
+        "fr": "Uckange"
+      },
+      "climb": {
+        "en": "Uckange to Grenoble",
+        "fr": "d’Uckange à Grenoble"
+      },
+      "bassetti": {
+        "en": "Grenoble",
+        "fr": "Grenoble"
+      },
+      "afterHours": {
+        "en": "after hours",
+        "fr": "après le travail"
+      },
+      "now": {
+        "en": "Grenoble, now",
+        "fr": "Grenoble, aujourd’hui"
+      }
+    },
+    "hero": {
+      "day": [
+        {
+          "en": "Ten stops, from first light",
+          "fr": "Dix étapes, des premières lueurs"
+        },
+        {
+          "en": "in Niamey to tonight in Grenoble.",
+          "fr": "à Niamey jusqu’à ce soir à Grenoble."
+        }
+      ],
+      "start": {
+        "en": "first light in Niamey",
+        "fr": "premières lueurs à Niamey"
+      },
+      "hint": {
+        "en": "Scroll, and the day begins",
+        "fr": "Faites défiler, la journée commence"
+      }
+    },
+    "niamey": {
+      "time": "06:30",
+      "sentence": {
+        "en": "A science baccalaureate in Niamey,",
+        "fr": "Un bac scientifique à Niamey,"
+      },
+      "caption": {
+        "en": "fig. 2 · Niamey · a game of chess",
+        "fr": "fig. 2 · Niamey · une partie d’échecs"
+      },
+      "alt": {
+        "en": "Drawing of Aziz as a teenager in Niamey, in a white polo shirt with a blue collar, moving a piece on a chess board, a notebook of maths beside it",
+        "fr": "Dessin d’Aziz adolescent à Niamey, en polo blanc à col bleu, qui déplace une pièce sur un échiquier, un cahier de maths à côté"
+      }
+    },
+    "knight": {
+      "time": "07:10",
+      "title": {
+        "en": "From Niamey to Rabat, 2018",
+        "fr": "De Niamey à Rabat, 2018"
+      },
+      "note": [
+        {
+          "en": "Niamey to Rabat, 2018",
+          "fr": "de Niamey à Rabat, 2018"
+        },
+        {
+          "en": "a knight’s move north: two squares, then one across",
+          "fr": "un saut de cavalier vers le nord : deux cases, puis une de côté"
+        }
+      ],
+      "from": {
+        "en": "Niamey, 2018",
+        "fr": "Niamey, 2018"
+      },
+      "to": {
+        "en": "Rabat, 2018",
+        "fr": "Rabat, 2018"
+      }
+    },
+    "rabat": {
+      "time": "08:15",
+      "sentence": {
+        "en": "preparatory classes in Rabat,",
+        "fr": "des classes préparatoires à Rabat,"
+      },
+      "caption": {
+        "en": "fig. 3 · Rabat · maths and physics, in chalk",
+        "fr": "fig. 3 · Rabat · maths et physique, à la craie"
+      },
+      "alt": {
+        "en": "Drawing of Aziz as a student in Rabat, in a black jacket, writing an integral and a small matrix on a green chalkboard",
+        "fr": "Dessin d’Aziz étudiant à Rabat, en veste noire, qui écrit une intégrale et une petite matrice sur un tableau vert"
+      }
+    },
+    "signal": {
+      "time": "09:20",
+      "title": {
+        "en": "From Rabat to Strasbourg, 2020",
+        "fr": "De Rabat à Strasbourg, 2020"
+      },
+      "note": [
+        {
+          "en": "Rabat to Strasbourg, 2020",
+          "fr": "de Rabat à Strasbourg, 2020"
+        },
+        {
+          "en": "images and signals: a wave you can measure, sample, and play",
+          "fr": "l’image et le signal : une onde que l’on mesure, échantillonne et joue"
+        }
+      ],
+      "beats": [
+        {
+          "en": "a signal",
+          "fr": "un signal"
+        },
+        {
+          "en": "add harmonics",
+          "fr": "ajouter des harmoniques"
+        },
+        {
+          "en": "sample it",
+          "fr": "l’échantillonner"
+        },
+        {
+          "en": "play it",
+          "fr": "le jouer"
+        }
+      ]
+    },
+    "strasbourg": {
+      "time": "10:40",
+      "sentence": {
+        "en": "an engineering degree in Strasbourg,",
+        "fr": "un diplôme d’ingénieur à Strasbourg,"
+      },
+      "body": {
+        "en": "My background is **images and signals**, which is why computer vision was my way into AI.",
+        "fr": "Ma formation est tournée vers **l’image et le signal** : c’est par la vision par ordinateur que je suis arrivé à l’IA."
+      },
+      "caption": {
+        "en": "fig. 4 · Strasbourg · piano: signals you can hear",
+        "fr": "fig. 4 · Strasbourg · le piano : des signaux qui s’entendent"
+      },
+      "alt": {
+        "en": "Drawing of Aziz in a burgundy sweater playing an upright piano, headphones around his neck, a laptop on the piano",
+        "fr": "Dessin d’Aziz en pull bordeaux qui joue d’un piano droit, un casque autour du cou, un ordinateur portable posé sur le piano"
+      }
+    },
+    "uckange": {
+      "time": "12:30",
+      "sentence": {
+        "en": "then a first industrial project detecting defects on steel coils at ArcelorMittal.",
+        "fr": "puis un premier projet industriel de détection de défauts sur des bobines d’acier chez ArcelorMittal."
+      },
+      "alt": {
+        "en": "Drawing of Aziz in a hard hat, safety glasses and a high-visibility vest, holding a tablet",
+        "fr": "Dessin d’Aziz en casque de chantier, lunettes de sécurité et gilet haute visibilité, une tablette à la main"
+      },
+      "coil": {
+        "en": "A steel coil, scanned: the anomaly heatmap glows over a defect, and a box marks it, labelled Anomalous 79%",
+        "fr": "Une bobine d’acier passée au scanner : la carte de chaleur des anomalies s’allume sur un défaut, qu’un cadre signale avec l’étiquette « Anomalous 79% »"
+      },
+      "note": {
+        "en": "Uckange, ArcelorMittal",
+        "fr": "Uckange, ArcelorMittal"
+      },
+      "steps": [
+        {
+          "en": "a coil comes off the line",
+          "fr": "une bobine sort de la ligne"
+        },
+        {
+          "en": "the camera moves in",
+          "fr": "la caméra s’approche"
+        },
+        {
+          "en": "scanning the surface",
+          "fr": "la surface est scannée"
+        },
+        {
+          "en": "the model’s heatmap",
+          "fr": "la carte de chaleur du modèle"
+        },
+        {
+          "en": "a defect, flagged",
+          "fr": "un défaut, signalé"
+        }
+      ],
+      "realCaption": {
+        "en": "fig. 5b · the real CoilCheck output: image, predicted heatmap, prediction",
+        "fr": "fig. 5b · la vraie sortie de CoilCheck : image, carte de chaleur prédite, prédiction"
+      },
+      "realAlt": {
+        "en": "CoilCheck figure: a steel coil image, the predicted defect heatmap, and the prediction labelled Anomalous 79%",
+        "fr": "Figure de CoilCheck : l’image d’une bobine d’acier, la carte de chaleur des défauts prédite et la prédiction « Anomalous 79% »"
+      }
+    },
+    "climb": {
+      "time": "13:05",
+      "title": {
+        "en": "From Uckange to Grenoble, 2024: a bouldering climb",
+        "fr": "D’Uckange à Grenoble, 2024 : une traversée de bloc"
+      },
+      "note": {
+        "en": "Uckange to Grenoble, 2024",
+        "fr": "d’Uckange à Grenoble, 2024"
+      },
+      "steps": [
+        {
+          "en": "a boulder problem on the U4 blast furnace",
+          "fr": "un bloc sur le haut-fourneau U4"
+        },
+        {
+          "en": "steel gives way to limestone",
+          "fr": "l’acier laisse place au calcaire"
+        },
+        {
+          "en": "the limestone above Grenoble",
+          "fr": "le calcaire au-dessus de Grenoble"
+        }
+      ],
+      "alt": {
+        "en": "Drawing of Aziz bouldering in a blue-grey t-shirt and olive climbing trousers: a sideways traverse, hold by hold, along the riveted steel of the U4 blast furnace and onto the limestone above Grenoble",
+        "fr": "Dessin d’Aziz qui grimpe en bloc, en t-shirt bleu-gris et pantalon d’escalade olive : une traversée, prise après prise, le long de l’acier riveté du haut-fourneau U4, puis sur le calcaire au-dessus de Grenoble"
+      }
+    },
+    "bassetti": {
+      "times": [
+        "15:00",
+        "18:00",
+        "20:30"
+      ],
+      "pano": {
+        "en": "Drawing of Grenoble seen from the Bastille: rooftops, the Isère, mountains and the cable car bubbles",
+        "fr": "Dessin de Grenoble vu de la Bastille : les toits, l’Isère, les montagnes et les bulles du téléphérique"
+      },
+      "summit": {
+        "en": "Drawing of Aziz seen from behind on a rock above Grenoble, a red backpack on his back and a climbing helmet hanging from it",
+        "fr": "Dessin d’Aziz vu de dos sur un rocher au-dessus de Grenoble, un sac à dos rouge sur le dos et un casque d’escalade accroché au sac"
+      },
+      "arrival": {
+        "en": "fig. 6 · Grenoble from the Bastille · 15:00",
+        "fr": "fig. 6 · Grenoble depuis la Bastille · 15:00"
+      },
+      "desk": {
+        "en": "Drawing of Aziz in a light blue shirt at his desk, charts on the monitor",
+        "fr": "Dessin d’Aziz en chemise bleu clair à son bureau, des graphiques à l’écran"
+      },
+      "remind": {
+        "en": "REMIND screenshot: a scatter plot of proof stress against tensile strength, coloured by clusters",
+        "fr": "Capture d’écran de REMIND : un nuage de points de la limite d’élasticité en fonction de la résistance à la traction, coloré par clusters"
+      },
+      "night": {
+        "en": "Drawing of Aziz in a grey hoodie at his desk at night under a lamp, a diagram of connected nodes on the monitor",
+        "fr": "Dessin d’Aziz en sweat à capuche gris à son bureau, le soir sous une lampe, un schéma de nœuds reliés à l’écran"
+      },
+      "foundation": {
+        "en": "the foundation",
+        "fr": "les fondations"
+      }
+    },
+    "roll": {
+      "title": {
+        "en": "After work",
+        "fr": "Après le travail"
+      },
+      "alt": {
+        "en": "Drawing of Aziz in a grey hoodie, headphones around his neck, tossing a die",
+        "fr": "Dessin d’Aziz en sweat à capuche gris, un casque autour du cou, qui lance un dé"
+      },
+      "note": {
+        "en": "fig. 9 · 21:20 · a roll of the die, as in Roll Power (GMTK Game Jam 2022)",
+        "fr": "fig. 9 · 21:20 · un lancer de dé, comme dans Roll Power (GMTK Game Jam 2022)"
+      }
+    },
+    "after": {
+      "time": "21:40",
+      "title": {
+        "en": "After hours",
+        "fr": "Après le travail"
+      },
+      "body": {
+        "en": "Outside work I make small **Unity** games, music included, and play volleyball and chess.",
+        "fr": "En dehors du travail, je crée de petits jeux sous **Unity**, musique comprise, et je joue au volley et aux échecs."
+      },
+      "zktris": {
+        "en": "ZKTris Unforgivable gameplay: pieces fall into the well and full lines clear in a burst of particles",
+        "fr": "Gameplay de ZKTris Unforgivable : les pièces tombent dans le puits et les lignes complètes s’effacent dans une gerbe de particules"
+      },
+      "rollPower": {
+        "en": "Roll Power gameplay: a die-shaped robot rolls to change the gun on its top face and fights robots across a mining station",
+        "fr": "Gameplay de Roll Power : un robot en forme de dé roule pour changer l’arme de sa face du dessus et affronte d’autres robots dans une station minière"
+      }
+    },
+    "contact": {
+      "time": "22:30",
+      "note": {
+        "en": "a set to himself, then the spike",
+        "fr": "une passe à lui-même, puis le smash"
+      },
+      "wave": {
+        "en": "Drawing of Aziz in his beige jacket, black t-shirt and jeans, waving",
+        "fr": "Dessin d’Aziz dans sa veste beige, t-shirt noir et jean, qui fait signe de la main"
+      }
+    },
+    "resume": {
+      "eyebrow": {
+        "en": "Résumé view · the whole day on one page",
+        "fr": "Vue CV · toute la journée sur une page"
+      },
+      "hours": [
+        "06:30",
+        "08:15",
+        "10:40",
+        "12:30",
+        "20:30"
+      ],
+      "cards": [
+        {
+          "en": "Drawing of Niamey at dawn: the town and its minaret on the bank of the Niger, a pirogue on the river",
+          "fr": "Dessin de Niamey à l’aube : la ville et son minaret au bord du Niger, une pirogue sur le fleuve"
+        },
+        {
+          "en": "Drawing of Rabat in the morning: the Hassan Tower among its columns, the ocean behind",
+          "fr": "Dessin de Rabat le matin : la tour Hassan parmi ses colonnes, l’océan derrière"
+        },
+        {
+          "en": "Drawing of Strasbourg in late morning: the cathedral above the covered bridges of the Petite France",
+          "fr": "Dessin de Strasbourg en fin de matinée : la cathédrale au-dessus des Ponts couverts de la Petite France"
+        },
+        {
+          "en": "Drawing of the U4 blast furnace at Uckange at midday",
+          "fr": "Dessin du haut-fourneau U4 d’Uckange à midi"
+        },
+        {
+          "en": "Drawing of Grenoble at night from the Bastille: the lit city below the mountains",
+          "fr": "Dessin de Grenoble la nuit depuis la Bastille : la ville illuminée au pied des montagnes"
+        }
+      ],
+      "projects": {
+        "txbot": {
+          "en": "TxBot illustration: an assistant answering questions in a chat",
+          "fr": "Illustration de TxBot : un assistant qui répond à des questions dans un chat"
+        },
+        "remind": {
+          "en": "REMIND screenshot: a scatter plot of materials data, coloured by clusters",
+          "fr": "Capture d’écran de REMIND : un nuage de points de données matériaux, coloré par clusters"
+        },
+        "coilcheck": {
+          "en": "CoilCheck output: a steel coil, its predicted heatmap and the prediction, Anomalous 79%",
+          "fr": "Sortie de CoilCheck : une bobine d’acier, sa carte de chaleur prédite et la prédiction « Anomalous 79% »"
+        }
+      }
+    },
+    "swirl": [
+      "TxBot",
+      "REMIND",
+      "CoilCheck",
+      "Roll Power",
+      "ZKTris Unforgivable",
+      "LangGraph",
+      "LangChain",
+      "RAG",
+      "MCP",
+      {
+        "en": "Agentic AI",
+        "fr": "IA agentique"
+      },
+      {
+        "en": "LLM agents",
+        "fr": "agents LLM"
+      },
+      {
+        "en": "retrieval-augmented generation",
+        "fr": "génération augmentée par la recherche"
+      },
+      "Model Context Protocol",
+      {
+        "en": "LLM assistant",
+        "fr": "assistant LLM"
+      },
+      "scikit-learn",
+      {
+        "en": "prediction",
+        "fr": "prédiction"
+      },
+      {
+        "en": "anomaly detection",
+        "fr": "détection d’anomalies"
+      },
+      "clustering",
+      {
+        "en": "Computer vision",
+        "fr": "vision par ordinateur"
+      },
+      "TensorFlow",
+      "Keras",
+      "OpenCV",
+      {
+        "en": "CNNs",
+        "fr": "CNN"
+      },
+      {
+        "en": "Deep learning",
+        "fr": "deep learning"
+      },
+      "MATLAB",
+      "Anomalib",
+      {
+        "en": "heatmaps",
+        "fr": "cartes de chaleur"
+      },
+      {
+        "en": "steel coils",
+        "fr": "bobines d’acier"
+      },
+      {
+        "en": "surface defects",
+        "fr": "défauts de surface"
+      },
+      "Python",
+      "FastAPI",
+      "Django",
+      ".NET",
+      "PostgreSQL",
+      "MongoDB",
+      "MySQL",
+      "Angular",
+      "TypeScript",
+      "HTML",
+      "SCSS",
+      "AWS",
+      "Azure",
+      "Azure DevOps",
+      "IIS",
+      "Docker",
+      "Git",
+      "C#",
+      "C++",
+      "C",
+      "SQL",
+      "Full-stack",
+      "TEEXMA",
+      {
+        "en": "materials data",
+        "fr": "données matériaux"
+      },
+      {
+        "en": "No-code ML",
+        "fr": "ML sans code"
+      },
+      {
+        "en": "ML workflows",
+        "fr": "workflows de ML"
+      },
+      "Unity",
+      "FL Studio",
+      "GMTK Game Jam",
+      {
+        "en": "made in 48 h",
+        "fr": "réalisé en 48 h"
+      },
+      "Unity 6",
+      {
+        "en": "original soundtrack",
+        "fr": "bande-son originale"
+      },
+      "Niamey",
+      "Rabat",
+      "Strasbourg",
+      "Uckange",
+      "Grenoble",
+      "BASSETTI France",
+      "ArcelorMittal",
+      "Télécom Physique Strasbourg",
+      "CPGE Ibn Ghazi",
+      "Lycée d’Excellence",
+      "Jeux Mathématiques",
+      {
+        "en": "Images, Signals & Data Science",
+        "fr": "Images, Signaux et Science de données"
+      },
+      {
+        "en": "Maths & Physics",
+        "fr": "Maths & Physique"
+      },
+      {
+        "en": "Hausa",
+        "fr": "Haoussa"
+      },
+      {
+        "en": "French",
+        "fr": "Français"
+      },
+      {
+        "en": "English",
+        "fr": "Anglais"
+      },
+      "Sannu",
+      "Bonjour",
+      "Hello",
+      {
+        "en": "Volleyball",
+        "fr": "Volley-ball"
+      },
+      {
+        "en": "Chess",
+        "fr": "Échecs"
+      },
+      {
+        "en": "Bouldering",
+        "fr": "Escalade"
+      },
+      "Piano",
+      {
+        "en": "Game development",
+        "fr": "Développement de jeux"
+      },
+      {
+        "en": "Music production",
+        "fr": "Composition musicale"
+      }
+    ]
+  }
 }
