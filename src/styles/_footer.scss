@@ -1,0 +1,9 @@
+/* footer */
+.foot { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; padding: 30px var(--m) 34px; font-size: 14px; border-top: 1px solid var(--line); background: #100e0b; }
+.foot .link + .link { margin-left: 18px; }
+
+/* nothing inside the journey may widen the page */
+main { overflow-x: clip; }
+/* a link never breaks inside: on a narrow screen the links wrap whole */
+.foot p:has(> .link) { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.foot p:has(> .link) .link + .link { margin-left: 0; }

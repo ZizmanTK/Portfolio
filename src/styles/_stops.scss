@@ -1,0 +1,41 @@
+/* ---------- stops ---------- */
+.stop {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: center;
+  min-height: 100vh; padding: 20vh var(--m) 18vh;
+}
+.stop > :not(.thread) { position: relative; z-index: 1; }
+.side-l .stop-text { grid-column: 2 / span 5; }
+.side-l .stop-fig, .side-l .games { grid-column: 7 / span 6; }
+.side-r .stop-text { grid-column: 8 / span 5; grid-row: 1; }
+.side-r .stop-fig, .side-r .project { grid-column: 1 / span 6; grid-row: 1; }
+.label { display: flex; align-items: center; gap: 0; margin-bottom: 26px; }
+.label .node { display: inline-block; width: 0; height: 0; }
+.sentence { font: 300 clamp(21px, 1.9vw, 27px)/1.3 var(--f-ui); color: var(--ink-2); margin-bottom: 14px; letter-spacing: -.005em; }
+.h-stop, .h-role { font: 600 clamp(40px, 4.3vw, 64px)/.98 var(--f-display); letter-spacing: -.028em; margin-bottom: 30px; }
+.info { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
+.info > div { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.info dt { color: var(--muted); font-size: 14px; padding-top: 1px; }
+.info dd { font-size: 16px; }
+.body { margin-top: 24px; font-size: 18px; color: var(--ink-2); max-width: 34em; }
+.points { margin-top: 24px; display: grid; gap: 12px; max-width: 36em; }
+.points li { position: relative; padding-left: 22px; font-size: 16px; color: var(--ink-2); }
+.points li::before { content: ""; position: absolute; left: 0; top: .72em; width: 10px; height: 1px; background: var(--thread); }
+.points strong { color: var(--ink); }
+
+.stop-fig { position: relative; display: grid; justify-items: center; align-self: end; }
+.stop-fig .strip { position: absolute; left: -6%; right: -6%; bottom: 46px; width: 112%; max-width: none; opacity: .9; z-index: 0; }
+.stop-fig .figure { position: relative; z-index: 1; width: auto; max-width: min(560px, 92%); max-height: 60vh; }
+.stop-fig figcaption { position: relative; z-index: 1; margin-top: 12px; justify-self: start; padding: 4px 8px 5px; margin-left: -8px; background: color-mix(in srgb, var(--bg) 92%, transparent); border-radius: 2px; }
+
+/* project rows (leoparpeix.com project table) */
+.project { position: relative; }
+.project-media { position: relative; overflow: hidden; border-radius: 2px; }
+.project-media.plate { background: #fff; padding: 22px 26px; box-shadow: 0 0 0 1px var(--line); }
+.project-media.frame { box-shadow: 0 0 0 1px var(--line); }
+.project-media video { display: block; width: 100%; height: auto; background: #111; }
+.project-row { display: grid; grid-template-columns: 1.15fr 1fr; gap: 6px 24px; padding-top: 16px; font-size: 15px; }
+.project-row .pr-name { font-size: 17px; }
+.project-row .pr-name b { font-weight: 500; }
+.project-row .pr-desc { grid-column: 1 / -1; color: var(--ink-2); max-width: 46em; }
+.project-row dt.muted { font-size: 13px; }
+.project-row .link + .link { margin-left: 14px; }

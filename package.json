@@ -8,6 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "resume": "node scripts/build-resume.mjs",
+    "icons": "node scripts/build-icon-styles.mjs",
     "publish:docs": "node scripts/publish-docs.mjs",
     "preview": "node scripts/preview.mjs",
     "deploy": "npm run resume && ng build && npm run publish:docs"

@@ -1,0 +1,39 @@
+/* ---------- the serve: the finale ---------- */
+html.motion .serve { height: 260vh; }
+.sv-scene { overflow: hidden; background: #100e0b; }
+html:not(.motion) .sv-scene { height: auto; }
+.sv-sky { position: absolute; inset: -40vh 0 0 0; z-index: 0; will-change: transform, opacity;
+  background: radial-gradient(1.6px 1.6px at 12% 18%, #fdd78c 50%, transparent 51%), radial-gradient(1.4px 1.4px at 27% 64%, #f4f2ee 50%, transparent 51%),
+    radial-gradient(1.8px 1.8px at 44% 31%, #fdd78c 50%, transparent 51%), radial-gradient(1.2px 1.2px at 61% 12%, #f4f2ee 50%, transparent 51%),
+    radial-gradient(1.6px 1.6px at 73% 47%, #fdd78c 50%, transparent 51%), radial-gradient(1.3px 1.3px at 86% 22%, #f4f2ee 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 92% 70%, #fdd78c 50%, transparent 51%), radial-gradient(1.2px 1.2px at 6% 82%, #f4f2ee 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 36% 88%, #fdd78c 50%, transparent 51%), radial-gradient(1.3px 1.3px at 55% 76%, #f4f2ee 50%, transparent 51%);
+  background-size: 100% 50vh; }
+.sv-world { position: absolute; inset: 0; z-index: 1; will-change: transform; }
+.sv-court { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.sv-court .ground { fill: #17130f; }
+.sv-court .floor { stroke: #fbb915; stroke-width: 2; stroke-opacity: .85; }
+.sv-court .line { stroke: #f4f2ee; stroke-opacity: .28; stroke-width: 1.2; }
+.sv-court .glow { fill: url(#svGlow); }
+.sv-net { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; z-index: 2; }
+.sv-net .mesh { fill: none; stroke: rgba(244, 242, 238, .13); stroke-width: 1; }
+.sv-net .tape { fill: #efe9dc; stroke: #1d1307; stroke-width: 1; }
+.sv-net .post { fill: none; stroke: #6b6258; stroke-width: 5; }
+.sv-pose { position: absolute; left: 0; top: 0; max-width: none; opacity: 0; will-change: transform, opacity; transform-origin: 0 0; }
+html:not(.motion) .sv-pose, html:not(.motion) .sv-world { display: none; }
+.sv-fx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+html:not(.motion) .sv-fx { display: none; }
+.contact { position: absolute; inset: 0; z-index: 3; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: center; padding: var(--bar-h) var(--m) 0; }
+html.motion .contact { visibility: hidden; }
+html.motion .contact.open { visibility: visible; }
+html:not(.motion) .contact { position: relative; inset: auto; min-height: 100vh; padding: 14vh var(--m); }
+.sv-wave { grid-column: 2 / span 3; height: min(64vh, 560px); width: auto; justify-self: center; align-self: end; margin-bottom: 4vh; }
+.contact-in { grid-column: 6 / span 7; }
+.status.big { font-size: 16px; margin-bottom: 20px; }
+.h-contact { font: 600 clamp(46px, 5.6vw, 88px)/.96 var(--f-display); letter-spacing: -.03em; margin-bottom: 26px; }
+.h-contact .ln { white-space: nowrap; }
+.contact .body { margin-top: 0; }
+.contact .actions { margin-top: 30px; }
+.socials { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 15px; }
+.mission { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; max-width: 34em; }
+.sv-note { z-index: 6; background: transparent; }

@@ -1,0 +1,17 @@
+/* roll */
+.roll { height: 120vh; }
+.dicer { position: absolute; left: calc(var(--m) + 7%); top: 6vh; height: 40vh; width: auto; z-index: 1; }
+.die { position: absolute; left: 0; top: 0; width: 76px; height: 76px; overflow: visible; z-index: 2; will-change: transform; }
+.die .face { stroke: #1d1307; stroke-width: 2.2; stroke-linejoin: round; }
+.die .f-top { fill: #fff8e8; }
+.die .f-left { fill: #f1dfb4; }
+.die .f-right { fill: #e5c98a; }
+.die .pip { fill: #1d1307; }
+.roll .ground { stroke: var(--ink); stroke-opacity: .45; stroke-width: 1; fill: none; }
+.roll-note { position: absolute; left: var(--m); bottom: 8vh; z-index: 3; color: var(--ink-2); padding: 4px 8px 5px; background: color-mix(in srgb, var(--bg) 92%, transparent); border-radius: 2px; }
+
+/* after hours */
+.after { align-items: start; }
+.after .stop-text { align-self: start; }
+.games { display: grid; gap: 64px; }
+.hobbies { margin-top: 22px; max-width: 34em; }

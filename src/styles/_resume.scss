@@ -1,0 +1,197 @@
+/* Résumé view (round 4): B's structure in A's language. One night page: his drawn figure waving, the five postcards of
+   the day (dawn to night) on the gold thread, experience on the thread with company marks, projects with their real
+   images, education, skills, languages and outside work. It opens with a circle of light from the button you pressed,
+   and the thread draws down the page as it opens. It scrolls natively (data-lenis-prevent; the page behind is stopped). */
+
+.resume {
+  --bg: #100e0b; --rv-panel: #17140f; --ink: #f4f2ee; --ink-2: #d9d5ce; --muted: #aba59c;
+  --line: rgba(244, 242, 238, .13); --line-2: rgba(244, 242, 238, .26); --gold: #fbb915; --gold-ink: #fdd78c; --thread: #fbb915; --ok: #62cd7e;
+  color: var(--ink); background: var(--bg); font-family: var(--f-ui);
+}
+:where(.resume) :where(h2, h3, h4, p, ul, ol, dl, dd) { margin: 0; }
+.resume ul, .resume ol { list-style: none; padding: 0; }
+.resume strong { font-weight: 600; color: var(--ink); }
+.resume a { color: inherit; }
+.resume .link { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; }
+.resume .link:hover { text-decoration-color: var(--gold); }
+.resume :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+/* ---------- as an overlay (JS): the circle of light opens from the button you pressed, and closes back into it ---------- */
+html.js .resume {
+  position: fixed; inset: 0; z-index: 200; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  visibility: hidden; clip-path: circle(0px at var(--ox, 50%) var(--oy, 50%));
+  transition: clip-path .7s cubic-bezier(.7, 0, .25, 1), visibility 0s .7s;
+}
+html.js .resume.open { visibility: visible; clip-path: circle(160vmax at var(--ox, 50%) var(--oy, 50%)); transition: clip-path .9s cubic-bezier(.55, 0, .15, 1); }
+html.js .resume.open.settled { clip-path: none; transition: none; }
+html.js .resume.shut { display: none; }
+html.rv-open, html.rv-open body { overflow: hidden; }
+html:not(.js) .rv-close { display: none; }
+
+.rv { max-width: 1240px; margin: 0 auto; padding: 64px 40px 88px; }
+
+/* ---------- header ---------- */
+.rv-top { display: grid; grid-template-columns: 132px minmax(0, 1fr) 270px; gap: 40px; align-items: end; }
+.rv-figure { width: 132px; height: auto; align-self: end; }
+.rv-eyebrow { margin-bottom: 14px; font: 400 12px/1.4 var(--f-mono); letter-spacing: .02em; color: var(--gold-ink); }
+.rv-name { font: 600 clamp(40px, 4.5vw, 64px)/1 var(--f-display); letter-spacing: -.03em; }
+.rv-role { margin-top: 12px; font: 500 26px/1.2 var(--f-display); }
+.rv-role span { display: block; margin-top: 6px; font: 400 17px/1.4 var(--f-ui); color: var(--ink-2); }
+.rv-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.rv-meta li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; font-size: 14px; line-height: 1.2; color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 3px; }
+.rv-meta li.ok { color: #c9f0d3; border-color: rgba(98, 205, 126, .45); background: rgba(98, 205, 126, .08); }
+.rv-meta li.ok i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px rgba(98, 205, 126, .2); }
+.rv-actions { display: grid; gap: 10px; align-self: start; }
+.rv-btn { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 14px; font: 500 15px/1 var(--f-ui); text-decoration: none; text-align: center;
+  border: 1px solid var(--line-2); border-radius: 3px; transition: border-color .25s, background-color .25s; overflow-wrap: anywhere; }
+.rv-btn:hover { border-color: var(--ink-2); }
+.rv-btn.gold { background: var(--gold); border-color: var(--gold); color: #1d1307; font-weight: 600; }
+.rv-btn.gold:hover { background: #ffc93b; }
+.rv-close { justify-self: center; margin-top: 4px; padding: 8px 4px; font-size: 15px; font-weight: 500; color: var(--gold-ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(253, 215, 140, .4); }
+.rv-close:hover { text-decoration-color: var(--gold-ink); }
+
+/* ---------- the five postcards of the day, on the thread ---------- */
+.rv-route { --gap: 18px; position: relative; margin-top: 56px; }
+.rv-route ol { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--gap); }
+.rv-route a { position: relative; display: grid; gap: 3px; text-decoration: none; }
+.rv-route img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 3px; box-shadow: 0 0 0 1px var(--line-2); transition: transform .4s var(--ease); }
+.rv-route a:hover img, .rv-route a:focus-visible img { transform: translateY(-4px); }
+/* under each card: its knot on the thread, which runs on to the next card, and the hour it is reached */
+.rv-route .rv-knot { position: relative; display: block; height: 16px; margin: 12px 0 5px; }
+.rv-route .rv-knot::before { content: ""; position: absolute; left: 8px; right: calc(-1 * var(--gap) - 8px); top: 7px; height: 2px; background: var(--thread); transform-origin: left; }
+.rv-route li:last-child .rv-knot::before { display: none; }
+.rv-route .rv-knot::after { content: ""; position: absolute; left: 0; top: 1px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; background: var(--bg); border: 2px solid var(--thread); }
+.rv-route li:last-child .rv-knot::after { background: var(--thread); box-shadow: 0 0 0 4px rgba(251, 185, 21, .2); }
+.rv-hour { position: absolute; right: 0; top: 2px; padding-left: 8px; font: 500 12px/1 var(--f-mono); color: var(--gold-ink); background: var(--bg); }
+.rv-stop { font-size: 16px; }
+.rv-stop b { font-weight: 600; }
+.rv-years { margin-left: 4px; font: 400 13px/1 var(--f-mono); color: var(--muted); }
+.rv-what { font-size: 14px; line-height: 1.35; color: var(--ink-2); }
+
+/* ---------- section headings ---------- */
+.rv-h { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; font: 500 12px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--gold-ink); }
+.rv-h::before { content: ""; width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--thread); }
+.rv-h::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+.rv-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 72px; margin-top: 64px; }
+.rv-main > section + section, .rv-side > section + section, .rv-side > .rv-duo { margin-top: 56px; }
+
+/* ---------- experience on the thread ---------- */
+.resume .rv-thread { position: relative; padding-left: 40px; }
+.rv-thread::before { content: ""; position: absolute; left: 6px; top: 10px; bottom: 10px; width: 2px; background: var(--thread); transform-origin: top; }
+.rv-job { position: relative; padding: 0 0 34px; }
+.rv-job + .rv-job { padding-top: 30px; border-top: 1px solid var(--line); }
+.rv-thread .rv-knot { position: absolute; left: -40px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--thread); }
+.rv-job + .rv-job .rv-knot { top: 36px; }
+.rv-job.now .rv-knot { background: var(--thread); box-shadow: 0 0 0 5px rgba(251, 185, 21, .18); }
+.rv-job-head { display: flex; align-items: center; gap: 12px; }
+.rv-job-head h4 { font: 600 24px/1.2 var(--f-display); letter-spacing: -.012em; }
+.lm { display: inline-block; width: 26px; height: 26px; flex: none; background: var(--ink-2); -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat; }
+.rv-job.now .lm { background: var(--gold); }
+.rv-co { margin-top: 8px; font-size: 15px; color: var(--ink-2); }
+.rv-when { margin-top: 4px; font: 500 13px/1.5 var(--f-mono); color: var(--gold-ink); }
+.rv-hl { display: grid; gap: 9px; margin-top: 14px; }
+.rv-hl li { position: relative; padding-left: 18px; font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+.rv-hl li::before { content: ""; position: absolute; left: 0; top: .78em; width: 9px; height: 2px; background: var(--thread); }
+.rv-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.rv-chips li { display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; font-size: 13.5px; line-height: 1.2; color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 3px; }
+.si { display: inline-block; width: 14px; height: 14px; flex: none; background: var(--ink-2); -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat; transition: background-color .25s; }
+.rv-chips li:hover .si { background: var(--c, var(--gold)); }
+
+/* ---------- education ---------- */
+.rv-edu li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 16px; align-items: start; padding: 20px 0; border-top: 1px solid var(--line); }
+.rv-edu li:first-child { border-top: 0; padding-top: 0; }
+.rv-edu .lm { margin-top: 2px; }
+.rv-edu h4 { font: 600 18px/1.3 var(--f-display); }
+.rv-edu .rv-when { margin-top: 2px; white-space: nowrap; }
+.rv-award { margin-top: 6px; font-size: 14px; color: var(--ink-2); }
+
+/* ---------- projects ---------- */
+.rv-projects li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); }
+.rv-projects li:first-child { border-top: 0; padding-top: 0; }
+.rv-projects img { width: 150px; height: 96px; object-fit: cover; object-position: left center; border-radius: 3px; box-shadow: 0 0 0 1px var(--line-2); background: #fff; }
+.rv-projects h4 { font: 600 18px/1.25 var(--f-display); }
+.rv-kicker { margin-top: 4px; font: 400 12px/1.4 var(--f-mono); color: var(--gold-ink); }
+.rv-projects p:not([class]) { margin-top: 8px; font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.rv-st { color: var(--muted); }
+.rv-projects .link { display: inline-block; margin-top: 8px; font-size: 14px; font-weight: 500; }
+
+/* ---------- skills, languages, outside work ---------- */
+.rv-skills > div { display: grid; grid-template-columns: 124px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.rv-skills > div:first-child { border-top: 0; padding-top: 0; }
+.rv-skills dt { padding-top: 6px; font-size: 14px; color: var(--muted); }
+.rv-skills .rv-chips { margin-top: 0; }
+.rv-badge { margin-top: 16px; font: 400 12.5px/1.5 var(--f-mono); color: var(--muted); }
+.rv-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.rv-langs li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; font-size: 15px; border-top: 1px solid var(--line); }
+.rv-langs li:first-child { border-top: 0; padding-top: 0; }
+.rv-langs span { color: var(--muted); }
+.rv-hobbies li { position: relative; padding: 4px 0 4px 16px; font-size: 15px; color: var(--ink-2); }
+.rv-hobbies li::before { content: ""; position: absolute; left: 0; top: .95em; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid var(--thread); }
+.rv-games { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; font-size: 14px; font-weight: 500; }
+.rv-mission { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 17px; color: var(--ink-2); }
+
+/* a target reached from a postcard says so */
+.rv-flash { animation: rvFlash 1.6s ease-out; }
+@keyframes rvFlash { 0% { box-shadow: 0 0 0 1px rgba(251, 185, 21, .9), 0 0 0 8px rgba(251, 185, 21, .14); } 100% { box-shadow: 0 0 0 1px rgba(251, 185, 21, 0), 0 0 0 8px rgba(251, 185, 21, 0); } }
+
+/* ---------- entrance: the content comes up, the postcards in turn, and the thread draws down ---------- */
+html.js .resume .rv > * { transition: opacity .5s ease, transform .7s var(--ease); }
+html.js .resume:not(.in) .rv > * { opacity: 0; transform: translateY(16px); }
+html.js .resume .rv-route li { transition: opacity .5s ease calc(.12s + var(--i) * .07s), transform .7s var(--ease) calc(.12s + var(--i) * .07s); }
+html.js .resume:not(.in) .rv-route li { opacity: 0; transform: translateY(14px); }
+html.js .resume .rv-route .rv-knot::before { transition: transform .45s cubic-bezier(.45, 0, .2, 1) calc(.35s + var(--i) * .16s); }
+html.js .resume:not(.in) .rv-route .rv-knot::before { transform: scaleX(0); }
+html.js .resume .rv-thread::before { transition: transform 1.4s cubic-bezier(.45, 0, .2, 1) .5s; }
+html.js .resume:not(.in) .rv-thread::before { transform: scaleY(0); }
+
+/* ---------- tablet and phone ---------- */
+@media (max-width: 1100px) {
+  .rv-top { grid-template-columns: 110px minmax(0, 1fr); }
+  .rv-figure { width: 110px; }
+  .rv-actions { grid-column: 1 / -1; grid-template-columns: repeat(4, minmax(0, 1fr)) auto; align-items: center; }
+  .rv-close { margin: 0; }
+  .rv-grid { grid-template-columns: 1fr; gap: 64px; }
+}
+@media (max-width: 860px) {
+  .rv { padding: 36px 20px 64px; }
+  .rv-top { grid-template-columns: minmax(0, 1fr) 72px; gap: 20px; align-items: start; }
+  .rv-id { grid-column: 1; grid-row: 1; }
+  .rv-figure { grid-column: 2; grid-row: 1; width: 72px; }
+  .rv-name { font-size: 40px; }
+  .rv-role { font-size: 21px; }
+  .rv-role span { font-size: 15.5px; }
+  .rv-meta li { font-size: 13px; padding: 6px 10px; }
+  .rv-actions { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
+  .rv-actions .gold { grid-column: 1 / -1; }
+  .rv-actions a[href^="mailto"] { grid-column: 1 / -1; }
+  .rv-close { grid-column: 1 / -1; }
+  /* the postcards swipe sideways */
+  .rv-route { --gap: 14px; margin: 40px -20px 0; }
+  .rv-route ol { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 68%; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; padding: 0 20px 6px; scroll-padding: 0 20px; scrollbar-width: none; }
+  .rv-route ol::-webkit-scrollbar { display: none; }
+  .rv-route li { scroll-snap-align: start; }
+  .rv-grid { margin-top: 48px; gap: 48px; }
+  .resume .rv-thread { padding-left: 30px; }
+  .rv-thread .rv-knot { left: -30px; }
+  .rv-job-head h4 { font-size: 20px; }
+  .rv-hl li { font-size: 15px; }
+  .rv-edu li { grid-template-columns: 28px minmax(0, 1fr); }
+  .rv-edu .rv-when { grid-column: 2; }
+  .rv-projects li { grid-template-columns: 104px minmax(0, 1fr); gap: 14px; }
+  .rv-projects img { width: 104px; height: 70px; }
+  .rv-skills > div { grid-template-columns: 1fr; gap: 8px; }
+  .rv-skills dt { padding-top: 0; }
+  .rv-duo { grid-template-columns: 1fr; gap: 44px; }
+  .rv-mission { margin-top: 48px; font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .resume, html.js .resume.open { transition: none; }
+  html.js .resume .rv > *, html.js .resume .rv-route li, html.js .resume .rv-route .rv-knot::before, html.js .resume .rv-thread::before { transition: none; }
+}
+@media print {
+  html.js .resume { position: static; visibility: visible; clip-path: none; overflow: visible; }
+  .resume { --bg: #fff; --ink: #17140f; --ink-2: #39332b; --muted: #5f574b; --line: rgba(23, 20, 15, .14); --line-2: rgba(23, 20, 15, .3); --gold-ink: #7a5208; --thread: #a87512; }
+  .rv-close, .rv-actions .rv-btn:not(.gold) { display: none; }
+}

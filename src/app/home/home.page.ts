@@ -1,45 +1,57 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, afterNextRender, inject } from '@angular/core';
-import { ViewportScroller } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import type { Lang } from '../core/content';
 import { I18n } from '../core/i18n';
-import { Scroll } from '../core/scroll';
 import { SeoService } from '../core/seo.service';
-import { HeaderComponent } from '../sections/header.component';
-import { HeroComponent } from '../sections/hero.component';
-import { AboutComponent } from '../sections/about.component';
-import { ExperienceComponent } from '../sections/experience.component';
-import { ProjectsComponent } from '../sections/projects.component';
-import { GamesComponent } from '../sections/games.component';
-import { SkillsComponent } from '../sections/skills.component';
-import { ContactComponent } from '../sections/contact.component';
+import { BarComponent } from '../day/bar/bar.component';
+import { HeroComponent } from '../day/hero/hero.component';
+import { StopComponent } from '../day/stop/stop.component';
+import { KnightComponent } from '../day/knight/knight.component';
+import { SignalComponent } from '../day/signal/signal.component';
+import { CoilComponent } from '../day/coil/coil.component';
+import { CoilRealComponent } from '../day/coil/coil-real.component';
+import { ClimbComponent } from '../day/climb/climb.component';
+import { StackComponent } from '../day/stack/stack.component';
+import { RollComponent } from '../day/roll/roll.component';
+import { AfterComponent } from '../day/after/after.component';
+import { ServeComponent } from '../day/serve/serve.component';
+import { ResumeViewComponent } from '../day/resume/resume-view.component';
+import { FooterComponent } from '../day/footer.component';
+import { DayEngine } from '../day/engine/engine';
 
+/**
+ * The page: a walk through a day, ten stops from first light in Niamey to tonight in Grenoble. Each section is a
+ * component; the scroll engine (src/app/day/engine) starts once the page is hydrated and drives the set pieces.
+ */
 @Component({
   selector: 'app-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    RouterLink,
-    HeaderComponent,
-    HeroComponent,
-    AboutComponent,
-    ExperienceComponent,
-    ProjectsComponent,
-    GamesComponent,
-    SkillsComponent,
-    ContactComponent,
+    BarComponent, HeroComponent, StopComponent, KnightComponent, SignalComponent, CoilComponent, CoilRealComponent,
+    ClimbComponent, StackComponent, RollComponent, AfterComponent, ServeComponent, ResumeViewComponent, FooterComponent,
   ],
   template: `
-    <a class="skip-link" [routerLink]="[]" fragment="main">{{ i18n.ui().skipToContent }}</a>
-    <app-header />
-    <main id="main" tabindex="-1">
-      <app-hero />
-      <app-experience />
-      <app-projects />
-      <app-skills />
-      <app-about />
-      <app-games />
-      <app-contact />
+    <a class="skip" [href]="i18n.anchor('main')">{{ i18n.ui().skipToContent }}</a>
+    <!-- The sky: one fixed layer whose colour and light follow the time of day (set by the engine). -->
+    <div class="sky" id="sky" aria-hidden="true"><div class="sun sun-w" id="sunW"></div><div class="sun sun-o" id="sunO"></div></div>
+    <header appBar></header>
+    <main id="main">
+      <section appHero></section>
+      <section appStop="niamey"></section>
+      <section appKnight></section>
+      <section appStop="rabat"></section>
+      <section appSignal></section>
+      <section appStop="strasbourg"></section>
+      <section appCoil></section>
+      <section appCoilReal></section>
+      <section appClimb></section>
+      <section appStack></section>
+      <section appRoll></section>
+      <section appAfter></section>
+      <section appServe></section>
     </main>
+    <section appResumeView></section>
+    <footer appFooter></footer>
   `,
 })
 export class HomePage {
@@ -49,30 +61,8 @@ export class HomePage {
     const lang = (inject(ActivatedRoute).snapshot.data['lang'] ?? 'en') as Lang;
     this.i18n.lang.set(lang);
     inject(SeoService).apply(lang);
-    const scroll = inject(Scroll);
-    // Keep anchor targets clear of the sticky header.
-    inject(ViewportScroller).setOffset([0, scroll.offset]);
-
-    const destroy = inject(DestroyRef);
-    afterNextRender(() => {
-      void scroll.start();
-      // In-page links (nav, case-study links) glide through the page instead of jumping,
-      // so the scroll choreography plays on the way. Runs before RouterLink sees the click.
-      const onClick = (e: MouseEvent) => {
-        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-        const a = (e.target as Element | null)?.closest?.('a[href*="#"]') as HTMLAnchorElement | null;
-        if (!a) return;
-        const url = new URL(a.href, location.href);
-        if (url.pathname.replace(/\/$/, '') !== location.pathname.replace(/\/$/, '')) return;
-        const id = decodeURIComponent(url.hash.slice(1));
-        if (!id || !scroll.to(id)) return;
-        e.preventDefault();
-        e.stopPropagation();
-        history.replaceState(history.state, '', url.pathname + url.hash);
-        if (id === 'main') document.getElementById('main')?.focus({ preventScroll: true });
-      };
-      document.addEventListener('click', onClick, true);
-      destroy.onDestroy(() => document.removeEventListener('click', onClick, true));
-    });
+    const engine = inject(DayEngine);
+    afterNextRender(() => engine.start());
+    inject(DestroyRef).onDestroy(() => engine.stop());
   }
 }

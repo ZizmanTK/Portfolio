@@ -1,0 +1,8 @@
+/* ---------- without JavaScript: the scenes reduce to their captions, everything else reads normally ---------- */
+html.no-js .knight-piece, html.no-js .die, html.no-js .well-wrap, html.no-js .swirl, html.no-js .scope, html.no-js .board, html.no-js .cl-world { display: none; }
+html.no-js .hobby .scene { height: auto; min-height: 36vh; display: flex; align-items: center; }
+html.no-js .hobby .scene-note { position: static; padding: 14vh var(--m); }
+html.no-js .stack .scene { display: grid; }
+html.no-js .roles { grid-column: 2 / span 10; }
+html.no-js .cc-scene { display: grid; }
+html.no-js .sv-scene { display: block; }

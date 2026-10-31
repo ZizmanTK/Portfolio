@@ -1,0 +1,85 @@
+/* Tokens, reset and shared utilities. Layout and type logic from leoparpeix.com; thread, stops and dawn-to-night from
+   ayush-yadav.com; hero word swirl from tholman.com. */
+
+:root {
+  --m: 40px;
+  --gap: 20px;
+  --bar-h: 60px;
+
+  /* default (dawn) tokens; the engine sets each section's own tokens once, from the sky it is seen against */
+  --bg: #f1e6d6;
+  --ink: #17140f;
+  --ink-2: #39332b;
+  --muted: #675f53;
+  --line: rgba(23, 20, 15, .16);
+  --line-2: rgba(23, 20, 15, .32);
+  --thread: #9c6a12;
+  --track: rgba(23, 20, 15, .26);
+  --gold: #fbb915;
+  --gold-ink: #845a0b;
+  --ok: #24864a;
+  --btn-bg: #17140f;
+  --btn-ink: #f6f2ea;
+  --plate: #f7f5f0;
+  --crown: #a87512;
+
+  --f-ui: "Switzer", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-display: "General Sans", "Switzer", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+  --ease: cubic-bezier(.2, .7, .1, 1);
+}
+
+/* night tokens (static versions; with motion, the engine computes them for each section) */
+.night, .sv-scene {
+  --bg: #15120e;
+  --ink: #f4f2ee;
+  --ink-2: #d2cfca;
+  --muted: #a9a6a0;
+  --line: rgba(244, 242, 238, .16);
+  --line-2: rgba(244, 242, 238, .34);
+  --thread: #fbb915;
+  --track: rgba(244, 242, 238, .3);
+  --gold-ink: #fdd78c;
+  --ok: #62cd7e;
+  --btn-bg: #fbb915;
+  --btn-ink: #1d1307;
+  --crown: #fbb915;
+  color: var(--ink);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--bar-h) + 12px); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 17px/1.5 var(--f-ui);
+  font-feature-settings: "ss01", "kern";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+html.motion body { background: transparent; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p, h1, h2, h3, dl, dd, ul, ol, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+strong, b { font-weight: 600; }
+.mono { font-family: var(--f-mono); font-size: 13px; letter-spacing: .01em; line-height: 1.6; color: var(--muted); }
+/* headings break into even lines; paragraphs do not leave a word alone on the last line */
+.h-stop, .h-role, .h-contact, .sentence, .hero-day, .focus { text-wrap: balance; }
+.body, .points li, .project-row dd, .mission, .scene-note, figcaption, .roll-note, .arrival-note, .hobbies { text-wrap: pretty; }
+.muted { color: var(--muted); font-weight: 400; }
+.gold { color: var(--gold-ink); }
+.sep { color: var(--muted); margin: 0 .55em; }
+.sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+:focus-visible { outline: 2px solid var(--thread); outline-offset: 3px; border-radius: 2px; }
+.skip {
+  position: fixed; left: 12px; top: -60px; z-index: 300; padding: 10px 14px; border-radius: 3px;
+  background: var(--btn-bg); color: var(--btn-ink); text-decoration: none; font-weight: 500;
+}
+.skip:focus { top: 12px; }

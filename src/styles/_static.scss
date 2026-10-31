@@ -1,0 +1,25 @@
+/* ---------- static version: no JS or reduced motion. Each section keeps its own time-of-day colour. ---------- */
+html:not(.motion) .seg { background: var(--seg-bg, var(--bg)); }
+html:not(.motion) #top { --seg-bg: #f1e6d6; }
+html:not(.motion) #niamey { --seg-bg: #f3ece1; }
+html:not(.motion) #knight { --seg-bg: #f4efe6; }
+html:not(.motion) #rabat { --seg-bg: #f5f1e9; }
+html:not(.motion) #signal { --seg-bg: #f6f3ed; }
+html:not(.motion) #strasbourg { --seg-bg: #f6f5f0; }
+html:not(.motion) #uckange, html:not(.motion) #coilcheck-real { --seg-bg: #f6f6f3; }
+html:not(.motion) #climb { --seg-bg: #f5f2ea; }
+html:not(.motion) #bassetti { --seg-bg: #f3eadb; }
+html:not(.motion) .roles > .role.now { background: #16120e; padding: 10vh 40px 8vh; margin: 6vh 0 10vh; border-radius: 2px; min-height: 0; }
+html:not(.motion) .roles > .role.now .role-fig { top: calc(10vh + 6px); right: 40px; }
+html:not(.motion) #roll { --seg-bg: #16130f; }
+html:not(.motion) #after { --seg-bg: #131110; }
+html:not(.motion) #contact { --seg-bg: #100e0b; }
+html:not(.motion) .cc-scene, html:not(.motion) .cl-scene { min-height: 640px; }
+html.no-js .cc-scene { height: auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); padding: 16vh var(--m) 8vh; }
+html.no-js .cc-floor, html.no-js .cc-cam, html.no-js .cc-box, html.no-js .cc-note { display: none; }
+html.no-js .cc-man { position: static; grid-column: 2 / span 4; justify-self: center; align-self: center; }
+html.no-js .cc-facts { position: static; transform: none; width: auto; grid-column: 7 / span 5; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

@@ -1,0 +1,32 @@
+/* ---------- the climb: hold by hold ---------- */
+html.motion .climb { height: 300vh; }
+/* a set piece out of range (the engine sets .gone) is hidden, so its layers do not cost the next one */
+html.motion .hobby.gone > .scene { visibility: hidden; }
+.cl-scene { overflow: hidden; }
+.cl-world { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 1; transform-origin: 0 0; will-change: transform; }
+.cl-wall { position: absolute; z-index: 0; background-repeat: repeat-x; background-size: auto 100%; }
+.cl-steel { background-position: right top; } /* the drawings are set on the elements (climb.component.ts) */
+.cl-rock { background-position: left top; }
+.cl-holds { position: absolute; overflow: visible; z-index: 2; }
+.cl-holds .floor { fill: #4a423a; }
+.cl-holds .edge { fill: none; stroke: #1d1307; stroke-width: 1.5; }
+.cl-holds .pad { fill: #221c17; stroke: #1d1307; stroke-width: 1.5; }
+.cl-holds .pad-band { fill: #fbb915; }
+.cl-holds .flange { fill: #4e5f6a; stroke: #1d1307; stroke-width: 1.4; }
+.cl-holds .rivet { fill: #38464f; stroke: #1d1307; stroke-width: .8; }
+.cl-holds .hold polygon, .cl-holds .hold path { stroke: #1d1307; stroke-width: 1.5; stroke-linejoin: round; }
+.cl-holds .bolt polygon { fill: #fbb915; }
+.cl-holds .bolt .bolt-c { fill: #6a4506; stroke: #1d1307; stroke-width: 1; }
+.cl-holds .rockh path { fill: #d2c19f; }
+.cl-holds .rockh .under { fill: #8d7c62; }
+.cl-holds .hold .chalk { fill: #fbfaf6; stroke: none; }
+
+
+.cl-climber { position: absolute; left: 0; top: 0; z-index: 3; }
+.cl-climber img { position: absolute; left: 0; top: 0; max-width: none; opacity: 0; will-change: transform, opacity; transform-origin: 0 0; }
+.cl-puffs { position: absolute; left: 0; top: 0; z-index: 4; }
+.cl-puff { position: absolute; left: 0; top: 0; display: block; opacity: 0; will-change: transform, opacity; transform-origin: 50% 60%; }
+.cl-puff svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.cl-puff circle { fill: #fdfcf8; opacity: .92; }
+.cl-puff circle.s { opacity: .8; }
+.cl-note .cl-step { color: var(--ink-2); }

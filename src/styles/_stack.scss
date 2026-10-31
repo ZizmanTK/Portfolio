@@ -1,0 +1,55 @@
+/* ---------- BASSETTI: the ZKTris well ---------- */
+html.motion .stack { padding-bottom: 0; }
+.stack .scene { height: auto; overflow: visible; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); padding: 0 var(--m); }
+.arrival { grid-column: 1 / -1; position: relative; height: 100vh; }
+.arrival .pano { position: absolute; left: -2%; bottom: 7vh; width: 104%; max-width: none; opacity: .95; }
+.arrival .summit { position: absolute; left: 9%; bottom: 3vh; height: 46vh; width: auto; z-index: 1; }
+.arrival-note { position: absolute; right: 0; bottom: 2vh; z-index: 2; padding: 4px 8px; background: color-mix(in srgb, var(--bg) 92%, transparent); border-radius: 2px; }
+.roles { grid-column: 7 / span 6; position: relative; z-index: 1; }
+.roles > .role { position: relative; min-height: 100vh; padding: 22vh 0 16vh; }
+.roles > .role .project { margin-top: 34px; }
+.roles > .role .h-role { max-width: 64%; }
+.role-fig { position: absolute; right: 0; top: calc(22vh + 6px); height: min(20vh, 180px); width: auto; z-index: 0; }
+.well-wrap { grid-column: 1 / span 5; position: relative; }
+html.motion .well-wrap { position: sticky; top: 0; height: 100vh; align-self: start; z-index: 2; }
+.well { width: 100%; height: 100%; overflow: visible; }
+.well-wrap { --ink: #17140f; --ink-2: #39332b; --thread: #9c6a12; --bg: #f3eadb; }
+.well-wrap[data-phase="gold"] { --bg: #e9bd8f; } /* the halo behind the tags follows the golden-hour sky */
+.well-wrap[data-phase="night"] { --ink: #f4f2ee; --ink-2: #d2cfca; --thread: #fbb915; --bg: #15120e; }
+.well-wrap[data-phase="dusk"] .tagt, .well-wrap[data-phase="dusk"] .tagl { opacity: 0; }
+.well .wall-l { fill: none; stroke: var(--ink); stroke-opacity: .7; stroke-width: 1.2; }
+.well .cellgrid { stroke: var(--ink); stroke-opacity: .08; }
+.well .cell { stroke: var(--ink); stroke-opacity: .55; stroke-width: 1; }
+.well .found { fill: color-mix(in srgb, var(--ink) 10%, transparent); }
+.well .hole { stroke: var(--ink); stroke-opacity: .55; stroke-width: 1; }
+.well .p1 { fill: #8a62ff; }
+.well .p2 { fill: #f2a93b; }
+.well .p3 { fill: var(--gold); }
+.well .ghost { fill: none; stroke: var(--thread); stroke-dasharray: 3 4; stroke-opacity: .8; }
+.well .tagt { font: 400 13px var(--f-mono); fill: var(--ink-2); paint-order: stroke; stroke: var(--bg); stroke-width: 5px; stroke-linejoin: round; transition: opacity .3s; }
+.well .tagl { stroke: var(--ink); stroke-opacity: .4; fill: none; transition: opacity .3s; }
+.mini .project-row { grid-template-columns: 1fr; }
+.pipe { background: color-mix(in srgb, var(--ink) 4%, transparent); box-shadow: 0 0 0 1px var(--line); padding: 18px 18px 14px; }
+.pipeline { width: 100%; height: auto; display: block; overflow: visible; }
+.pipeline rect { fill: var(--bg); stroke: var(--ink); stroke-opacity: .6; }
+.pipeline .em rect { stroke: var(--thread); stroke-width: 1.6; }
+.pipeline text { font: 500 13px var(--f-mono); fill: var(--ink); text-anchor: middle; }
+.pipeline text.s { font: 400 11.5px var(--f-mono); fill: var(--muted); }
+.pipeline .pl-wire { stroke: var(--thread); stroke-width: 1.4; fill: none; }
+.pipeline .pl-dot { fill: var(--thread); }
+.stackline { margin-top: 22px; color: var(--ink-2); }
+.stack .scene-thread { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
+#stackThread, .stack .th-clip { --thread: #9c6a12; --track: rgba(23, 20, 15, .26); --bg: #f3eadb; }
+#stackThread[data-phase="night"], .stack .th-clip[data-phase="night"] { --thread: #fbb915; --track: rgba(244, 242, 238, .3); --bg: #15120e; }
+
+/* dusk interlude (motion only) */
+.dusk { display: none; }
+html.motion .dusk { display: block; position: relative; height: 150vh; }
+html.motion .dusk-scene { position: sticky; top: 0; height: 100vh; }
+.dusk-svg { position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; overflow: hidden; will-change: opacity; }
+.dusk-sunl { position: absolute; border-radius: 50%; background: #f6b44a; will-change: transform, opacity; }
+.dusk-sunl.low { background: #e8803e; }
+.dusk-far { fill: #8f5f5c; stroke: #2a1d17; stroke-opacity: .35; stroke-width: 1; }
+.dusk-near { fill: #5e3c45; stroke: #2a1d17; stroke-opacity: .55; stroke-width: 1.2; }
+.dusk-hatch { stroke: #2a1d17; stroke-opacity: .18; stroke-width: 1; }
+.dusk-horizon { stroke: #2a1d17; stroke-opacity: .3; stroke-width: 1; stroke-dasharray: 2 5; }
