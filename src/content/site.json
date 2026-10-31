@@ -1,5 +1,5 @@
 {
-  "$comment": "Single source of truth for the website AND the PDF resume (scripts/build-resume.mjs). Every user-facing string is { en, fr }; wrap keywords in **double asterisks** to bold them. Career facts verified against LinkedIn on 2026-09-30.",
+  "$comment": "Single source of truth for the website AND the PDF resume (scripts/build-resume.mjs). Every user-facing string is { en, fr }; wrap keywords in **double asterisks** to bold them. Career facts verified against LinkedIn on 2026-09-30. profile.phone is printed on the PDF CV only (no website component shows it).",
   "profile": {
     "name": "Abdoul Aziz Maazou",
     "firstName": "Abdoul Aziz",
@@ -22,6 +22,7 @@
       "fr": "Grenoble, France"
     },
     "email": "mamaabdoulaziz1@gmail.com",
+    "phone": "+33 7 72 40 66 65",
     "site": "https://zizmantk.github.io/Portfolio/",
     "portrait": "assets/img/portrait.webp",
     "avatar": "assets/img/avatar.jpg",
@@ -850,8 +851,8 @@
       "fr": "Ouvert aux opportunités"
     },
     "experience": {
-      "en": "3+ years · BASSETTI France",
-      "fr": "3+ ans · BASSETTI France"
+      "en": "3+ years in industry · now at BASSETTI France",
+      "fr": "3+ ans en entreprise · aujourd'hui chez BASSETTI France"
     },
     "tagline": {
       "en": "Building **LLM agents, RAG** and **computer vision** that ship to production.",
