@@ -265,7 +265,7 @@ html.moving [reveal].in { opacity: 1; transform: none; }
 .gm .soon.live { display: inline-flex; align-items: center; gap: 8px; }
 .gm .soon.live i { width: 7px; height: 7px; border-radius: 50%; background: #ff5d3a; animation: beat 2s ease-out infinite; }
 .gm:hover .im img { transform: scale(1.04); }
-.gm .soon { position: absolute; left: 14px; bottom: 14px; padding: 6px 12px; border-radius: 999px; background: rgba(13, 13, 14, 0.82); font-size: 13px; color: var(--ink2); }
+.gm .soon { position: absolute; left: 14px; top: 14px; padding: 6px 12px; border-radius: 999px; background: rgba(13, 13, 14, 0.82); font-size: 13px; color: var(--ink2); }
 .gm h3 { margin-top: 18px; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; }
 .gm p { margin-top: 6px; font-size: 15.5px; color: var(--mute); }
 .gm .lk { display: inline-block; margin-top: 10px; font-size: 15px; border-bottom: 1px solid var(--y); padding-bottom: 1px; }

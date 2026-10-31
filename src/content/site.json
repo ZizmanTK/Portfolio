@@ -597,31 +597,34 @@
         "fr": "GMTK Game Jam"
       },
       "category": "games",
-      "image": "assets/img/projects/roll-power.webp",
+      "image": "assets/img/projects/roll-power-campaign.webp",
       "tagline": {
-        "en": "Unity game made in 48 hours: you play a die and push bombs away before they blow.",
-        "fr": "Jeu Unity réalisé en 48 heures : vous incarnez un dé et écartez les bombes avant qu'elles n'explosent."
+        "en": "You play a die: the face on top is your gun, and every roll changes it. A 48-hour jam game grown into a 19-stage campaign.",
+        "fr": "Vous incarnez un dé : la face du dessus est votre arme, et elle change chaque fois que vous roulez. Un jeu de game jam de 48 heures devenu une campagne de 19 niveaux."
       },
       "description": {
-        "en": "Made in 48 hours for the GMTK Game Jam 2022 (theme “Roll of the Dice”). Code, game design and an original soundtrack composed in FL Studio.",
-        "fr": "Réalisé en 48 heures pour la GMTK Game Jam 2022 (thème « Roll of the Dice »). Code, game design et bande-son originale composée sur FL Studio."
+        "en": "Made in 48 hours for the GMTK Game Jam 2022 (theme “Roll of the Dice”), with an original soundtrack composed in FL Studio. In 2026 it grew into a 19-stage campaign in Unity 6: a boss on every deck, a workshop to arrange guns on the die’s faces, and an endless run.",
+        "fr": "Réalisé en 48 heures pour la GMTK Game Jam 2022 (thème « Roll of the Dice »), avec une bande-son originale composée sur FL Studio. En 2026, il est devenu une campagne de 19 niveaux sous Unity 6 : un boss à chaque pont, un atelier pour placer les armes sur les faces du dé, et un mode sans fin."
       },
       "stack": [
         "Unity",
         "C#",
+        "Blender",
         "FL Studio"
       ],
       "links": {
-        "play": "https://zizmantk.itch.io/roll-power"
+        "play": "https://zizmantk.itch.io/roll-power",
+        "github": "https://github.com/ZizmanTK/RollPower"
       },
       "kicker": {
-        "en": "GMTK Game Jam · 2022 · made in 48 h",
-        "fr": "GMTK Game Jam · 2022 · réalisé en 48 h"
+        "en": "GMTK Game Jam 2022 · campaign update 2026",
+        "fr": "GMTK Game Jam 2022 · campagne en 2026"
       },
       "hue": [
         "#ff5d3a",
         "#3a6bff"
-      ]
+      ],
+      "video": "assets/video/roll-power-gameplay.mp4"
     },
     {
       "slug": "zktris",
@@ -632,7 +635,7 @@
         "fr": "Projet personnel"
       },
       "category": "games",
-      "image": "assets/img/projects/zktris-poster.webp",
+      "image": "assets/img/projects/zktris-loop-poster.webp",
       "tagline": {
         "en": "Tetris remake where holes can never be cleared. Playable in the browser.",
         "fr": "Remake de Tetris où les trous ne s'effacent jamais. Jouable dans le navigateur."
@@ -658,7 +661,7 @@
         "#fbb915",
         "#7a3aff"
       ],
-      "video": "assets/video/zktris-gameplay.mp4"
+      "video": "assets/video/zktris-loop.mp4"
     },
     {
       "slug": "portfolio",
@@ -966,8 +969,8 @@
   },
   "outside": [
     {
-      "en": "I make small Unity games and compose their soundtracks in FL Studio. Roll Power was built in 48 hours for the GMTK Game Jam.",
-      "fr": "Je crée de petits jeux Unity et compose leur bande-son sur FL Studio. Roll Power a été réalisé en 48 heures pour la GMTK Game Jam."
+      "en": "I make small Unity games and compose their soundtracks in FL Studio. Roll Power started as a 48-hour GMTK Game Jam entry and is now a full campaign.",
+      "fr": "Je crée de petits jeux Unity et compose leur bande-son sur FL Studio. Roll Power, né en 48 heures à la GMTK Game Jam, est devenu une campagne complète."
     },
     {
       "en": "I work in French and English, and also speak Hausa.",
