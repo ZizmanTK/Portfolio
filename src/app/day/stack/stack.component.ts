@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { type Experience, SITE, headingLines } from '../../core/content';
+import { type Experience, SITE, headingLines, projectTitle } from '../../core/content';
 import { I18n } from '../../core/i18n';
 import { RichComponent } from '../rich.component';
 import { contractOf, roleInfo } from '../role-info';
@@ -53,7 +53,7 @@ const years = (e: Experience) => (!e.end ? `${yy(e.start)}–` : yy(e.start) ===
         <article class="project mini" id="remind">
           <div class="project-media frame"><img decoding="async" [src]="remind.image" [alt]="i18n.t(b.remind)" width="1400" height="718" loading="lazy"></div>
           <dl class="project-row">
-            <div class="pr-name"><dt class="sr-only">{{ ui().row.project }}</dt><dd><b>{{ remind.name }}</b> <span class="muted">{{ i18n.t(remind.kicker!) }}</span></dd></div>
+            <div class="pr-name"><dt class="sr-only">{{ ui().row.project }}</dt><dd><b>{{ title(remind) }}</b> <span class="muted">{{ i18n.t(remind.kicker!) }}</span></dd></div>
             <div class="pr-desc"><dt class="sr-only">{{ ui().row.what }}</dt><dd>{{ i18n.t(remind.tagline) }}</dd></div>
             <div><dt class="sr-only">{{ ui().row.link }}</dt><dd><a class="link" [href]="remind.links.demo" rel="noopener">{{ ui().watchDemo(remind.name) }}</a></dd></div>
           </dl>
@@ -76,13 +76,13 @@ const years = (e: Experience) => (!e.end ? `${yy(e.start)}–` : yy(e.start) ===
               <g class="pl-box"><rect x="6" y="48" width="104" height="54" rx="2"/><text x="58" y="72">{{ ui().pipeline.question }}</text><text x="58" y="88" class="s">{{ ui().pipeline.engineer }}</text></g>
               <g class="pl-box"><rect x="150" y="48" width="118" height="54" rx="2"/><text x="209" y="72">{{ ui().pipeline.retrieve }}</text><text x="209" y="88" class="s">{{ ui().pipeline.sources }}</text></g>
               <g class="pl-box"><rect x="308" y="48" width="100" height="54" rx="2"/><text x="358" y="72">LLM</text><text x="358" y="88" class="s">LangChain</text></g>
-              <g class="pl-box em"><rect x="448" y="48" width="106" height="54" rx="2"/><text x="501" y="72">{{ ui().pipeline.answer }}</text><text x="501" y="88" class="s">{{ ui().pipeline.grounded }}</text></g>
+              <g class="pl-box em"><rect x="448" y="48" width="106" height="54" rx="2"/><text x="501" y="72">{{ ui().pipeline.answer }}</text><text x="501" y="88" class="s">{{ ui().pipeline.plain }}</text></g>
               <path class="pl-wire" d="M110 75H150M268 75H308M408 75H448"/>
               <circle class="pl-dot" r="3.5" cx="130" cy="75"/>
             </svg>
           </div>
           <dl class="project-row">
-            <div class="pr-name"><dt class="sr-only">{{ ui().row.project }}</dt><dd><b>{{ txbot.name }}</b> <span class="muted">{{ i18n.t(txbot.kicker!) }}</span></dd></div>
+            <div class="pr-name"><dt class="sr-only">{{ ui().row.project }}</dt><dd><b>{{ title(txbot) }}</b> <span class="muted">{{ i18n.t(txbot.kicker!) }}</span></dd></div>
             <div class="pr-desc"><dt class="sr-only">{{ ui().row.what }}</dt><dd>{{ i18n.t(txbot.tagline) }}</dd></div>
             <div><dt class="sr-only">{{ ui().row.status }}</dt><dd class="muted">{{ i18n.t(txbot.status!) }}</dd></div>
           </dl>
@@ -133,6 +133,7 @@ export class StackComponent {
     return headingLines(role.length <= 30 ? role : this.i18n.t(e.short).split(' · ')[0]);
   }));
   protected readonly infos = computed(() => this.jobs.map((e) => roleInfo(this.i18n, e)));
+  protected readonly title = (p: typeof REMIND) => projectTitle(p, this.i18n.lang());
 
   constructor() {
     const tags = this.jobs.map((e) => {

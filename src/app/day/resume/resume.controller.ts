@@ -72,7 +72,7 @@ export function resumeController(root: HTMLElement, reduce: boolean, lenis: () =
     lenis()?.start();
     url(false);
     closing = window.setTimeout(() => { panel!.classList.remove('in'); panel!.classList.add('shut'); }, reduce ? 0 : 760);
-    const back = opener && opener.isConnected ? opener : $('.bar .resume-open');
+    const back = opener && opener.isConnected ? opener : $('.resume-open');
     if (back) back.focus({ preventScroll: true });
   }
   // a postcard takes you to its entry, inside the view

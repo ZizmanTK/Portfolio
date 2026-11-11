@@ -20,6 +20,8 @@ html.no-js .cc-floor, html.no-js .cc-cam, html.no-js .cc-box, html.no-js .cc-not
 html.no-js .cc-man { position: static; grid-column: 2 / span 4; justify-self: center; align-self: center; }
 html.no-js .cc-facts { position: static; transform: none; width: auto; grid-column: 7 / span 5; }
 
+/* Transitions are off, not just very short: with a duration on every element, a size set by a script only applies a
+   frame later, and what measures right after it (the fitted titles of the work page) reads the old one. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  *, *::before, *::after { transition: none !important; animation-duration: .01ms !important; }
 }

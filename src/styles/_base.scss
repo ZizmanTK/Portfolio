@@ -8,7 +8,7 @@
 
   /* default (dawn) tokens; the engine sets each section's own tokens once, from the sky it is seen against */
   --bg: #f1e6d6;
-  --ink: #17140f;
+  --ink: #111110;
   --ink-2: #39332b;
   --muted: #675f53;
   --line: rgba(23, 20, 15, .16);
@@ -23,9 +23,10 @@
   --plate: #f7f5f0;
   --crown: #a87512;
 
+  /* the type of the work page: Switzer for text, Cabinet Grotesk for display and for the labels */
   --f-ui: "Switzer", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-display: "General Sans", "Switzer", system-ui, sans-serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+  --f-display: "Cabinet Grotesk", "Arial Black", sans-serif;
+  --f-label: "Cabinet Grotesk", "Switzer", sans-serif;
   --ease: cubic-bezier(.2, .7, .1, 1);
 }
 
@@ -57,7 +58,7 @@ body {
   overflow-x: clip;
   background: var(--bg);
   color: var(--ink);
-  font: 400 17px/1.5 var(--f-ui);
+  font: 400 18px/1.5 var(--f-ui);
   font-feature-settings: "ss01", "kern";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -68,7 +69,8 @@ a { color: inherit; }
 p, h1, h2, h3, dl, dd, ul, ol, figure { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 strong, b { font-weight: 600; }
-.mono { font-family: var(--f-mono); font-size: 13px; letter-spacing: .01em; line-height: 1.6; color: var(--muted); }
+/* a label, as on the work page: small capitals of the display face */
+.mono { font: 700 13px/1.5 var(--f-label); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
 /* headings break into even lines; paragraphs do not leave a word alone on the last line */
 .h-stop, .h-role, .h-contact, .sentence, .hero-day, .focus { text-wrap: balance; }
 .body, .points li, .project-row dd, .mission, .scene-note, figcaption, .roll-note, .arrival-note, .hobbies { text-wrap: pretty; }

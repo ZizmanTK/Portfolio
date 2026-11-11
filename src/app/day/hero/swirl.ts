@@ -66,7 +66,7 @@ export function initSwirl(canvas: HTMLCanvasElement, opts: SwirlOptions): Swirl 
     canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     sprites.clear();
-    ctx.font = `400 ${fontPx()}px "IBM Plex Mono", ui-monospace, monospace`;
+    ctx.font = `700 ${fontPx()}px "Cabinet Grotesk", "Switzer", sans-serif`;
     ctx.textBaseline = 'middle';
 
     const rand = rng(7);
@@ -173,7 +173,7 @@ export function initSwirl(canvas: HTMLCanvasElement, opts: SwirlOptions): Swirl 
     const k = (acc ? 'a|' : 'n|') + w;
     let sp = sprites.get(k);
     if (sp) return sp;
-    const fp = fontPx(), font = `${acc ? 500 : 400} ${fp}px "IBM Plex Mono", ui-monospace, monospace`;
+    const fp = fontPx(), font = `${acc ? 800 : 700} ${fp}px "Cabinet Grotesk", "Switzer", sans-serif`;
     ctx.font = font;
     const tw = Math.ceil(ctx.measureText(w).width) + 4, th = Math.ceil(fp * 1.7);
     const c = document.createElement('canvas');

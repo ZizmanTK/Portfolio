@@ -1,22 +1,24 @@
 /* ---------- buttons and links ---------- */
+/* As on the work page: the main action is a dark pill, the others are words underlined. */
 .btn {
-  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px;
-  border: 1px solid var(--line-2); border-radius: 2px; text-decoration: none; font: 500 15px/1 var(--f-ui);
-  color: var(--ink); background: transparent; transition: background-color .25s, border-color .25s, color .25s;
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 .3em; border: 0;
+  border-radius: 99px; font: 500 16px/1 var(--f-ui); color: var(--ink); background: transparent;
+  text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: .32em;
+  transition: text-decoration-color .25s, transform .2s;
 }
-.btn:hover { border-color: var(--ink); }
-.btn-primary { background: var(--btn-bg); color: var(--btn-ink); border-color: var(--btn-bg); }
-.btn-primary:hover { background: color-mix(in srgb, var(--btn-bg) 86%, var(--bg)); border-color: transparent; }
-.link { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; text-decoration-thickness: 1px; transition: text-decoration-color .25s; }
+.btn:hover { text-decoration-color: currentColor; }
+.btn-primary { padding: 0 1.25em; background: var(--btn-bg); color: var(--btn-ink); text-decoration: none; }
+.btn-primary:hover { transform: translateY(-2px); }
+.link { text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: .32em; text-decoration-thickness: 1px; transition: text-decoration-color .25s; }
 .link:hover { text-decoration-color: currentColor; }
-.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 10px; }
-.actions .link { margin-left: 12px; font-weight: 500; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; }
+.actions .link { font-weight: 500; }
 
 /* ---------- display lines revealed one by one (leoparpeix.com logic) ---------- */
 .ln { display: block; overflow: hidden; padding-bottom: .04em; margin-bottom: -.04em; }
-.ln > span { display: block; transform: translateY(108%); transition: transform 1.1s var(--ease); }
-.ln:nth-child(2) > span { transition-delay: .09s; }
-.ln:nth-child(3) > span { transition-delay: .18s; }
+.ln > span { display: block; transform: translateY(108%); transition: transform .4s var(--ease); }
+.ln:nth-child(2) > span { transition-delay: .06s; }
+.ln:nth-child(3) > span { transition-delay: .12s; }
 .in .ln > span, html:not(.motion) .ln > span { transform: none; }
 
 /* ---------- thread ---------- */

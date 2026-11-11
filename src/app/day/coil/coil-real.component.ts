@@ -19,7 +19,7 @@ const P = SITE.projects.find((p) => p.slug === 'coilcheck')!;
     <div class="project-media plate" id="coilPlate"><span class="scan" aria-hidden="true"></span><img [src]="p.image" [alt]="i18n.t(SITE.day.uckange.realAlt)" width="1400" height="509" loading="lazy" decoding="async"></div>
     <dl class="project-row">
       <div class="pr-name"><dt class="sr-only">{{ ui().row.project }}</dt><dd><b>{{ p.name }}</b> <span class="muted">{{ i18n.t(p.kicker!) }}</span></dd></div>
-      <div><dt class="sr-only">{{ ui().row.when }}</dt><dd>{{ p.when }}</dd></div>
+      <div><dt class="sr-only">{{ ui().row.when }}</dt><dd>{{ i18n.t(p.when!) }}</dd></div>
       <div class="pr-desc"><dt class="sr-only">{{ ui().row.what }}</dt><dd>{{ i18n.t(p.tagline) }}</dd></div>
       <div><dt class="muted">{{ ui().row.builtWith }}</dt><dd>{{ builtWith() }}</dd></div>
     </dl>

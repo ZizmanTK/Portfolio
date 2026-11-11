@@ -26,15 +26,15 @@ html.motion .well-wrap { position: sticky; top: 0; height: 100vh; align-self: st
 .well .p2 { fill: #f2a93b; }
 .well .p3 { fill: var(--gold); }
 .well .ghost { fill: none; stroke: var(--thread); stroke-dasharray: 3 4; stroke-opacity: .8; }
-.well .tagt { font: 400 13px var(--f-mono); fill: var(--ink-2); paint-order: stroke; stroke: var(--bg); stroke-width: 5px; stroke-linejoin: round; transition: opacity .3s; }
+.well .tagt { font: 400 13px var(--f-label); fill: var(--ink-2); paint-order: stroke; stroke: var(--bg); stroke-width: 5px; stroke-linejoin: round; transition: opacity .3s; }
 .well .tagl { stroke: var(--ink); stroke-opacity: .4; fill: none; transition: opacity .3s; }
 .mini .project-row { grid-template-columns: 1fr; }
 .pipe { background: color-mix(in srgb, var(--ink) 4%, transparent); box-shadow: 0 0 0 1px var(--line); padding: 18px 18px 14px; }
 .pipeline { width: 100%; height: auto; display: block; overflow: visible; }
 .pipeline rect { fill: var(--bg); stroke: var(--ink); stroke-opacity: .6; }
 .pipeline .em rect { stroke: var(--thread); stroke-width: 1.6; }
-.pipeline text { font: 500 13px var(--f-mono); fill: var(--ink); text-anchor: middle; }
-.pipeline text.s { font: 400 11.5px var(--f-mono); fill: var(--muted); }
+.pipeline text { font: 500 13px var(--f-label); fill: var(--ink); text-anchor: middle; }
+.pipeline text.s { font: 400 11.5px var(--f-label); fill: var(--muted); }
 .pipeline .pl-wire { stroke: var(--thread); stroke-width: 1.4; fill: none; }
 .pipeline .pl-dot { fill: var(--thread); }
 .stackline { margin-top: 22px; color: var(--ink-2); }

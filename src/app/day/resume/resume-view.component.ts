@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { type Experience, SITE, plain, skillSlug, typo } from '../../core/content';
+import { type Experience, SITE, plain, projectTitle, skillSlug, typo } from '../../core/content';
 import { SKILLS_WITH_ICONS } from '../../core/skill-icons';
 import { I18n } from '../../core/i18n';
 import { RichComponent } from '../rich.component';
@@ -111,8 +111,8 @@ const PROJECTS: { slug: 'txbot' | 'remind' | 'coilcheck'; size: [number, number]
           <li class="rv-proj">
             <img [src]="p.data.image" [alt]="i18n.t(SITE.day.resume.projects[p.slug])" [attr.width]="p.size[0]" [attr.height]="p.size[1]" decoding="async">
             <div>
-              <h4>{{ p.data.name }}</h4>
-              <p class="rv-kicker">{{ plainOf(p.data.kicker!) }} · {{ p.data.when }}</p>
+              <h4>{{ projectTitle(p.data, i18n.lang()) }}</h4>
+              <p class="rv-kicker">{{ plainOf(p.data.kicker!) }} · {{ i18n.t(p.data.when!) }}</p>
               <p>{{ plainOf(p.data.tagline) }}@if (p.data.status) { <span class="rv-st">{{ plainOf(p.data.status) }}.</span>}</p>
               @if (p.data.links.demo) {<a class="link" [href]="p.data.links.demo" rel="noopener">{{ ui().watchDemo(p.data.name) }}</a>}
             </div>
@@ -150,6 +150,7 @@ export class ResumeViewComponent {
   protected readonly ui = this.i18n.ui;
   protected readonly SITE = SITE;
   protected readonly typo = typo;
+  protected readonly projectTitle = projectTitle;
   protected readonly eduId = EDU_ID;
   protected readonly social = Object.fromEntries(SITE.socials.map((s) => [s.id, s.url])) as Record<'github' | 'linkedin' | 'itch', string>;
   protected readonly projects = PROJECTS.map((p) => ({ ...p, data: SITE.projects.find((x) => x.slug === p.slug)! }));

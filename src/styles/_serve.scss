@@ -30,10 +30,10 @@ html:not(.motion) .contact { position: relative; inset: auto; min-height: 100vh;
 .sv-wave { grid-column: 2 / span 3; height: min(64vh, 560px); width: auto; justify-self: center; align-self: end; margin-bottom: 4vh; }
 .contact-in { grid-column: 6 / span 7; }
 .status.big { font-size: 16px; margin-bottom: 20px; }
-.h-contact { font: 600 clamp(46px, 5.6vw, 88px)/.96 var(--f-display); letter-spacing: -.03em; margin-bottom: 26px; }
+.h-contact { font: 800 clamp(48px, 6vw, 96px)/.92 var(--f-display); letter-spacing: -.04em; margin-bottom: 26px; }
 .h-contact .ln { white-space: nowrap; }
 .contact .body { margin-top: 0; }
 .contact .actions { margin-top: 30px; }
-.socials { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 15px; }
+.socials { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 16px; }
 .mission { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; max-width: 34em; }
 .sv-note { z-index: 6; background: transparent; }
