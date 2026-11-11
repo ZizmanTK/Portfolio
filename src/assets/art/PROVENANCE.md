@@ -14,6 +14,8 @@ below unchanged. In that file, `site/art/<name>` is the file `src/assets/art/<na
   `assets/img/favicon.svg` and `assets/img/apple-touch-icon.png`). The project screenshots and figures listed under "His own
   assets" are the portfolio's own files in `src/assets/img/projects/` (`coilcheck-tight.webp`, `remind-full.webp`,
   `txbot.webp`, and the game posters); the gameplay clips are in `src/assets/video/`.
+- Added for the work page (4): `fig-coat`, `fig-desk`, `fig-desknight` and `fig-safety2` are `coat`, `desk`, `desknight` and
+  `safety2` scaled down to 360 px high with ffmpeg; nothing else was changed.
 - The round-5 parents of the three climbing poses, which `LICENSES.md` points to in the generation log, are listed in the
   appendix at the end.
 - This file is kept out of the published site (angular.json ignores `*.md` under `src/assets`).
