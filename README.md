@@ -2,9 +2,10 @@
 
 **Live:** https://zizmantk.github.io/Portfolio/ · 🇫🇷 https://zizmantk.github.io/Portfolio/fr/
 
-Personal portfolio: a bilingual (EN/FR) Angular 20 site prerendered to static HTML, "a walk through a day": ten stops
-from first light in Niamey to tonight in Grenoble, drawn and animated as you scroll, with a résumé view and a downloadable
-one-page PDF resume generated from the same content.
+Personal portfolio: a bilingual (EN/FR) Angular 20 site prerendered to static HTML. The home page is the work: who he
+is, his projects and how to reach him. `/story` is "a walk through a day": ten stops from first light in
+Niamey to tonight in Grenoble, drawn and animated as you scroll, with a résumé view. Both offer a one-page PDF resume
+generated from the same content.
 
 ## Editing content
 
@@ -46,6 +47,8 @@ git add -A && git commit -m "Update portfolio" && git push
 ```
 src/content/site.json        content for the site and the resume
 src/app/core/                content types, i18n, interface strings, SEO
+src/app/work/                the home page: intro, the path, the cases, beyond work, contact
+src/app/shared/              directives and the crown shared by both pages
 src/app/day/                 the day: one component per stop or set piece (bar, hero, stops, knight, signal,
                              coil, climb, stack, roll, after hours, serve, résumé view, footer)
 src/app/day/engine/          the scroll engine: time of day, sky, gold thread; each set piece's *.scene.ts
