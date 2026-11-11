@@ -10,8 +10,8 @@
     },
     "company": "BASSETTI France",
     "summary": {
-      "en": "AI engineer with **3+ years** of industry experience in **agentic AI** (LangGraph, RAG, MCP), **computer vision** and **full-stack development** (Angular, FastAPI, Django). I take AI features from prototype to production in real products.",
-      "fr": "Ingénieur en IA avec **plus de 3 ans** d'expérience en entreprise en **IA agentique** (LangGraph, RAG, MCP), **vision par ordinateur** et **développement full-stack** (Angular, FastAPI, Django). J'amène des fonctionnalités d'IA du prototype à la production, dans de vrais produits."
+      "en": "AI engineer who builds **LLM agents** and **machine-learning features** that ship inside real products. At BASSETTI I built most of the **TEEXMA chatbot**, in production at several customers, and was a core developer of **Analysis & Prediction**; both are part of TEEXMA 7 (2026).",
+      "fr": "Ingénieur IA : je conçois des **agents LLM** et des **fonctionnalités de machine learning** livrés en production, dans de vrais produits. Chez BASSETTI, j’ai développé l’essentiel du **Chatbot TEEXMA**, en production chez plusieurs clients, et j’ai été l’un des développeurs principaux d’**Analyse et prédiction** ; les deux font partie de TEEXMA 7 (2026)."
     },
     "mission": {
       "en": "My goal: contribute to improving the human condition through AI.",
@@ -23,6 +23,7 @@
     },
     "email": "mamaabdoulaziz1@gmail.com",
     "phone": "+33 7 72 40 66 65",
+    "workRights": { "en": "Authorised to work in France", "fr": "Autorisé à travailler en France" },
     "site": "https://zizmantk.github.io/Portfolio/",
     "portrait": "assets/img/portrait.webp",
     "avatar": "assets/img/avatar.jpg",
@@ -40,8 +41,8 @@
         "fr": "Expérience"
       },
       "value": {
-        "en": "3+ years in industry",
-        "fr": "3+ ans en entreprise"
+        "en": "2+ years at BASSETTI France",
+        "fr": "2+ ans chez BASSETTI France"
       }
     },
     {
@@ -176,22 +177,25 @@
       "end": null,
       "highlights": [
         {
-          "en": "Build **agentic AI** features with **LangGraph** and **LangChain**, grounded in company knowledge through **retrieval-augmented generation (RAG)**.",
-          "fr": "Conception de fonctionnalités d'**IA agentique** (**LangGraph**, **LangChain**) ancrées dans les connaissances de l'entreprise grâce au **RAG**."
+          "en": "Built most of the **TEEXMA chatbot**, in production at several customers since early 2026: one **LangGraph** agent that answers from each customer’s documents (**RAG**) and TEEXMA data.",
+          "fr": "Développement de l’essentiel du **Chatbot TEEXMA**, en production chez plusieurs clients depuis début 2026 : un agent **LangGraph** qui répond d’après leurs documents (**RAG**) et les données TEEXMA."
         },
         {
-          "en": "Connect agents to tools and data through the **Model Context Protocol (MCP)** and **PostgreSQL**.",
-          "fr": "Connexion des agents aux outils et aux données via le **Model Context Protocol (MCP)** et **PostgreSQL**."
+          "en": "Implemented the agent loop: it reads the customer’s data model before querying, checks each result and retries on failure; third design, after a fixed pipeline and a supervisor with sub-agents.",
+          "fr": "Mise en place de la boucle de l’agent : il lit le modèle de données du client avant toute requête, vérifie chaque résultat et réessaie en cas d’échec ; troisième architecture, après un pipeline fixe puis un superviseur avec sous-agents."
         },
         {
-          "en": "Ship AI services end to end: **FastAPI** back ends, **Angular** front ends, deployment on **AWS** and **Azure** alongside .NET / IIS.",
-          "fr": "Services d'IA de bout en bout : back-ends **FastAPI**, front-ends **Angular**, déploiement sur **AWS** et **Azure** (.NET / IIS)."
+          "en": "Built custom multi-step analysis workflows for individual customers; connected agents to tools and data through **MCP** and **PostgreSQL**.",
+          "fr": "Workflows d’analyse en plusieurs étapes, sur mesure pour certains clients ; connexion des agents aux outils et aux données via **MCP** et **PostgreSQL**."
+        },
+        {
+          "en": "Delivered end to end: **FastAPI** back ends, **Angular** front ends, deployment on **AWS** and **Azure**.",
+          "fr": "Réalisation de bout en bout : back-ends **FastAPI**, front-ends **Angular**, déploiement sur **AWS** et **Azure**."
         }
       ],
       "stack": [
         "LangGraph",
         "LangChain",
-        "RAG",
         "MCP",
         "FastAPI",
         "Angular",
@@ -202,12 +206,13 @@
       ],
       "card": [
         {
-          "en": "Build **agentic AI** with **LangGraph** and **LangChain**, grounded in company knowledge through **RAG**.",
-          "fr": "Conception d’**IA agentique** avec **LangGraph** et **LangChain**, ancrée dans les connaissances de l’entreprise via le **RAG**."
+          "en": "Built most of the **TEEXMA chatbot**: one **LangGraph** agent, in production at several customers.",
+          "fr": "L’essentiel du **Chatbot TEEXMA** : un agent **LangGraph**, en production chez plusieurs clients.",
+          "case": "txbot"
         },
         {
-          "en": "Connect agents to tools and data with **MCP** and **PostgreSQL**.",
-          "fr": "Connexion des agents aux outils et aux données via **MCP** et **PostgreSQL**."
+          "en": "Custom analysis workflows for customers; agents connected to tools and data with **MCP** and **PostgreSQL**.",
+          "fr": "Workflows d’analyse sur mesure pour des clients ; agents connectés aux outils et aux données via **MCP** et **PostgreSQL**."
         },
         {
           "en": "Ship end to end: **FastAPI**, **Angular**, **AWS** and **Azure**.",
@@ -224,6 +229,10 @@
       "short": {
         "en": "AI Engineer · permanent",
         "fr": "Ingénieur IA · CDI"
+      },
+      "line": {
+        "en": "LLM agents in production: the **TEEXMA chatbot** and customer-specific analysis workflows.",
+        "fr": "Des agents LLM en production : le **Chatbot TEEXMA** et des workflows d’analyse sur mesure pour des clients."
       }
     },
     {
@@ -246,12 +255,12 @@
       "end": "2025-09",
       "highlights": [
         {
-          "en": "Built **TxBot**, an **LLM assistant** (LangChain) answering questions over internal knowledge and TEEXMA data.",
-          "fr": "Développement de **TxBot**, un **assistant LLM** (LangChain) qui répond aux questions à partir des connaissances internes et des données TEEXMA."
+          "en": "Built the first versions of the **TEEXMA chatbot** (then TxBot) with **LangChain**: question answering over internal knowledge and TEEXMA data.",
+          "fr": "Développement des premières versions du **Chatbot TEEXMA** (alors TxBot) avec **LangChain** : réponses à partir des connaissances internes et des données TEEXMA."
         },
         {
-          "en": "Extended **REMIND**'s machine-learning workflows — **prediction, anomaly detection, clustering** — on materials data.",
-          "fr": "Évolution des workflows de machine learning de **REMIND** — **prédiction, détection d'anomalies, clustering** — sur des données matériaux."
+          "en": "Extended the machine-learning workflows of **Analysis & Prediction** (then REMIND): **prediction, anomaly detection, clustering** on materials data.",
+          "fr": "Évolution des workflows de machine learning d’**Analyse et prédiction** (alors REMIND) : **prédiction, détection d’anomalies, clustering** sur des données matériaux."
         }
       ],
       "stack": [
@@ -264,13 +273,13 @@
       ],
       "card": [
         {
-          "en": "Built **TxBot**, an LLM assistant over company knowledge.",
-          "fr": "Développement de **TxBot**, un assistant LLM sur les connaissances internes.",
+          "en": "Built the first versions of the **TEEXMA chatbot** with LangChain.",
+          "fr": "Premières versions du **Chatbot TEEXMA**, avec LangChain.",
           "case": "txbot"
         },
         {
-          "en": "Extended **REMIND**’s ML workflows.",
-          "fr": "Évolution des workflows de ML de **REMIND**.",
+          "en": "Extended the ML workflows of **Analysis & Prediction** (then REMIND).",
+          "fr": "Évolution des workflows de ML d’**Analyse et prédiction** (alors REMIND).",
           "case": "remind"
         }
       ],
@@ -284,6 +293,10 @@
       "short": {
         "en": "AI Engineer · fixed-term",
         "fr": "Ingénieur IA · CDD"
+      },
+      "line": {
+        "en": "First versions of the chatbot (LangChain) and the ML workflows of **Analysis & Prediction**, then called REMIND.",
+        "fr": "Premières versions du chatbot (LangChain) et workflows de ML d’**Analyse et prédiction**, alors appelé REMIND."
       }
     },
     {
@@ -306,11 +319,11 @@
       "end": "2024-07",
       "highlights": [
         {
-          "en": "Developed **REMIND**, BASSETTI’s AI module for materials data: importing materials databases (Excel, CSV, TEEXMA) and running **ML workflows** — **Angular** front end, **Django** back end.",
-          "fr": "Développement de **REMIND**, le module d’IA de BASSETTI pour les données matériaux : import de bases matériaux (Excel, CSV, TEEXMA) et **workflows de ML** — **Angular**, **Django**."
+          "en": "Co-developed **REMIND**, BASSETTI’s AI module for materials data (now **Analysis & Prediction** in TEEXMA 7): import of materials databases (Excel, CSV, TEEXMA) and **ML workflows**, with an **Angular** front end and a **Django** back end.",
+          "fr": "Co-développement de **REMIND**, le module d’IA de BASSETTI pour les données matériaux (aujourd’hui **Analyse et prédiction** dans TEEXMA 7) : import de bases matériaux (Excel, CSV, TEEXMA) et **workflows de ML**, avec un front-end **Angular** et un back-end **Django**."
         },
         {
-          "en": "**MongoDB** data modelling, unit tests and technical documentation.",
+          "en": "Designed the **MongoDB** data model; wrote unit tests and technical documentation.",
           "fr": "Modélisation des données **MongoDB**, tests unitaires et documentation technique."
         }
       ],
@@ -322,8 +335,8 @@
       ],
       "card": [
         {
-          "en": "Developed **REMIND**, the AI module for materials data.",
-          "fr": "Développement de **REMIND**, le module d’IA pour les données matériaux.",
+          "en": "Co-developed **REMIND**, now **Analysis & Prediction** in TEEXMA 7.",
+          "fr": "Co-développement de **REMIND**, aujourd’hui **Analyse et prédiction** dans TEEXMA 7.",
           "case": "remind"
         },
         {
@@ -340,6 +353,10 @@
       "short": {
         "en": "R&I intern",
         "fr": "Stagiaire R&I"
+      },
+      "line": {
+        "en": "**REMIND**: data import and ML workflows, with Angular and Django.",
+        "fr": "**REMIND** : import des données et workflows de ML, avec Angular et Django."
       }
     },
     {
@@ -362,8 +379,8 @@
       "end": "2023-08",
       "highlights": [
         {
-          "en": "Built **CoilCheck**: automated detection of **surface defects on steel coils** before packaging, with **CNNs** and **OpenCV**.",
-          "fr": "Développement de **CoilCheck** : détection automatisée des **défauts de surface des bobines d'acier** avant emballage, avec des **CNN** et **OpenCV**."
+          "en": "Built **CoilCheck**, a working prototype that detects **surface defects on steel coils** before packaging, with **CNNs** and **OpenCV**.",
+          "fr": "Développement de **CoilCheck**, un prototype fonctionnel qui détecte les **défauts de surface des bobines d’acier** avant l’emballage, avec des **CNN** et **OpenCV**."
         },
         {
           "en": "Trained and compared supervised **deep-learning** and **anomaly-detection** models in **TensorFlow**.",
@@ -379,8 +396,8 @@
       ],
       "card": [
         {
-          "en": "Built **CoilCheck**, steel-coil defect detection.",
-          "fr": "Développement de **CoilCheck**, la détection de défauts sur bobines d’acier.",
+          "en": "Built **CoilCheck**, a working prototype for steel-coil defect detection.",
+          "fr": "Développement de **CoilCheck**, un prototype fonctionnel de détection de défauts sur bobines d’acier.",
           "case": "coilcheck"
         },
         {
@@ -402,6 +419,10 @@
       "short": {
         "en": "Vision intern",
         "fr": "Stagiaire vision"
+      },
+      "line": {
+        "en": "**CoilCheck**: defect detection on steel coils with CNNs and anomaly-detection models.",
+        "fr": "**CoilCheck** : détection de défauts sur des bobines d’acier, avec des CNN et des modèles de détection d’anomalies."
       }
     }
   ],
@@ -463,6 +484,14 @@
     {
       "slug": "txbot",
       "name": "TxBot",
+      "title": {
+        "en": "TEEXMA chatbot",
+        "fr": "Chatbot TEEXMA"
+      },
+      "aka": {
+        "en": "internal name: TxBot",
+        "fr": "nom interne : TxBot"
+      },
       "year": null,
       "context": {
         "en": "BASSETTI France",
@@ -471,27 +500,30 @@
       "category": "ai",
       "image": "assets/img/projects/txbot.webp",
       "tagline": {
-        "en": "An LLM assistant that answers questions over company knowledge and TEEXMA data.",
-        "fr": "Un assistant LLM qui répond aux questions à partir des connaissances de l’entreprise et des données TEEXMA."
+        "en": "An LLM agent that answers engineers’ questions from their company’s documents and TEEXMA data. In production at several BASSETTI customers.",
+        "fr": "Un agent LLM qui répond aux questions des ingénieurs à partir des documents de leur entreprise et des données TEEXMA. En production chez plusieurs clients de BASSETTI."
       },
       "description": {
         "en": "A conversational assistant connected to company data sources. It retrieves the relevant documents and records first, then lets the LLM compose a grounded answer, behind an Angular chat interface.",
         "fr": "Un assistant conversationnel connecté aux sources de données de l'entreprise. Il récupère d'abord les documents et enregistrements pertinents, puis laisse le LLM formuler une réponse sourcée, derrière une interface de chat Angular."
       },
       "stack": [
+        "LangGraph",
         "LangChain",
         "RAG",
         "Python",
-        "Django",
         "Angular"
       ],
       "links": {},
       "featured": true,
       "kicker": {
-        "en": "LLM · RAG",
-        "fr": "LLM · RAG"
+        "en": "LLM agent · RAG",
+        "fr": "Agent LLM · RAG"
       },
-      "when": "BASSETTI · 2024–25",
+      "when": {
+        "en": "BASSETTI · since 2024",
+        "fr": "BASSETTI · depuis 2024"
+      },
       "problem": {
         "en": "Engineers lost time hunting through internal documents and records.",
         "fr": "Les ingénieurs perdaient du temps à chercher dans les documents et les enregistrements internes."
@@ -501,14 +533,56 @@
         "fr": "LangChain, Python, Django, Angular — d’abord la recherche, puis une réponse sourcée."
       },
       "status": {
-        "en": "Internal tool · demo on request",
-        "fr": "Outil interne · démo sur demande"
+        "en": "In production at several BASSETTI customers · announced with TEEXMA 7 (2026)",
+        "fr": "En production chez plusieurs clients de BASSETTI · annoncé avec TEEXMA 7 (2026)"
       },
-      "visual": "pipeline"
+      "visual": "pipeline",
+      "study": {
+        "index": {
+          "en": "LLM agent, RAG · in production",
+          "fr": "Agent LLM, RAG · en production"
+        },
+        "what": {
+          "en": "Engineers ask a question in plain language. The chatbot answers from their company’s documents and from the data in TEEXMA.",
+          "fr": "Les ingénieurs posent leur question en langage naturel. Le chatbot répond à partir des documents de leur entreprise et des données de TEEXMA."
+        },
+        "part": {
+          "en": "I built most of it: document search (RAG), queries on TEEXMA data, the agent (LangGraph), the API and the chat interface. I also build custom multi-step analysis workflows for individual customers.",
+          "fr": "J’en ai développé l’essentiel : la recherche documentaire (RAG), les requêtes sur les données TEEXMA, l’agent (LangGraph), l’API et l’interface de chat. Je conçois aussi des workflows d’analyse en plusieurs étapes, sur mesure pour certains clients."
+        },
+        "how": {
+          "en": "One agent with tools. It reads the customer’s data model before it queries anything, calls TEEXMA tools, checks what comes back and retries when a call fails. Each customer chooses the model it runs on.",
+          "fr": "Un seul agent, avec des outils. Il lit le modèle de données du client avant toute requête, appelle les outils TEEXMA, vérifie les résultats et réessaie en cas d’échec. Chaque client choisit le modèle utilisé."
+        },
+        "state": {
+          "en": "In production at several BASSETTI customers since early 2026. Announced with TEEXMA 7 in March 2026.",
+          "fr": "En production chez plusieurs clients de BASSETTI depuis début 2026. Annoncé avec TEEXMA 7 en mars 2026."
+        },
+        "proof": [
+          {
+            "label": {
+              "en": "BASSETTI’s TEEXMA 7 announcement",
+              "fr": "L’annonce de TEEXMA 7 par BASSETTI"
+            },
+            "url": {
+              "en": "https://www.bassetti-group.com/en/teexma-7-data-intelligence-ai-ux-bi/",
+              "fr": "https://www.bassetti-group.com/teexma-7-nouveautes/"
+            }
+          }
+        ]
+      }
     },
     {
       "slug": "remind",
       "name": "REMIND",
+      "title": {
+        "en": "Analysis & Prediction",
+        "fr": "Analyse et prédiction"
+      },
+      "aka": {
+        "en": "formerly REMIND",
+        "fr": "anciennement REMIND"
+      },
       "year": "2024",
       "context": {
         "en": "BASSETTI France",
@@ -517,8 +591,8 @@
       "category": "ai",
       "image": "assets/img/projects/remind-full.webp",
       "tagline": {
-        "en": "BASSETTI’s AI module for materials data: prediction, anomaly detection and clustering without code.",
-        "fr": "Le module d’IA de BASSETTI pour les données matériaux : prédiction, détection d’anomalies et clustering, sans code."
+        "en": "Machine learning without code for materials engineers: prediction, clustering and anomaly detection on their own data, inside TEEXMA.",
+        "fr": "Du machine learning sans code pour les ingénieurs matériaux : prédiction, clustering et détection d’anomalies sur leurs propres données, dans TEEXMA."
       },
       "description": {
         "en": "Engineers import their own materials databases (Excel, CSV or TEEXMA) and apply ML workflows without writing code, with built-in statistical views — histograms, correlation matrices, box plots, interactive scatter plots — to explore the data first.",
@@ -539,7 +613,10 @@
         "en": "No-code ML",
         "fr": "ML sans code"
       },
-      "when": "BASSETTI · 2024–25",
+      "when": {
+        "en": "BASSETTI · 2024–25",
+        "fr": "BASSETTI · 2024–25"
+      },
       "problem": {
         "en": "Materials engineers have rich data but not the code skills to model it.",
         "fr": "Les ingénieurs matériaux ont des données riches, mais pas les compétences en code pour les modéliser."
@@ -547,6 +624,58 @@
       "builtWith": {
         "en": "Angular, Django, scikit-learn, MongoDB.",
         "fr": "Angular, Django, scikit-learn, MongoDB."
+      },
+      "status": {
+        "en": "Part of TEEXMA 7 · announced in March 2026",
+        "fr": "Intégré à TEEXMA 7 · annoncé en mars 2026"
+      },
+      "study": {
+        "index": {
+          "en": "No-code ML · part of TEEXMA 7",
+          "fr": "ML sans code · intégré à TEEXMA 7"
+        },
+        "part": {
+          "en": "Core developer in a small team. I built the ML workflows, the data import (Excel, CSV, TEEXMA) and the charts and statistics.",
+          "fr": "L’un des développeurs principaux, dans une petite équipe. J’ai développé les workflows de machine learning, l’import des données (Excel, CSV, TEEXMA), les graphiques et les statistiques."
+        },
+        "how": {
+          "en": "An engineer imports a dataset, explores it with histograms, correlation matrices and scatter plots, then runs prediction, clustering or anomaly detection without writing code.",
+          "fr": "L’ingénieur importe un jeu de données, l’explore avec des histogrammes, des matrices de corrélation et des nuages de points, puis lance une prédiction, un clustering ou une détection d’anomalies sans écrire de code."
+        },
+        "state": {
+          "en": "Part of TEEXMA 7, announced in March 2026. It began as REMIND, the R&I project I joined as an intern in 2024.",
+          "fr": "Intégré à TEEXMA 7, annoncé en mars 2026. À l’origine REMIND, le projet de R&I que j’ai rejoint en stage en 2024."
+        },
+        "caption": {
+          "en": "Clusters on tensile-test data: proof stress against tensile strength.",
+          "fr": "Clusters sur des données d’essais de traction : limite d’élasticité en fonction de la résistance à la traction."
+        },
+        "proof": [
+          {
+            "label": {
+              "en": "BASSETTI’s TEEXMA 7 announcement",
+              "fr": "L’annonce de TEEXMA 7 par BASSETTI"
+            },
+            "url": {
+              "en": "https://www.bassetti-group.com/en/teexma-7-data-intelligence-ai-ux-bi/",
+              "fr": "https://www.bassetti-group.com/teexma-7-nouveautes/"
+            }
+          },
+          {
+            "label": {
+              "en": "The demo (BASSETTI, in French)",
+              "fr": "La démo (BASSETTI)"
+            },
+            "url": "https://www.bassetti-group.com/demo-remind-et-solution-ia/"
+          },
+          {
+            "label": {
+              "en": "Techniques de l’Ingénieur article (in French)",
+              "fr": "L’article de Techniques de l’Ingénieur"
+            },
+            "url": "https://www.techniques-ingenieur.fr/actualite/articles/remind-une-solution-100-ia-bientot-au-service-de-lindustrie-118346/"
+          }
+        ]
       }
     },
     {
@@ -560,8 +689,8 @@
       "category": "ai",
       "image": "assets/img/projects/coilcheck-tight.webp",
       "tagline": {
-        "en": "Spots surface defects on steel coils before they ship, with heatmaps that show operators where to look.",
-        "fr": "Repère les défauts de surface des bobines d’acier avant expédition, avec des cartes de chaleur qui montrent où regarder."
+        "en": "Finds surface defects on steel coils before packaging and shows operators where to look, with a heatmap.",
+        "fr": "Détecte les défauts de surface sur les bobines d’acier avant l’emballage et montre aux opérateurs où regarder (carte de chaleur)."
       },
       "description": {
         "en": "An industrial vision pipeline that inspects steel coils right before packaging. Deep-learning models learn what a good coil looks like and flag what deviates, with heatmaps showing operators where to look.",
@@ -570,6 +699,7 @@
       "stack": [
         "Python",
         "TensorFlow",
+        "Anomalib",
         "OpenCV",
         "CNNs"
       ],
@@ -579,7 +709,10 @@
         "en": "Computer vision",
         "fr": "Vision par ordinateur"
       },
-      "when": "ArcelorMittal · 2023",
+      "when": {
+        "en": "ArcelorMittal · 2023",
+        "fr": "ArcelorMittal · 2023"
+      },
       "problem": {
         "en": "Defects must be caught right before packaging, on a fast line.",
         "fr": "Les défauts doivent être détectés juste avant l’emballage, sur une ligne rapide."
@@ -587,6 +720,32 @@
       "builtWith": {
         "en": "TensorFlow, Anomalib, OpenCV, CNNs.",
         "fr": "TensorFlow, Anomalib, OpenCV, CNN."
+      },
+      "status": {
+        "en": "Working prototype · six-month internship",
+        "fr": "Prototype fonctionnel · stage de six mois"
+      },
+      "study": {
+        "index": {
+          "en": "Computer vision · prototype at ArcelorMittal",
+          "fr": "Vision par ordinateur · prototype chez ArcelorMittal"
+        },
+        "part": {
+          "en": "My six-month internship project at ArcelorMittal. I built the prototype: image processing with OpenCV, then supervised CNNs and anomaly-detection models, trained and compared on real coil images.",
+          "fr": "Mon projet de stage de six mois chez ArcelorMittal. J’ai construit le prototype : traitement d’image avec OpenCV, puis CNN supervisés et modèles de détection d’anomalies, entraînés et comparés sur de vraies images de bobines."
+        },
+        "how": {
+          "en": "Each coil image gets a heatmap of suspect areas and a verdict with a score.",
+          "fr": "Chaque image de bobine reçoit une carte de chaleur des zones suspectes et un verdict avec un score."
+        },
+        "state": {
+          "en": "Working prototype at the end of the internship.",
+          "fr": "Prototype fonctionnel à la fin du stage."
+        },
+        "caption": {
+          "en": "The real output: coil image, predicted heatmap, verdict (Anomalous, 79%).",
+          "fr": "La vraie sortie : image de la bobine, carte de chaleur prédite, verdict (Anomalous, 79 %)."
+        }
       }
     },
     {
@@ -851,8 +1010,8 @@
       "fr": "Ouvert aux opportunités"
     },
     "experience": {
-      "en": "3+ years in industry · now at BASSETTI France",
-      "fr": "3+ ans en entreprise · aujourd'hui chez BASSETTI France"
+      "en": "2+ years at BASSETTI France",
+      "fr": "2+ ans chez BASSETTI France"
     },
     "tagline": {
       "en": "Building **LLM agents, RAG** and **computer vision** that ship to production.",
@@ -869,6 +1028,24 @@
     "languages": {
       "en": "French, English, Hausa",
       "fr": "Français, anglais, haoussa"
+    }
+  },
+  "work": {
+    "message": {
+      "en": "I build **LLM agents** and **machine-learning features** that ship inside real products.",
+      "fr": "Je conçois des **agents LLM** et des **fonctionnalités de machine learning** livrés en production, dans de vrais produits."
+    },
+    "proof": {
+      "en": "At BASSETTI I built most of the **TEEXMA chatbot**, now in production at several customers, and I was a core developer of **Analysis & Prediction**. Both are part of TEEXMA 7 (2026).",
+      "fr": "Chez BASSETTI, j’ai développé l’essentiel du **Chatbot TEEXMA**, aujourd’hui en production chez plusieurs clients, et j’ai été l’un des développeurs principaux d’**Analyse et prédiction**. Les deux font partie de TEEXMA 7 (2026)."
+    },
+    "degree": {
+      "en": "Engineering degree, Télécom Physique Strasbourg",
+      "fr": "Diplôme d’ingénieur, Télécom Physique Strasbourg"
+    },
+    "story": {
+      "en": "My path told as one day, from first light in Niamey to tonight in Grenoble.",
+      "fr": "Mon parcours raconté comme une journée, des premières lueurs à Niamey jusqu’à ce soir à Grenoble."
     }
   },
   "aboutShort": [
@@ -960,8 +1137,8 @@
       "fr": "Sannu · Bonjour · **Hello.**"
     },
     "text": {
-      "en": "Hiring for AI, LLM or computer-vision work? Write to me — I answer in French, English or Hausa.",
-      "fr": "Vous recrutez pour de l’IA, des LLM ou de la vision par ordinateur ? Écrivez-moi — je réponds en français, en anglais ou en haoussa."
+      "en": "Hiring for LLM agents, RAG or applied ML? Write to me. I answer in French, English or Hausa.",
+      "fr": "Vous recrutez pour des agents LLM, du RAG ou du machine learning appliqué ? Écrivez-moi. Je réponds en français, en anglais ou en haoussa."
     }
   },
   "statement": {

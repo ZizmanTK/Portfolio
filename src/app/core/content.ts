@@ -15,6 +15,8 @@ export interface Experience {
   card: CardPoint[]; cardStack: string[]; title?: L;
   /** Short label of the role ("AI Engineer · permanent"). */
   short: L;
+  /** The job in one line (the work page). */
+  line?: L;
 }
 
 export interface Education {
@@ -24,11 +26,23 @@ export interface Education {
 
 export type ProjectCategory = 'web' | 'ai' | 'games';
 
+/** A public source for a claim; the address differs by language when the source has two versions. */
+export interface ProofLink { label: L; url: L | string }
+
+/** The case study of a project (the work page). */
+export interface Study {
+  /** The project in a few words, for the index of the work. */
+  index: L;
+  what?: L; part: L; how: L; state: L; caption?: L; proof?: ProofLink[];
+}
+
 export interface Project {
   slug: string; name: string; year: string | null; context: L; category: ProjectCategory;
   image: string; tagline: L; description: L; stack: string[];
   links: { play?: string; github?: string; site?: string; demo?: string };
-  featured?: boolean; kicker?: L; when?: string; problem?: L; builtWith?: L; status?: L;
+  /** The public name when it differs from the name ("TEEXMA chatbot" for TxBot), and the other name ("internal name: TxBot"). */
+  title?: L; aka?: L;
+  featured?: boolean; kicker?: L; when?: L; problem?: L; builtWith?: L; status?: L; study?: Study;
   visual?: 'pipeline'; hue?: [string, string];
   /** Muted, looping gameplay clip. */
   video?: string;
@@ -63,12 +77,14 @@ export interface Day {
 export interface Site {
   profile: {
     name: string; firstName: string; lastName: string; role: L; company: string; summary: L; mission: L;
-    location: L; email: string; phone?: string; site: string; portrait: string; portraitCutout: string; avatar: string; resume: L;
+    location: L; email: string; phone?: string; workRights?: L; site: string; portrait: string; portraitCutout: string; avatar: string; resume: L;
   };
   hero: {
     greetings: string[]; hello: L; role: L; focus: L[]; status: L; experience: L;
     tagline: L; location: L; lede: L; languages: L;
   };
+  /** The work page: the message, its proof, the degree in a few words, and the line that leads to the walk. */
+  work: { message: L; proof: L; degree: L; story: L };
   statement: L;
   outside: L[];
   aboutShort: L[];
@@ -89,6 +105,9 @@ export interface Site {
 }
 
 export const SITE = data as unknown as Site;
+
+/** The name a project goes by in public ("TEEXMA chatbot"), or its own name. */
+export const projectTitle = (p: Project, lang: Lang): string => p.title?.[lang] ?? p.name;
 
 /** CSS class slug of a skill icon (same rule as scripts/build-icon-styles.mjs). */
 export const skillSlug = (n: string): string =>
