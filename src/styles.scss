@@ -1,7 +1,8 @@
 /* ==========================================================================
-   "Walk through a day". The partials follow the page from first light to night, in cascade order: the phone layout,
-   the static version (no JS or reduced motion) and the no-JS rules come after the sections they adjust, so keep the
-   order. Fonts: Switzer (UI and body), General Sans (display), IBM Plex Mono (labels).
+   Two pages share these styles: the work page (the short version, the work-* partials at the end) and the story,
+   "Walk through a day". The story's partials follow the page from first light to night, in cascade order: the phone
+   layout, the static version (no JS or reduced motion) and the no-JS rules come after the sections they adjust, so
+   keep the order. Fonts, on both pages: Switzer (text), Cabinet Grotesk (display and labels).
    Performance rules for everything that moves: transform and opacity only; colours that depend on the time of day are
    set once per section by the engine (src/app/day/engine), never per frame; only the fixed sky layer changes colour
    while you scroll.
@@ -24,6 +25,12 @@
 @use 'styles/resume';
 @use 'styles/logo-marks';
 @use 'styles/skill-icons';
+@use 'styles/work';
+@use 'styles/work-cases';
+@use 'styles/work-path';
+@use 'styles/work-end';
+@use 'styles/work-motion';
+@use 'styles/work-figs';
 
-/* Angular's host elements take no box, so the page lays out exactly as its markup reads (body > bar, main, résumé). */
-app-root, app-home { display: contents; }
+/* Angular's host elements take no box, so the story lays out exactly as its markup reads (body > bar, main, résumé). */
+app-root, app-day { display: contents; }

@@ -1,0 +1,42 @@
+@use 'sass:math';
+@use 'work-fn' as *;
+
+/* Aziz drawn into the page, on a wide page only: he is at work at the end of the rule of each project, and he walks
+   the axis of the timeline while the scroll plays it (see _work-motion). */
+@media screen and (min-width: 1101px) {
+  .wk-case .wk-big { position: relative; }
+  .wk-case .wk-big::before {
+    content: ""; position: absolute; right: 0; bottom: 0; height: u(8.4); aspect-ratio: .955;
+    background: 50% 100% / contain no-repeat;
+  }
+  #txbot .wk-big::before { background-image: url('../assets/art/fig-desknight.webp'); }
+  #remind .wk-big::before { background-image: url('../assets/art/fig-desk.webp'); }
+  #coilcheck .wk-big::before { aspect-ratio: .349; background-image: url('../assets/art/fig-safety2.webp'); }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) and (min-width: 1101px) {
+  @supports (animation-timeline: view()) {
+    /* He comes in from the right, along the rule, as the title comes in from the left. */
+    .wk-case .wk-big::before { animation: wk-sit linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+
+    /* The walker takes the place of the mark on the axis, his feet on the strips. The jobs written above the axis,
+       and "now", move up to leave him the room. */
+    .wk-time li.wk-up > div { padding-bottom: u(8.6); }
+    .wk-axis .wk-to { padding-bottom: u(7.2); }
+    .wk-head { border-right-color: transparent; }
+    .wk-head::after {
+      right: 0; top: auto; bottom: calc(50% + #{u(.3)}); width: u(3.1); height: u(6.4); margin: 0 u(-1.55) 0 0;
+      border-radius: 0; background: url('../assets/art/fig-coat.webp') 50% 100% / contain no-repeat; box-shadow: none;
+      transform-origin: 50% 100%; animation: wk-step linear both; animation-timeline: --time;
+    }
+  }
+}
+
+/* A step for each month of the axis: up on one foot, down on the other. */
+@keyframes wk-step {
+  @for $i from 0 through 24 {
+    $up: if($i % 2 == 0, 0px, u(-.45));
+    #{math.percentage(math.div($i, 24))} { translate: 0 #{$up}; rotate: if($i % 2 == 0, -2deg, 2deg); }
+  }
+}
+@keyframes wk-sit { from { translate: #{u(12)} 0; } }

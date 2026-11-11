@@ -1,0 +1,144 @@
+@use 'work-fn' as *;
+
+/* ==========================================================================
+   The work: a heading on the white ground, then each project on its own colour. The chatbot is explained with a
+   diagram (ag-), the two others with a real output.
+   ========================================================================== */
+
+/* ---------- heading ---------- */
+.wk-sec-h { display: flex; align-items: flex-end; justify-content: space-between; gap: u(2); padding: u(3.4) var(--pad) calc(var(--r) + #{u(2.6)}); }
+.wk-sec-h h2 { flex: none; padding-right: .06em; font: 800 #{u(13)}/.84 var(--f-d); letter-spacing: -.06em; white-space: nowrap; }
+.wk-sec-h .wk-lab { padding-bottom: u(1.6); text-align: right; }
+
+/* ---------- a project: one line of facts, its name, then what it is ---------- */
+.wk-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3em 2.6em; }
+.wk-live { margin-left: auto; color: var(--fg); }
+.wk-live i { display: inline-block; width: .7em; height: .7em; margin-right: .6em; border-radius: 50%; background: var(--gold); }
+.wk-big {
+  margin-top: u(1.1); padding: 0 .06em .13em 0; border-bottom: 1px solid var(--fg);
+  font: 800 #{u(9)}/.86 var(--f-d); letter-spacing: -.055em; text-wrap: balance;
+}
+.wk-what { font: 500 #{fs(2.25, 20px)}/1.14 var(--f-d); letter-spacing: -.022em; text-wrap: pretty; }
+.wk-notes dt { margin: 0 0 .5em; }
+.wk-notes dd { text-wrap: pretty; }
+.wk-notes dd a { display: block; width: fit-content; margin-top: .5em; }
+
+/* The chatbot: text over the full width, one sentence on how it works, then the diagram. */
+.wk-txt { align-items: start; margin-top: u(2); }
+.wk-txt .wk-what { grid-column: 1 / span 6; }
+.wk-txt .wk-notes { grid-column: 8 / span 5; display: grid; grid-template-columns: 1fr 1fr; gap: u(1.6) var(--gap); }
+.wk-tall { grid-row: span 2; }
+.wk-how { align-items: baseline; margin-top: u(3.2); padding-top: u(1.5); border-top: 1px solid var(--line); }
+.wk-how .wk-lab { grid-column: 1 / span 2; }
+.wk-how p + p { grid-column: 3 / span 8; font-size: fs(1.45, 17px); line-height: 1.4; text-wrap: pretty; }
+
+/* The two others: text beside a real output. The notes under the picture stay right under it. */
+.wk-pair { grid-template-rows: auto 1fr; align-items: start; row-gap: u(1.8); margin-top: u(2); }
+.wk-tx { grid-column: 1 / span 4; grid-row: 1 / span 2; }
+.wk-pair .wk-what { font-size: fs(2.05, 19px); }
+.wk-tx .wk-notes { margin-top: u(2); }
+.wk-tx .wk-notes > div { padding: 1em 0 1.1em; border-top: 1px solid var(--line); }
+.wk-vis { grid-column: 5 / span 8; grid-row: 1; }
+.wk-vis img { width: 100%; border-radius: u(.6); box-shadow: 0 #{u(2.4)} #{u(5)} #{u(-2.4)} rgba(0, 0, 0, .5); }
+.wk-vis .wk-on-white { background: #fff; }
+.wk-vis figcaption { margin-top: 1.1em; }
+.wk-under { grid-column: 5 / span 8; grid-row: 2; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--gap); }
+.wk-under > div { padding-top: 1em; border-top: 1px solid var(--line); }
+.wk-flip .wk-tx { grid-column: 9 / span 4; }
+.wk-flip .wk-vis, .wk-flip .wk-under { grid-column: 1 / span 8; }
+
+/* A name stays on one line and [wkFit] reduces it when it is too long; without JS, and on a phone, it wraps. Its
+   spacing is repeated on the span so that it follows the reduced size. */
+.wk-big > span { letter-spacing: -.055em; }
+@media (min-width: 861px) {
+  html.js .wk-big > span { display: inline-block; white-space: nowrap; }
+}
+
+/* ---------- the diagram: question → one agent ⇄ two tools → answer, then the three designs ---------- */
+.ag-fig { margin: u(3.2) u(4) 0; }
+.ag, .ag-gens { display: grid; grid-template-columns: minmax(0, 1fr) #{u(4.5)} minmax(0, 3.6fr) #{u(4.5)} minmax(0, 1fr); }
+.ag { align-items: center; }
+.ag-node { padding: u(1) u(1.2) u(1.1); border: 1px solid color-mix(in srgb, var(--fg) 36%, transparent); border-radius: u(.6); }
+.ag-node b { display: block; font: 700 1.08em/1.2 var(--f-d); letter-spacing: -.01em; }
+.ag-node span { display: block; margin-top: .35em; font-size: .9em; line-height: 1.35; color: color-mix(in srgb, var(--fg) 72%, var(--g)); }
+.ag svg { fill: none; stroke: color-mix(in srgb, var(--fg) 86%, transparent); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.ag svg path { vector-effect: non-scaling-stroke; }
+.ag-arrow { width: 100%; height: u(1.2); padding: 0 u(.7); }
+.ag-agent { grid-column: 3; padding: u(1.7) u(2) u(1.6); border-radius: u(.8); background: var(--gold); color: #111110; }
+.ag-title { font: 800 #{fs(2.1, 22px)}/1 var(--f-d); letter-spacing: -.03em; }
+.ag-sub { margin-top: .35em; font-size: .92em; color: #4a3a10; }
+.ag-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gap); margin-top: u(1.5); }
+.ag-steps li { padding-top: .7em; border-top: 1px solid rgba(17, 17, 16, .45); font-weight: 500; line-height: 1.3; text-wrap: pretty; }
+.ag-n { display: block; margin-bottom: .3em; font: 700 .78em/1.2 var(--f-d); letter-spacing: .07em; color: #4a3a10; }
+.ag-retry { display: flex; align-items: center; gap: .55em; margin-top: u(1.3); font-size: .9em; color: #4a3a10; }
+.ag-retry svg { flex: none; width: 1.05em; height: 1.05em; stroke: currentColor; }
+
+.ag-tools { position: relative; grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--gap); }
+.ag-tool { position: relative; margin-top: u(3.6); }
+.ag-updown { position: absolute; left: 50%; bottom: 100%; width: u(1.2); height: u(3.6); padding: u(.35) 0; translate: -50% 0; }
+.ag-tools-h, .ag-gens-h, .ag-live span { font: 700 #{fs(.86, 11.5px)}/1.45 var(--f-d); letter-spacing: .07em; text-transform: uppercase; }
+.ag-tools-h { position: absolute; left: 50%; top: 0; line-height: u(3.6); translate: -50% 0; color: var(--gold); }
+
+.ag-gens { align-items: start; margin-top: u(2.6); }
+.ag-gens-h { grid-column: 1; padding-top: 1em; color: var(--gold); }
+.ag-gens ol { grid-column: 3 / span 3; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ag-gens li { position: relative; padding: 1em 1.2em 0 0; border-top: 1px solid color-mix(in srgb, var(--fg) 36%, transparent); line-height: 1.35; color: color-mix(in srgb, var(--fg) 72%, var(--g)); text-wrap: pretty; }
+.ag-gens li i { position: absolute; left: 0; top: 0; width: .55em; height: .55em; border-radius: 50%; background: currentColor; translate: 0 -50%; }
+.ag-gens .ag-live { border-color: var(--gold); color: var(--fg); font-weight: 500; }
+.ag-live i { background: var(--gold); }
+.ag-live span { display: block; margin-top: .4em; color: var(--gold); }
+.ag-fig figcaption { margin-top: u(1.6); font-size: .9em; color: color-mix(in srgb, var(--fg) 72%, var(--g)); }
+
+/* ---------- narrower screens: text first, then the picture over the full width ---------- */
+@media (max-width: 1100px) {
+  .wk-txt .wk-what, .wk-txt .wk-notes, .wk-how .wk-lab, .wk-how p + p { grid-column: 1 / -1; }
+  .wk-txt .wk-notes { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 28px; }
+  .wk-txt .wk-notes > div, .wk-under > div { padding-top: 1em; border-top: 1px solid var(--line); }
+  .wk-tall { grid-row: auto; }
+  .wk-how { margin-top: 28px; row-gap: .5em; }
+
+  .wk-pair { display: flex; flex-direction: column; margin-top: 20px; }
+  .wk-tx { display: contents; }
+  .wk-pair .wk-what { order: 1; max-width: 30em; }
+  .wk-vis { order: 2; margin-top: 28px; }
+  .wk-tx .wk-notes { order: 3; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--gap); margin-top: 28px; }
+  .wk-tx .wk-notes > div { padding: 1em 0 1.4em; }
+  .wk-under { order: 4; }
+
+  .ag-fig { margin-inline: 0; }
+}
+
+@media (max-width: 860px) {
+  .wk-sec-h { flex-direction: column; align-items: flex-start; gap: 10px; padding-top: 28px; }
+  .wk-sec-h .wk-lab { padding: 0; text-align: left; }
+  .wk-meta { gap: .2em 1.6em; }
+  .wk-live { width: 100%; margin: .3em 0 0; }
+  .wk-big { margin-top: 14px; font-size: clamp(40px, 12vw, 64px); }
+
+  /* One column: the tools come right under the agent that calls them, and the answer last. */
+  .ag { display: flex; flex-direction: column; align-items: stretch; }
+  .ag-tools { order: 1; }
+  .ag-a2 { order: 2; }
+  .ag-ans { order: 3; }
+  .ag-gens { display: block; }
+  .ag-node, .ag-agent { padding: 14px 16px; border-radius: 8px; }
+  .ag-arrow { align-self: center; width: 30px; height: 12px; margin: 14px 0; padding: 0; rotate: 90deg; }
+  .ag-steps { grid-template-columns: 1fr; row-gap: .8em; margin-top: 16px; }
+  .ag-retry { margin-top: 16px; }
+  .ag-tool { margin-top: 44px; }
+  .ag-updown { width: 12px; height: 44px; padding: 5px 0; }
+  .ag-tools-h { line-height: 44px; }
+  .ag-gens { margin-top: 32px; }
+  .ag-gens-h { padding: 0 0 1.2em; }
+  .ag-gens ol { display: block; margin-left: .3em; border-left: 1px solid color-mix(in srgb, var(--fg) 36%, transparent); }
+  .ag-gens li { padding: 0 0 1.1em 1.3em; border-top: 0; }
+  .ag-gens li:last-child { padding-bottom: 0; }
+  .ag-gens li i { left: 0; top: .7em; translate: -50% -50%; }
+  .ag-fig figcaption { margin-top: 20px; }
+}
+
+@media (max-width: 600px) {
+  .wk-txt .wk-notes, .wk-tx .wk-notes, .wk-under { grid-template-columns: 1fr; }
+  .wk-under > div + div { margin-top: 1.4em; }
+  .wk-txt .wk-notes { row-gap: 1.4em; }
+}

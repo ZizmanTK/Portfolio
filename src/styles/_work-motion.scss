@@ -1,0 +1,326 @@
+@use 'work-fn' as *;
+
+/* ==========================================================================
+   What moves on the work page. Five kinds, all written here:
+   - on arrival, the first screen sets itself in under half a second;
+   - on its own, very little, and only while it is on screen ([wkInView] gives it .wk-in): the dots of "open to work"
+     and "in production", and the chatbot going round its loop;
+   - under the pointer: the arrows, and on the first screen the name and the photo, which part a little ([wkDepth]);
+   - as it is reached, the text: each part comes in once, in under half a second. [wkReveal] gives a part .wk-wait while
+     it is below the window, and .wk-go the first time it shows. A part that is on screen when the page opens never
+     waits, and without a script nothing does;
+   - with the scroll, the rest: the hand that scrolls plays the page. The name parts as the first screen leaves, the
+     titles ride in and their rules are drawn, the pictures arrive from the side, the years of Experience go by while
+     the timeline is held on screen, the postcards are dealt and the knight makes its move. The browser ties each one
+     to the scroll position (animation-timeline); one that cannot plays them once, on a clock, as they are reached.
+   What comes in comes sideways or down, never against the scroll. Nearly all of it is transform and opacity, which
+   the browser moves without redoing the page, so the scroll stays smooth; the few clips and inks play once, briefly.
+   With "reduce motion" and on paper, none of this applies.
+   ========================================================================== */
+
+$ease: cubic-bezier(.2, .7, .2, 1);
+/* How far a block of text and a picture come down: on a phone, their share of the page would not show. */
+$drop: max(#{u(1.6)}, 12px);
+$drop-pic: max(#{u(2)}, 14px);
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* ---------- on arrival ---------- */
+  /* The two lines of the name come up from behind their own foot, one after the other; the photo and the title
+     follow (see _work.scss), then the words beside them. */
+  .wk-ln { animation: wk-foot .5s; }
+  .wk-ln > span { animation: wk-rise .4s $ease backwards; }
+  .wk-ln:last-child > span { animation-delay: .06s; }
+  .wk-tag-t, .wk-say { animation: wk-come .35s .1s $ease backwards; }
+  .wk-say { animation-delay: .16s; }
+
+  /* ---------- on its own ---------- */
+  /* A ring leaves the dot while it is on screen: off screen there is no ring at all, a ring that nobody sees would
+     still be worked out sixty times a second. Not in the bar: nothing blinks above the text being read. */
+  .wk-status i, .wk-live i { position: relative; }
+  :is(.wk-status, .wk-live).wk-in i::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%; background: inherit;
+    animation: wk-ping 2.6s cubic-bezier(0, 0, .2, 1) infinite;
+  }
+
+  /* ---------- under the pointer ---------- */
+  .wk-tl span[aria-hidden], .wk-foot a span { display: inline-block; }
+  .wk-btn span, .wk-tl span[aria-hidden], .wk-foot a span, .wk-crown { transition: translate .25s $ease, rotate .25s $ease; }
+  .wk-btn:hover span { translate: 0 .16em; }
+  .wk-tl:hover span[aria-hidden], .wk-foot a:hover span { translate: .18em 0; }
+  .wk-id:hover .wk-crown { rotate: -10deg; }
+  /* On the first screen the name stands behind the photo: they part a little as the pointer crosses, and the title
+     tips ([wkDepth] writes --mx and --my, each from -1 to 1). The photo only goes sideways: its foot stays on the
+     edge of the screen. */
+  .wk-name, .wk-me { transition: transform .7s $ease; }
+  .wk-name { transform: translate(calc(var(--mx, 0) * #{hu(.9)}), calc(var(--my, 0) * #{hu(.45)})); }
+  .wk-me { transform: translate(calc(var(--mx, 0) * #{hu(-1.5)})); }
+  .wk-role { rotate: calc(var(--mx, 0) * -1.6deg); transition: rotate .7s $ease; }
+
+  /* ---------- the chatbot at work ----------
+     One round every seven and a half seconds, from the moment the diagram crosses the middle of the screen until it
+     has left it ([wkInView] gives it .wk-in; without it the dots and the strokes are not there at all): the question
+     lights up and a dot carries it to the agent; the three steps fill one after the other, and during the second a dot
+     goes down to each tool and comes back; a last dot carries the answer out. --ax and --ay say which way the arrows
+     point. */
+  .ag-fig { --ag-hop: #{u(4.5)}; --ag-drop: #{u(3.6)}; --ag-dot: max(11px, #{u(.95)}); --ax: 1; --ay: 0; }
+  .ag-node, .ag-agent, .ag-steps li { position: relative; }
+  .ag-fig.wk-in {
+    .ag-agent::before, .ag-ans::before, .ag-tool::before, .ag-node::after, .ag-steps li::before, .ag-steps li::after {
+      content: ""; position: absolute; pointer-events: none; animation: 7.5s linear infinite;
+    }
+    .ag-agent::before, .ag-ans::before, .ag-tool::before {
+      --dot: var(--gold);
+      --ag-from: calc(var(--ax) * -1 * var(--ag-hop)) calc(var(--ay) * -1 * var(--ag-hop));
+      z-index: 1; left: 0; top: 50%; width: var(--ag-dot); height: var(--ag-dot); margin: calc(var(--ag-dot) / -2);
+      border-radius: 50%; background: var(--dot); box-shadow: 0 0 0 calc(var(--ag-dot) * .45) color-mix(in srgb, var(--dot) 30%, transparent);
+      opacity: 0; translate: var(--ag-from);
+    }
+    .ag-tool::before { --ag-from: 0 calc(-1 * var(--ag-drop)); left: 50%; top: 0; }
+    .ag-agent::before { --dot: var(--fg); animation-name: ag-ask; }
+    .ag-ans::before { animation-name: ag-tell; }
+    .ag-tool::before { animation-name: ag-call-1; }
+    .ag-tool + .ag-tool::before { animation-name: ag-call-2; }
+    .ag-node::after { inset: -1px; border: 3px solid var(--fg); border-radius: inherit; background: color-mix(in srgb, var(--fg) 9%, transparent); opacity: 0; }
+    .ag-q::after { animation-name: ag-lit-q; }
+    .ag-tool::after { animation-name: ag-lit-1; }
+    .ag-tool + .ag-tool::after { animation-name: ag-lit-2; }
+    .ag-ans::after { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 14%, transparent); animation-name: ag-lit-a; }
+    /* A step fills from the left while the agent is on it: a stroke over it and a shade behind its words. */
+    .ag-steps li::before, .ag-steps li::after { transform-origin: 0 50%; scale: 0 1; }
+    .ag-steps li::before { inset: -2px 0 auto; height: 4px; background: #111110; }
+    .ag-steps li::after { inset: 0; background: rgba(17, 17, 16, .1); }
+    @for $k from 1 through 3 {
+      .ag-steps li:nth-child(#{$k})::before, .ag-steps li:nth-child(#{$k})::after { animation-name: ag-step-#{$k}; }
+    }
+    .ag-retry svg { animation: ag-again 7.5s linear infinite; }
+  }
+  @media (max-width: 860px) {
+    .ag-fig { --ag-hop: 40px; --ag-drop: 44px; --ax: 0; --ay: 1; }
+    .ag-fig.wk-in :is(.ag-agent, .ag-ans)::before { left: 50%; top: 0; }
+  }
+
+  /* ---------- as it is reached ----------
+     .wk-wait is how a part looks before the reader gets to it; .wk-go plays its entrance, once. A waiting part stays
+     where it is written, or very near: moved out of the page, it would never be seen coming. */
+
+  /* A block of text comes down into place; in a row, each one a little after its neighbour (--n). */
+  :is(.wk-facts > div, .wk-what, .wk-notes > div, .wk-how, .ag-gens li, .wk-edu li, .wk-skills dl > div, .wk-long, .wk-out-t, .wk-game, .wk-reach-p, .wk-reach-do) {
+    &.wk-wait { opacity: 0; }
+    &.wk-go { animation: wk-settle .4s calc(var(--n, 0) * 50ms) $ease backwards; }
+  }
+  @for $k from 2 through 4 {
+    :is(.wk-facts, .wk-notes, .wk-skills dl, .ag-gens ol, .wk-out) > :nth-child(#{$k}) { --n: #{$k - 1}; }
+  }
+
+  /* Display type takes its ink from left to right while it slides in. Ink is only painted inside the box of the
+     text, so the box is made a little taller than its line, without moving anything. */
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) and (color: color-mix(in srgb, red, blue)) {
+    :is(.wk-sw, .wk-hello span):is(.wk-wait, .wk-go) {
+      --off: color-mix(in srgb, var(--fg) 22%, var(--g));
+      padding-block: .14em .22em; margin-block: -.14em -.22em;
+      background: linear-gradient(90deg, var(--fg) 0 50%, var(--off) 50% 100%) 0 0 / 200% 100%;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    /* "Hello." starts from the half ink of the two greetings before it. */
+    .wk-hello span:is(.wk-wait, .wk-go) { --off: color-mix(in srgb, var(--fg) 50%, var(--g)); }
+    :is(.wk-sw, .wk-hello span).wk-wait { background-position: 100% 0; translate: #{u(-3)} 0; }
+    :is(.wk-sw, .wk-hello span).wk-go { animation: wk-ink .4s $ease backwards; }
+    @media (forced-colors: active) { :is(.wk-sw, .wk-hello span):is(.wk-wait, .wk-go) { background: none; color: inherit; } }
+  }
+
+  /* A title has a rule under it, drawn from the left: a line of its own, so that it can be. */
+  .wk-big { position: relative; border-bottom-color: transparent; }
+  .wk-big::after { content: ""; position: absolute; inset: auto 0 -1px; height: 1px; background: var(--fg); transform-origin: 0 50%; }
+
+  /* A picture opens from a narrower window and comes down into place. */
+  .wk-cl.wk-wait { clip-path: inset(14% 6% 0 6%); translate: 0 calc(-1 * #{$drop-pic}); }
+  .wk-cl.wk-go { animation: wk-open .4s $ease backwards; }
+
+  /* Where a job or a year starts on the axis, as a share of it: --c is its first month, out of --months. */
+  .wk-time li, .wk-axis span { --a: calc((var(--c) - 1) / var(--months) * 100%); }
+  @media (min-width: 861px) {
+    @for $k from 2 through 5 { .wk-cards li:nth-child(#{$k}) { --n: #{$k - 1}; } }
+  }
+  .wk-knight { --kx: #{u(12)}; --ky: #{u(-6)}; }
+  @media (max-width: 860px) { .wk-knight { --kx: 26vw; --ky: -13vw; } }
+
+  /* ---------- on a clock ----------
+     In a browser that cannot tie a movement to the scroll, what follows plays once, as it is reached. */
+  @supports not (animation-timeline: view()) {
+    .wk-big.wk-wait::after { scale: 0 1; }
+    .wk-big.wk-go::after { animation: wk-draw .4s $ease backwards; }
+
+    /* The path. On a wide page the axis is drawn from the left in a second and a half, and each period grows along
+       it when the line reaches its date (--s is its length in months). In a list, each strip fills downwards. */
+    @media (min-width: 1101px) {
+      .wk-time::before { transform-origin: 0 50%; }
+      .wk-time li > i, .wk-time li > div, .wk-axis span { --at: calc((var(--c) - 1) / var(--months) * 1.5s); }
+      .wk-time.wk-wait::before { scale: 0 1; }
+      .wk-time.wk-wait :is(li > i, li > div, .wk-axis span) { opacity: 0; }
+      .wk-time.wk-go::before { animation: wk-draw 1.5s linear backwards; }
+      .wk-time.wk-go li > i { animation: wk-grow calc(var(--s) / var(--months) * 1.5s) var(--at) linear backwards; }
+      .wk-time.wk-go li > div { animation: wk-slide .5s var(--at) $ease backwards; }
+      .wk-time.wk-go .wk-axis span { animation: wk-show .3s var(--at) backwards; }
+      .wk-time.wk-go .wk-axis .wk-to { animation: wk-show .3s 1.4s backwards; }
+    }
+    @media (max-width: 1100px) {
+      .wk-time li.wk-wait > :is(i, div) { opacity: 0; }
+      .wk-time li.wk-go > i { animation: wk-fall .4s $ease backwards; }
+      .wk-time li.wk-go > div { animation: wk-settle .4s .05s $ease backwards; }
+    }
+
+    /* The postcards are dealt from the left, one after the other. Each property moves on its own, so a card still
+       straightens under the pointer. */
+    @media (min-width: 861px) {
+      .wk-cards li.wk-wait { opacity: 0; }
+      .wk-cards li.wk-go { animation: wk-deal .4s calc(var(--n, 0) * 60ms) $ease backwards; }
+    }
+
+    /* The knight comes to its square the way a knight moves: along, then down. */
+    .wk-knight.wk-wait { opacity: 0; }
+    .wk-knight.wk-go { animation: wk-knight 1.1s $ease backwards; }
+  }
+
+  /* ---------- with the scroll ----------
+     Each of these is tied to the place of a thing in the window: it starts when the thing comes in at the bottom and
+     is over well before the middle, where it is read. Scrolled back, it plays back. */
+  @supports (animation-timeline: view()) {
+    /* Leaving the first screen: the two lines of the name part sideways, the title tips and, on a wide page, the
+       photo sinks behind the sheet that comes next. Nothing is held once the first screen is gone. */
+    .wk-ln > span {
+      --dx: #{hu(-9)};
+      animation: wk-rise .4s $ease backwards, wk-part linear; animation-timeline: auto, scroll(root); animation-range: normal, 0px 100vh;
+    }
+    .wk-ln:last-child > span { --dx: #{hu(13)}; animation-delay: .06s, 0s; }
+    .wk-role {
+      animation: wk-stamp .35s .15s cubic-bezier(.2, 1.4, .4, 1) backwards, wk-tip linear; animation-timeline: auto, scroll(root); animation-range: normal, 0px 100vh;
+    }
+    @media (min-width: 861px) {
+      .wk-me { animation: wk-up .4s $ease backwards, wk-sink linear; animation-timeline: auto, scroll(root); animation-range: normal, 0px 100vh; }
+    }
+
+    /* A gold line under the bar tells how far down the page the reader is. */
+    .wk-bar::after {
+      content: ""; position: absolute; inset: auto 0 0; height: 3px; background: var(--gold); transform-origin: 0 50%;
+      animation: wk-draw linear both; animation-timeline: scroll(root);
+    }
+
+    /* A title rides in from the left edge and its rule is drawn under it; it takes its ink on the way (above). The
+       last word of the page has less room to come: it is in place as soon as it is all on screen. */
+    :is(.wk-sw, .wk-hello span) { animation: wk-ride linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+    :is(.wk-sw, .wk-hello span).wk-go {
+      animation: wk-ink .8s $ease backwards, wk-ride linear both; animation-timeline: auto, view(); animation-range: normal, entry 0% cover 30%;
+    }
+    .wk-hello span { animation-range: entry 0% entry 100%; }
+    .wk-hello span.wk-go { animation-range: normal, entry 0% entry 100%; }
+    .wk-big::after { animation: wk-draw linear both; animation-timeline: view(); animation-range: cover 0% cover 38%; }
+
+    /* The picture of a project arrives from its side of the page, leaning, and straightens as it stops. */
+    .wk-case { overflow-x: clip; }
+    .wk-vis {
+      --from: max(#{u(9)}, 36px); --lean: 2deg;
+      animation: wk-arrive linear both; animation-timeline: view(); animation-range: entry 0% cover 32%;
+    }
+    .wk-flip .wk-vis { --from: min(#{u(-9)}, -36px); --lean: -2deg; }
+
+    /* The years go by. On a wide page the scroll draws the axis: a mark runs along it, each job grows when the mark
+       reaches its date and its text comes with it. --time is the place of .wk-track, a point at the top of the
+       section, in a band of the window: the play starts when the timeline comes up into the window and is over when
+       the title of the section is under the bar, which is also where the link to Experience lands. */
+    @media (min-width: 1101px) {
+      .wk-path { --pin-top: calc(var(--bar-h) + #{u(1.6)}); }
+      .wk-run { position: relative; timeline-scope: --time; }
+      .wk-track {
+        display: block; position: absolute; left: 0; top: 0; width: 1px; height: 1px;
+        view-timeline: --time; view-timeline-inset: calc(var(--bar-h) + #{u(4.2)} + 20px) calc(15svh + #{u(14.4)});
+      }
+      .wk-time { position: relative; }
+      .wk-time::before, .wk-time li > i, .wk-time li > div, .wk-axis span, .wk-head { animation: linear both; animation-timeline: --time; }
+      .wk-time::before, .wk-time li > i { transform-origin: 0 50%; animation-name: wk-draw; }
+      .wk-time li > i { animation-range: cover var(--a) cover calc(var(--a) + var(--s) / var(--months) * 100%); }
+      .wk-time li > div { animation-name: wk-slide; animation-range: cover var(--a) cover min(calc(var(--a) + 8%), 97%); }
+      .wk-axis span { animation-name: wk-show; animation-range: cover var(--a) cover calc(var(--a) + 3%); }
+      .wk-axis .wk-to { animation-range: cover 94% cover 100%; }
+      .wk-head {
+        display: block; position: absolute; grid-area: 2 / 1 / 3 / -1; inset: 50% 0 auto; height: u(4.2); margin-top: u(-2.1);
+        border-right: 2px solid var(--fg); pointer-events: none; animation-name: wk-head;
+      }
+      .wk-head::after {
+        content: ""; position: absolute; right: -1px; top: 50%; width: u(.9); height: u(.9); margin: u(-.45);
+        border-radius: 50%; background: var(--fg); box-shadow: 0 0 0 3px var(--g);
+      }
+
+      /* Where the window has room for the title and the timeline together ([wkRoom] gives them .wk-room), they are
+         held under the bar for a little over half a screen while the years go by, and the play lasts as long: it
+         starts a fifth of a screen before they stop and is over a little before they leave. The link to Experience
+         lands at the end of it, with every job drawn. */
+      .wk-pin { top: var(--pin-top); }
+      .wk-pin.wk-room { position: sticky; }
+      .wk-run:has(> .wk-room)::after { content: ""; display: block; height: 55svh; }
+      .wk-run:has(> .wk-room) .wk-track { height: 55svh; view-timeline-inset: calc(var(--pin-top) + 12svh) calc(80svh - var(--pin-top)); }
+      .wk-path:has(.wk-room) { scroll-margin-top: calc(-46svh - #{u(2.6)} - 12px); }
+    }
+    /* In a list, the strip of each job fills downwards as it comes up, and its text comes in once. */
+    @media (max-width: 1100px) {
+      .wk-time li > i { transform-origin: 50% 0; animation: wk-fill linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+      .wk-time li.wk-wait > div { opacity: 0; }
+      .wk-time li.wk-go > div { animation: wk-settle .4s .05s $ease backwards; }
+    }
+
+    /* The postcards start as a deck at the left and are dealt along the row; --pitch is the way from a card to the
+       next. Each property moves on its own, so a card still straightens under the pointer. */
+    @media (min-width: 861px) {
+      .wk-cards { container-type: inline-size; }
+      .wk-cards li { --pitch: calc((100cqw - #{u(17.2)}) / 4); animation: wk-fan linear both; animation-timeline: view(); animation-range: entry 0% cover 36%; }
+    }
+    @media (min-width: 861px) and (max-width: 1100px) { .wk-cards li { --pitch: 20.4cqw; } }
+
+    /* The knight comes to its square the way a knight moves, along then down, over the last of the page. */
+    .wk-knight { animation: wk-knight linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+  }
+}
+
+@keyframes wk-foot { from, to { clip-path: inset(-1em -100vw 0); } }
+@keyframes wk-rise { from { transform: translateY(105%); } }
+@keyframes wk-come { from { opacity: 0; transform: translateX(#{hu(-2)}); } }
+@keyframes wk-ping { from { opacity: .7; } 70%, to { scale: 3.4; opacity: 0; } }
+
+/* As it is reached: each one says where the thing starts from; where it ends is the page as it is written. */
+@keyframes wk-settle { from { opacity: 0; translate: 0 calc(-1 * #{$drop}); } 50% { opacity: 1; } }
+@keyframes wk-ink { from { background-position: 100% 0; translate: #{u(-3)} 0; } }
+@keyframes wk-draw { from { scale: 0 1; } }
+/* The clip ends wider than the picture, so its shadow is not cut. */
+@keyframes wk-open { from { clip-path: inset(14% 6% 0 6%); translate: 0 calc(-1 * #{$drop-pic}); } to { clip-path: inset(-10% -10% -30% -10%); translate: 0 0; } }
+@keyframes wk-grow { from { clip-path: inset(0 100% 0 0 round 99px); } to { clip-path: inset(0 0 0 0 round 99px); } }
+@keyframes wk-fall { from { clip-path: inset(0 0 100% 0 round 99px); } to { clip-path: inset(0 0 0 0 round 99px); } }
+@keyframes wk-slide { from { opacity: 0; translate: #{u(-1.5)} 0; } }
+@keyframes wk-show { from { opacity: 0; } }
+@keyframes wk-deal { from { opacity: 0; translate: #{u(-5)} 0; rotate: -8deg; } }
+@keyframes wk-knight { from { opacity: 0; translate: var(--kx) var(--ky); } 12% { opacity: 1; } 60% { translate: 0 var(--ky); } to { translate: 0 0; } }
+
+/* With the scroll. A title says where it ends too: while it waits for its ink, it is written a little to the left. */
+@keyframes wk-part { to { translate: var(--dx) 0; } }
+@keyframes wk-sink { to { translate: 0 #{hu(5)}; } }
+@keyframes wk-tip { to { rotate: -6deg; } }
+@keyframes wk-ride { from { translate: #{u(-14)} 0; } to { translate: 0 0; } }
+@keyframes wk-arrive { from { translate: var(--from) 0; rotate: var(--lean); } }
+@keyframes wk-head { from { translate: -100% 0; } }
+@keyframes wk-fill { from { scale: 1 0; } }
+@keyframes wk-fan { from { translate: calc(var(--n, 0) * -.84 * var(--pitch)) 0; rotate: calc(var(--n, 0) * -2.5deg); } }
+
+/* The round of the diagram, in hundredths of its seven and a half seconds: question 0–14, steps 14–30, 30–53 and
+   53–68, answer 68–92. */
+@keyframes ag-ask { 0%, 3% { opacity: 0; translate: var(--ag-from); } 5%, 12% { opacity: 1; } 14%, 100% { opacity: 0; translate: 0 0; } }
+@keyframes ag-tell { 0%, 67% { opacity: 0; translate: var(--ag-from); } 69%, 76% { opacity: 1; } 78%, 100% { opacity: 0; translate: 0 0; } }
+@keyframes ag-call-1 { 0%, 30% { opacity: 0; translate: var(--ag-from); } 31%, 41% { opacity: 1; } 36% { translate: 0 0; } 42%, 100% { opacity: 0; translate: var(--ag-from); } }
+@keyframes ag-call-2 { 0%, 41% { opacity: 0; translate: var(--ag-from); } 42%, 52% { opacity: 1; } 47% { translate: 0 0; } 53%, 100% { opacity: 0; translate: var(--ag-from); } }
+@keyframes ag-lit-q { 0% { opacity: 0; } 2%, 8% { opacity: 1; } 14%, 100% { opacity: 0; } }
+@keyframes ag-lit-1 { 0%, 34% { opacity: 0; } 36%, 38% { opacity: 1; } 42%, 100% { opacity: 0; } }
+@keyframes ag-lit-2 { 0%, 45% { opacity: 0; } 47%, 49% { opacity: 1; } 53%, 100% { opacity: 0; } }
+@keyframes ag-lit-a { 0%, 76% { opacity: 0; } 78%, 90% { opacity: 1; } 96%, 100% { opacity: 0; } }
+/* "Tries again": the arrow of the retry turns once, at the end of the third step. Written as a transform: on a
+   drawing, the browser would redo the page at every step of a "rotate". */
+@keyframes ag-again { 0%, 58% { transform: rotate(0deg); } 68%, 100% { transform: rotate(360deg); } }
+@each $n, $from, $to in (1, 14%, 30%), (2, 30%, 53%), (3, 53%, 68%) {
+  @keyframes ag-step-#{$n} { 0%, #{$from} { scale: 0 1; opacity: 1; } #{$to}, 90% { scale: 1 1; opacity: 1; } 96%, 100% { scale: 1 1; opacity: 0; } }
+}

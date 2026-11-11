@@ -1,0 +1,66 @@
+@use 'work-fn' as *;
+
+/* ==========================================================================
+   Experience: the jobs on one axis drawn from the real dates (one column per month), then education and skills.
+   ========================================================================== */
+
+/* The axis is the middle row; a job's bar lies on it, and its text hangs under it or stands over it, in turn, so two
+   neighbours never share a row. A text may be wider than its bar: the next one on the same side starts far enough. */
+.wk-time { display: grid; grid-template-columns: repeat(var(--months), minmax(0, 1fr)); grid-template-rows: auto auto auto; margin-top: u(3); }
+.wk-time > ol, .wk-time li, .wk-axis { display: contents; }
+.wk-time::before { content: ""; grid-area: 2 / 1 / 3 / -1; align-self: center; height: 1px; background: var(--fg); }
+.wk-time li > i { position: relative; grid-row: 2; grid-column: var(--c) / span var(--s); height: max(10px, #{u(1)}); border-radius: 99px; background: var(--k); }
+.wk-time li > div {
+  grid-row: 3; grid-column: var(--c) / span var(--s);
+  width: max(100%, #{u(24)}); margin-left: u(.5); padding: u(3.6) 0 0 u(.9); border-left: 1px solid var(--fg);
+}
+.wk-time li.wk-up > div { grid-row: 1; align-self: end; padding: 0 0 u(3) u(.9); }
+.wk-time h3 { font: 800 #{fs(1.75, 19px)}/1.05 var(--f-d); letter-spacing: -.025em; text-wrap: balance; }
+.wk-time .wk-lab { margin-bottom: .7em; }
+.wk-co { margin-top: .3em; font-weight: 500; }
+.wk-d { margin-top: .5em; font-size: .92em; text-wrap: pretty; }
+
+/* The years, each at its first of January, and "now" at the end of the axis. */
+.wk-axis span { position: relative; grid-row: 3; grid-column: var(--c); justify-self: start; align-self: start; padding-top: u(.9); white-space: nowrap; translate: -50% 0; }
+.wk-axis span::before { content: ""; position: absolute; left: 50%; top: u(-.35); width: 1px; height: u(.7); background: var(--fg); }
+.wk-axis span:first-child { translate: none; }
+.wk-axis span:first-child::before { left: 0; }
+.wk-axis .wk-to { grid-row: 1; grid-column: 1 / -1; justify-self: end; align-self: end; padding: 0 0 u(.9); color: var(--fg); translate: none; }
+.wk-axis .wk-to::before { content: none; }
+/* The mark that runs along the axis while the scroll plays it, and the point the play is measured from (see
+   _work-motion): not there otherwise. */
+.wk-head, .wk-track { display: none; }
+
+/* ---------- education and skills ---------- */
+.wk-more { align-items: start; row-gap: u(3); margin-top: u(5); }
+.wk-more h3 { margin-bottom: 1em; }
+.wk-edu { grid-column: 1 / span 5; }
+.wk-edu li { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); column-gap: 1em; padding: 1em 0; border-top: 1px solid var(--line); }
+.wk-edu li:last-child { border-bottom: 1px solid var(--line); }
+.wk-edu .wk-lab { padding-top: .35em; }
+.wk-edu b { display: block; margin-bottom: .2em; font: 800 #{fs(1.4, 18px)}/1.15 var(--f-d); letter-spacing: -.018em; }
+.wk-edu p span { display: block; margin-top: .3em; font-size: .92em; color: var(--lab); }
+.wk-skills { grid-column: 7 / span 6; }
+.wk-skills dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: u(1.6) var(--gap); }
+.wk-skills dl > div { padding-top: 1em; border-top: 1px solid var(--line); }
+.wk-skills dt { margin: 0 0 .45em; font: 700 #{fs(.86, 11.5px)}/1.45 var(--f-d); letter-spacing: .07em; text-transform: uppercase; color: var(--lab); }
+
+/* ---------- narrower screens: the jobs as a list, newest first, each with its colour at the left ---------- */
+@media (max-width: 1100px) {
+  .wk-time { display: block; margin-top: 8px; }
+  .wk-time::before, .wk-axis { display: none; }
+  .wk-time > ol { display: block; }
+  .wk-time li { display: grid; grid-template-columns: 8px minmax(0, 1fr); column-gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .wk-time li > i { grid-area: auto; height: auto; }
+  .wk-time li > div, .wk-time li.wk-up > div { grid-area: auto; width: auto; max-width: 40em; margin: 0; padding: 0; border: 0; }
+  .wk-time h3 { font-size: clamp(20px, 2.6vw, 26px); }
+
+  .wk-more { margin-top: 44px; row-gap: 44px; }
+  .wk-edu, .wk-skills { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  .wk-edu li { grid-template-columns: 1fr; row-gap: .2em; }
+  .wk-edu .wk-lab { padding: 0; }
+  .wk-skills dl { grid-template-columns: 1fr; row-gap: 1.2em; }
+}

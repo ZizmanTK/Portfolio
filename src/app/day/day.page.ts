@@ -3,28 +3,28 @@ import { ActivatedRoute } from '@angular/router';
 import type { Lang } from '../core/content';
 import { I18n } from '../core/i18n';
 import { SeoService } from '../core/seo.service';
-import { BarComponent } from '../day/bar/bar.component';
-import { HeroComponent } from '../day/hero/hero.component';
-import { StopComponent } from '../day/stop/stop.component';
-import { KnightComponent } from '../day/knight/knight.component';
-import { SignalComponent } from '../day/signal/signal.component';
-import { CoilComponent } from '../day/coil/coil.component';
-import { CoilRealComponent } from '../day/coil/coil-real.component';
-import { ClimbComponent } from '../day/climb/climb.component';
-import { StackComponent } from '../day/stack/stack.component';
-import { RollComponent } from '../day/roll/roll.component';
-import { AfterComponent } from '../day/after/after.component';
-import { ServeComponent } from '../day/serve/serve.component';
-import { ResumeViewComponent } from '../day/resume/resume-view.component';
-import { FooterComponent } from '../day/footer.component';
-import { DayEngine } from '../day/engine/engine';
+import { BarComponent } from './bar/bar.component';
+import { HeroComponent } from './hero/hero.component';
+import { StopComponent } from './stop/stop.component';
+import { KnightComponent } from './knight/knight.component';
+import { SignalComponent } from './signal/signal.component';
+import { CoilComponent } from './coil/coil.component';
+import { CoilRealComponent } from './coil/coil-real.component';
+import { ClimbComponent } from './climb/climb.component';
+import { StackComponent } from './stack/stack.component';
+import { RollComponent } from './roll/roll.component';
+import { AfterComponent } from './after/after.component';
+import { ServeComponent } from './serve/serve.component';
+import { ResumeViewComponent } from './resume/resume-view.component';
+import { FooterComponent } from './footer.component';
+import { DayEngine } from './engine/engine';
 
 /**
- * The page: a walk through a day, ten stops from first light in Niamey to tonight in Grenoble. Each section is a
+ * The story page: a walk through a day, ten stops from first light in Niamey to tonight in Grenoble. Each section is a
  * component; the scroll engine (src/app/day/engine) starts once the page is hydrated and drives the set pieces.
  */
 @Component({
-  selector: 'app-home',
+  selector: 'app-day',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     BarComponent, HeroComponent, StopComponent, KnightComponent, SignalComponent, CoilComponent, CoilRealComponent,
@@ -54,13 +54,14 @@ import { DayEngine } from '../day/engine/engine';
     <footer appFooter></footer>
   `,
 })
-export class HomePage {
+export class DayPage {
   protected readonly i18n = inject(I18n);
 
   constructor() {
     const lang = (inject(ActivatedRoute).snapshot.data['lang'] ?? 'en') as Lang;
     this.i18n.lang.set(lang);
-    inject(SeoService).apply(lang);
+    this.i18n.page.set('story');
+    inject(SeoService).apply(lang, 'story');
     const engine = inject(DayEngine);
     afterNextRender(() => engine.start());
     inject(DestroyRef).onDestroy(() => engine.stop());

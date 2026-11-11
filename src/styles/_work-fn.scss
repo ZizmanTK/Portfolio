@@ -1,0 +1,7 @@
+/* The units of the work page. --u is one hundredth of the page's width (see .wk in _work.scss); --hu is the same unit
+   on the first screen, smaller when the screen is short. Display type and spacing are set in them. Text sizes also
+   take a floor, so they never get too small to read. */
+@function u($n) { @return calc(#{$n} * var(--u)); }
+@function hu($n) { @return calc(#{$n} * var(--hu)); }
+@function fs($n, $min) { @return max(#{$min}, calc(#{$n} * var(--u))); }
+@function hfs($n, $min) { @return max(#{$min}, calc(#{$n} * var(--hu))); }

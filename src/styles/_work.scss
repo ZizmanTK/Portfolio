@@ -1,0 +1,197 @@
+@use 'work-fn' as *;
+
+/* ==========================================================================
+   The work page: a paper page set in heavy display type, with one colour ground per project. The contrast between
+   the grounds is what separates the parts, so each one reads as its own page. Every class is prefixed wk- (ag- for
+   the diagram), because the story page owns the short names (.bar, .hero, .btn…).
+   This partial: the page, the grounds, the shared pieces, the bar, the first screen and "in short". Then
+   _work-cases, _work-path and _work-end follow the page down.
+   ========================================================================== */
+
+app-work { display: block; }
+
+/* --u is one hundredth of the page's width and stops growing at 1920px: the layout is drawn in it, so it keeps its
+   proportions from a tablet to a wide screen. Beyond that width, --pad keeps the content centred. */
+.wk {
+  --u: min(1vw, 19.2px);
+  --paper: #f2f0ea; --white: #fbfaf6; --ink: #111110; --gold: #fbb915;
+  --f-d: "Cabinet Grotesk", "Arial Black", sans-serif;
+  --f-t: "Switzer", system-ui, sans-serif;
+  --m: max(18px, #{u(2.8)});
+  --gap: max(12px, #{u(1.4)});
+  --bar-h: clamp(52px, #{u(3.9)}, 72px);
+  --r: clamp(16px, #{u(2)}, 36px);
+  --pad: max(var(--m), calc((100% - 1920px) / 2 + var(--m)));
+  min-height: 100vh; background: var(--paper); color: var(--ink);
+  font: 400 #{fs(1.18, 18px)}/1.5 var(--f-t);
+}
+body:has(.wk), html.motion body:has(.wk) { background: #f2f0ea; }
+.wk a { text-decoration: none; }
+.wk ::selection { background: var(--gold); color: #000; }
+.wk [tabindex="-1"]:focus { outline: none; }
+
+/* ---------- grounds: --g is the ground, --fg what is written on it ---------- */
+.wk-gr {
+  --lab: color-mix(in srgb, var(--fg) var(--lab-a, 78%), var(--g));
+  --line: color-mix(in srgb, var(--fg) 20%, transparent);
+  background: var(--g); color: var(--fg);
+}
+.wk-gr :focus-visible { outline-color: var(--fg); }
+.wk-g-paper { --g: #f2f0ea; --fg: #111110; }
+.wk-g-white { --g: #fbfaf6; --fg: #111110; }
+.wk-g-1 { --g: #111934; --fg: #f4efe2; --lab-a: 78%; }
+.wk-g-2 { --g: #a33818; --fg: #fff4e2; --lab-a: 100%; }
+.wk-g-3 { --g: #175a44; --fg: #f6f1dc; --lab-a: 84%; }
+.wk-g-end { --g: #fbb915; --fg: #15110a; --lab-a: 80%; }
+
+/* ---------- shared pieces ---------- */
+.wk-lab { font: 700 #{fs(.86, 13px)}/1.45 var(--f-d); letter-spacing: .07em; text-transform: uppercase; color: var(--lab); }
+.wk-lab b { font-weight: 700; color: var(--fg); }
+/* A text link: an underline that follows the words when the link takes two lines. */
+.wk .wk-tl { text-decoration-line: underline; text-decoration-thickness: 1px; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: .32em; }
+.wk .wk-tl:hover { text-decoration-color: currentColor; }
+.wk-btn {
+  display: inline-flex; align-items: center; gap: .6em; min-height: 44px; padding: .7em 1.25em; border-radius: 99px;
+  background: var(--fg); color: var(--g); font-weight: 500; transition: transform .2s;
+}
+.wk-btn:hover { transform: translateY(-2px); }
+.wk-g { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
+.wk-status { display: inline-flex; align-items: center; gap: .6em; }
+.wk-status i { flex: none; width: .55em; height: .55em; border-radius: 50%; background: #24a05a; box-shadow: 0 0 0 .28em rgba(36, 160, 90, .2); }
+.wk-g-end .wk-status i { background: var(--fg); box-shadow: 0 0 0 .28em color-mix(in srgb, var(--fg) 18%, transparent); }
+.wk-no { grid-column: 1 / span 2; padding-top: 1em; }
+
+/* A sheet is a new ground laid over the end of the one before, with round top corners. It scrolls with the page. */
+.wk-sheet {
+  position: relative; margin-top: calc(-1 * var(--r)); border-radius: var(--r) var(--r) 0 0;
+  padding: max(40px, #{u(4.2)}) var(--pad) calc(var(--r) + max(48px, #{u(5)}));
+}
+
+/* ---------- bar ---------- */
+.wk-bar {
+  position: fixed; inset: 0 0 auto; z-index: 50;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; column-gap: 2em;
+  height: var(--bar-h); padding: 0 var(--pad);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--fg) 10%, transparent);
+  font-size: fs(.97, 14px); line-height: 1.2; white-space: nowrap;
+}
+.wk-bar a { display: inline-flex; align-items: center; min-height: 44px; }
+.wk-id { justify-self: start; gap: .7em; font-weight: 500; }
+.wk-crown { display: grid; place-items: center; width: 2.3em; height: 2.3em; border-radius: .5em; background: var(--ink); }
+.wk-crown svg { width: 1.5em; fill: var(--gold); }
+.wk-nav { display: flex; gap: 2.4em; }
+.wk-nav a:hover { text-decoration: underline; text-underline-offset: .3em; }
+/* The part being read (see WorkBarComponent). */
+.wk-nav a[aria-current] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .35em; }
+.wk-do { justify-self: end; display: flex; align-items: center; gap: 1.5em; }
+.wk-bar .wk-cv { position: relative; min-height: 0; padding: .5em 1.05em; border-radius: 99px; background: var(--ink); color: var(--paper); font-weight: 500; }
+.wk-cv::after { content: ""; position: absolute; inset: -8px 0; }
+.wk-narrow { display: none; }
+.wk-lang { padding: 0 .3em; font: 700 .86em var(--f-d); letter-spacing: .06em; }
+
+/* ---------- first screen ----------
+   The name runs behind the photo; the title, the specialties, the message and the CV stay in front of it. On a wide
+   and short window the whole composition is drawn in --hu, a smaller unit worked out from the height, so the message
+   and the CV are always on the first screen. The name is then narrower than the page, and the photo steps in from the
+   right edge so that the head stays in front of the end of the name. */
+.wk-hero {
+  --hu: min(var(--u), max(8px, calc((100svh - var(--bar-h) - 60px) / 61)));
+  position: relative; isolation: isolate; overflow: clip;
+  display: flex; flex-direction: column;
+  min-height: min(100svh, #{u(62.5)});
+  padding: calc(var(--bar-h) + #{hu(.6)}) var(--pad) calc(var(--r) + #{hu(3)});
+}
+.wk-name { position: relative; z-index: 0; width: min(100%, #{hu(94.4)}); container-type: inline-size; font: 900 #{hu(20)}/.82 var(--f-d); letter-spacing: -.055em; }
+/* The size is the one that makes the longer line as wide as the box; [wkFit] then makes it exact. The spacing is
+   repeated on the span: inherited, it would be a fixed length and the width would not follow the size. */
+.wk-name > span { display: inline-block; padding-right: .055em; white-space: nowrap; font-size: 20.4cqw; letter-spacing: -.055em; }
+/* Each line is a box of its own, so that it can move on its own (see _work-motion). */
+.wk-ln, .wk-ln > span { display: inline-block; }
+.wk-me { position: absolute; z-index: 1; right: max(calc(var(--pad) - #{hu(6.3)}), calc(100% - var(--pad) - #{hu(119.6)})); bottom: 0; height: min(#{hu(58)}, 94%); width: auto; max-width: none; }
+.wk-tag { position: relative; z-index: 2; display: flex; align-items: center; gap: hu(1.9); max-width: min(calc(100% - #{hu(34)}), #{hu(78)}); margin-top: hu(1.5); }
+.wk-role {
+  flex: none; padding: .03em .2em .09em; background: var(--gold);
+  font: 800 #{hu(5.4)}/1 var(--f-d); letter-spacing: -.04em; white-space: nowrap;
+  transform: rotate(-2.4deg); transform-origin: 0 100%;
+}
+.wk-tag-t { min-width: 0; }
+.wk-focus { font: 500 #{hfs(1.34, 16px)}/1.25 var(--f-t); letter-spacing: -.01em; }
+/* A specialty is never cut in two, and its dot stays with it. */
+.wk-focus span { white-space: nowrap; }
+.wk-where { display: flex; flex-wrap: wrap; gap: .3em 1.3em; margin-top: .8em; }
+.wk-say { position: relative; z-index: 2; max-width: min(calc(100% - #{hu(34)}), #{hu(78)}); margin-top: auto; padding-top: hu(2); }
+.wk-lede { max-width: 18em; font: 400 #{hfs(2.05, 19px)}/1.2 var(--f-t); letter-spacing: -.016em; text-wrap: balance; }
+.wk-lede strong { font-weight: 600; }
+/* The French message is longer: a wider measure keeps it on two lines. */
+.wk-lede:lang(fr) { max-width: 27em; }
+/* The proof under the message, smaller: the two products and where they run. */
+.wk-said { max-width: 36em; margin-top: hu(1.3); font: 400 #{hfs(1.3, 17px)}/1.45 var(--f-t); text-wrap: pretty; }
+.wk-said strong {
+  font-weight: 600; background: linear-gradient(var(--gold), var(--gold)) 0 92% / 100% .3em no-repeat;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.wk-cta { display: flex; flex-wrap: wrap; align-items: center; gap: .5em 1.6em; margin-top: hu(2); }
+.wk-cta a { white-space: nowrap; }
+/* LinkedIn and GitHub go to the next row together. */
+.wk-cta-o { display: flex; gap: inherit; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .wk-me { animation: wk-up .4s cubic-bezier(.2, .7, .2, 1) backwards; }
+  .wk-role { animation: wk-stamp .35s .15s cubic-bezier(.2, 1.4, .4, 1) backwards; }
+}
+@keyframes wk-up { from { transform: translateY(#{hu(7)}); opacity: 0; } }
+@keyframes wk-stamp { from { transform: rotate(-9deg) scale(1.5); opacity: 0; } }
+
+/* ---------- in short: four facts ---------- */
+.wk-short { padding-top: max(44px, #{u(5.4)}); padding-bottom: max(28px, #{u(2.6)}); }
+.wk-facts { grid-column: 3 / span 10; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.6em var(--gap); }
+.wk-facts div { padding-top: 1em; border-top: 1px solid var(--fg); }
+.wk-facts dt { margin: 0 0 .5em; }
+.wk-facts dd { font-weight: 500; text-wrap: pretty; }
+
+/* ---------- narrower screens ---------- */
+@media (max-width: 1100px) {
+  .wk-bar .wk-status { display: none; }
+  .wk-facts { grid-column: 1 / -1; }
+  .wk-short .wk-no { grid-column: 1 / -1; padding: 0 0 1.4em; }
+}
+
+/* Phones: the name over the full width, the title and the specialties beside the photo, then the message. */
+@media (max-width: 860px) {
+  .wk-nav, .wk-wide { display: none; }
+  .wk-narrow { display: inline; }
+  .wk-do { gap: 1em; }
+
+  .wk-hero {
+    --hu: var(--u);
+    display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto;
+    min-height: 0; padding: calc(var(--bar-h) + 10px) var(--pad) calc(var(--r) + 28px);
+  }
+  .wk-name { width: 100%; }
+  .wk-me { grid-column: 1; grid-row: 1 / 3; right: calc(-1 * var(--pad) - 13vw); height: min(76vw, 100%); }
+  .wk-tag { flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 3.4vw; max-width: 54vw; min-height: 47vw; margin-top: 3vw; padding-bottom: 5vw; }
+  .wk-role { font-size: 8vw; }
+  .wk-focus { font-size: clamp(15px, 2.5vw, 20px); line-height: 1.3; }
+  .wk-say { max-width: none; margin-top: 0; padding-top: 5vw; border-top: 1px solid var(--fg); }
+  .wk-lede { max-width: 24em; font-size: clamp(20px, 3.3vw, 27px); }
+  .wk-said { margin-top: 14px; }
+  .wk-cta { gap: 4px 22px; margin-top: 18px; }
+  .wk-cta .wk-tl { position: relative; margin: 10px 0; }
+  .wk-cta .wk-tl::after { content: ""; position: absolute; inset: -12px -8px; }
+
+  .wk-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Between a phone and a small laptop the photo is smaller, so the title does not float far under the name. */
+@media (min-width: 601px) and (max-width: 860px) {
+  .wk-me { right: calc(-1 * var(--pad) - 11vw); height: min(62vw, 100%); }
+  .wk-tag { min-height: 33vw; }
+}
+
+/* The CV, LinkedIn and GitHub on one row, the address under them. */
+@media (max-width: 600px) {
+  .wk-cta { column-gap: 18px; }
+  .wk-hero .wk-em { order: 1; flex-basis: 100%; }
+}
+
+@media print { .wk-bar { display: none; } }

@@ -1,0 +1,86 @@
+@use 'work-fn' as *;
+
+/* ==========================================================================
+   The end of the page: the way to the long version of the story with its five postcards, life outside work, then the
+   contact on gold with the foot of the page.
+   ========================================================================== */
+
+/* ---------- the long version ---------- */
+.wk-beyond { padding: 0 var(--pad) calc(var(--r) + max(48px, #{u(5)})); }
+.wk-long { display: flex; align-items: baseline; gap: .6em u(2.6); padding-top: 1.1em; border-top: 1px solid var(--fg); }
+.wk-long p { flex: 1; font-weight: 500; }
+.wk-long a { color: var(--fg); }
+.wk-cards { display: flex; justify-content: space-between; padding: u(2.6) u(1) u(1.4); }
+.wk-cards li { width: u(17.2); padding: u(.7) u(.7) 0; background: #fff; box-shadow: 0 #{u(1.2)} #{u(2.6)} #{u(-1.2)} rgba(0, 0, 0, .35); transform: rotate(var(--tilt)); transition: transform .3s; }
+.wk-cards li:hover, .wk-cards li:focus-within { transform: rotate(0) translateY(#{u(-.6)}); }
+.wk-cards a { display: block; }
+.wk-cards img { width: 100%; }
+.wk-cards .wk-lab { display: flex; justify-content: space-between; gap: 1em; padding: .9em 0; }
+
+/* ---------- outside work ---------- */
+.wk-out { align-items: start; margin-top: u(3.6); padding-top: u(1.6); border-top: 1px solid var(--line); }
+.wk-out-t { grid-column: 1 / span 4; padding-right: u(1.4); }
+.wk-out-t h2 { margin-bottom: 1em; }
+.wk-out-t p + p { margin-top: 1.2em; }
+.wk-game { grid-column: span 4; }
+.wk-game video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: u(.6); background: #111110; object-fit: cover; }
+.wk-game h3 { margin-top: .8em; font: 800 #{fs(1.4, 18px)}/1.15 var(--f-d); letter-spacing: -.018em; }
+.wk-game p { margin-top: .25em; }
+.wk-game .wk-links { display: flex; gap: 1.4em; margin-top: .7em; font-weight: 500; }
+
+/* ---------- contact ---------- */
+.wk-reach { overflow: clip; padding-top: max(44px, #{u(5)}); padding-bottom: 0; }
+.wk-reach-p { grid-column: 3 / span 6; font: 500 #{fs(3.3, 26px)}/1.07 var(--f-d); letter-spacing: -.032em; text-wrap: pretty; }
+.wk-reach-do { grid-column: 10 / span 3; align-self: end; }
+.wk-mail { display: inline-block; max-width: 100%; border-bottom: 2px solid var(--fg); font-weight: 600; overflow-wrap: anywhere; }
+.wk-reach .wk-cta { gap: .5em 1.1em; margin-top: u(1.4); }
+.wk-reach .wk-btn { color: var(--gold); }
+/* The two other greetings are large text: half ink on gold keeps them above 3:1. */
+.wk-hi { margin-top: u(5); font: 800 #{fs(4.4, 30px)}/1 var(--f-d); letter-spacing: -.04em; color: color-mix(in srgb, var(--fg) 50%, var(--g)); }
+.wk-hello { width: min(100%, #{u(57)}); container-type: inline-size; font: 900 #{u(20)}/.76 var(--f-d); letter-spacing: -.065em; }
+/* As for the name: the size that makes the word as wide as its box, which [wkFit] then makes exact. */
+.wk-hello span { display: inline-block; padding-right: .065em; white-space: nowrap; font-size: 36cqw; letter-spacing: -.065em; }
+.wk-hello i { font-style: normal; color: var(--paper); }
+/* The knight stands on the same line as the word, whatever the height of the foot under them. */
+.wk-bye { position: relative; }
+.wk-knight { position: absolute; left: u(59.5); bottom: 0; width: auto; height: u(17); }
+.wk-foot {
+  position: relative; display: flex; justify-content: space-between; align-items: center; gap: 2em;
+  min-height: max(44px, #{u(3.6)}); margin-top: u(1.2); border-top: 1px solid var(--fg); background: var(--g);
+}
+.wk-foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--fg); }
+
+/* ---------- narrower screens ---------- */
+@media (max-width: 1100px) {
+  .wk-cards { padding-inline: 0; }
+  .wk-cards li { width: 18.4%; }
+  .wk-out { row-gap: 32px; }
+  .wk-out-t { grid-column: 1 / -1; padding: 0; max-width: 40em; }
+  .wk-game { grid-column: span 6; }
+  .wk-reach-p { grid-column: 1 / -1; }
+  .wk-reach .wk-no { grid-column: 1 / -1; padding: 0 0 1.2em; }
+  .wk-reach-do { grid-column: 1 / -1; margin-top: 28px; }
+}
+
+@media (max-width: 860px) {
+  .wk-long { flex-wrap: wrap; }
+  .wk-long h2 { width: 100%; }
+  /* The postcards become one row to swipe. */
+  .wk-cards {
+    justify-content: flex-start; gap: 16px; margin-inline: calc(-1 * var(--pad)); padding: 28px var(--pad) 26px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad); scrollbar-width: none;
+  }
+  .wk-cards li { flex: none; width: min(62vw, 300px); padding: 8px 8px 0; scroll-snap-align: start; }
+  .wk-out { margin-top: 20px; padding-top: 20px; }
+  .wk-game video { border-radius: 8px; }
+
+  .wk-hi { margin-top: 44px; }
+  .wk-hello { width: 78%; }
+  .wk-knight { left: auto; right: 0; height: 26vw; }
+  .wk-foot { flex-wrap: wrap; gap: 0 2em; padding: 8px 0; }
+}
+
+@media (max-width: 600px) {
+  .wk-game { grid-column: 1 / -1; }
+  .wk-foot { flex-direction: column; align-items: flex-start; padding: 12px 0 8px; }
+}
