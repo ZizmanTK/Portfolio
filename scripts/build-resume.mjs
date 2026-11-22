@@ -25,6 +25,9 @@
  *   npm run resume -- --keep-html              → keep the intermediate HTML for debugging
  *   npm run resume -- --no-photo --out=<dir>   → the same pages without his picture, written to
  *                                                <dir>: for countries where a résumé carries none
+ *   npm run resume -- --tailor=<file.json> --out=<dir>
+ *                                              → a version for one job posting: the JSON is laid over
+ *                                                site.json (objects merge, arrays and strings replace)
  *   CHROME_PATH=... npm run resume             → if Chrome/Edge isn't found automatically
  */
 import { execFileSync } from 'node:child_process';
@@ -34,15 +37,25 @@ import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const site = JSON.parse(readFileSync(join(root, 'src/content/site.json'), 'utf8'));
 const keepHtml = process.argv.includes('--keep-html');
 const noPhoto = process.argv.includes('--no-photo');
 const outArg = process.argv.find((a) => a.startsWith('--out='));
+const tailorArg = process.argv.find((a) => a.startsWith('--tailor='));
 const outDir = outArg ? resolve(outArg.slice('--out='.length)) : join(root, 'src/assets/resume');
-if (noPhoto && !outArg) {
-  console.error('--no-photo needs --out=<dir>: the PDFs in src/assets/resume are the ones the website serves.');
+if ((noPhoto || tailorArg) && !outArg) {
+  console.error('--no-photo and --tailor need --out=<dir>: the PDFs in src/assets/resume are the ones the website serves.');
   process.exit(1);
 }
+
+/** Objects merge key by key; anything else (strings, arrays) in the overlay replaces the original. */
+const overlay = (base, top) =>
+  top && typeof top === 'object' && !Array.isArray(top) && base && typeof base === 'object' && !Array.isArray(base)
+    ? Object.fromEntries([...new Set([...Object.keys(base), ...Object.keys(top)])].map((k) => [k, k in top ? overlay(base[k], top[k]) : base[k]]))
+    : top === undefined ? base : top;
+const site = overlay(
+  JSON.parse(readFileSync(join(root, 'src/content/site.json'), 'utf8')),
+  tailorArg ? JSON.parse(readFileSync(resolve(tailorArg.slice('--tailor='.length)), 'utf8')) : undefined,
+);
 
 const CHROME_CANDIDATES = [
   process.env.CHROME_PATH,
