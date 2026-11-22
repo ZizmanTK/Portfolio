@@ -505,6 +505,17 @@ The knight that makes the knight's move from Niamey to Rabat.
   `projects/coilcheck-tight.webp`: screenshots and figures of his own projects, copied from his portfolio.
 - `crown.svg`, `crown-180.png`: his ZTK crown logo.
 
+## CV photo (`src/assets/img/headshot.jpg`), replaced on 2026-11-22
+
+- The file named `headshot.jpg` everywhere above is the earlier one (2026-10-07, local Qwen-Image-Edit, real face pasted back
+  from `me_day.jpg`). It is in the git history and in `Portfolio-originals/headshots-2026-11-22/base-current.jpg`.
+- The current file is his pick of 2026-11-22: `Portfolio-originals/headshots-2026-11-22/v5-6-gpt-5.4-image-2.png`,
+  resized to 640×800, JPEG q90.
+  - model: `openai/gpt-5.4-image-2` through OpenRouter, 2K, 4:5 (script `headshots5.mjs`, round 5, image 6 of 7)
+  - inputs: seven face crops of his own photos (day, night, and five of his Google Photos favorites), plus the earlier
+    `headshot.jpg` as pose and styling reference only
+  - nothing was edited after generation; only the CV uses this file
+
 
 ## Appendix: round-5 parents of the climbing poses (from `art/LICENSES-log.jsonl`)
 
